@@ -3,16 +3,27 @@ package logica;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Grafo {
+import utils.Config;
+
+public class GrafoDeProvincias {
 	
-	
-	private int _vertices;
-	private boolean[][] _adj;
-	
-	
-	public Grafo(int n) {
-		_vertices = n;
-		_adj = new boolean[n][n];
+	private Provincia[] provincias;
+	private Arista[][] _adj;
+
+	public GrafoDeProvincias() {
+		provincias = new Config().provincias;
+		Integer cantProvincias = provincias.length;
+		
+		_adj = new Arista[cantProvincias][cantProvincias];
+        for (int i = 0; i < cantProvincias; i++) {
+            for (int j = 0; j < cantProvincias; j++) {
+                _adj[i][j] = new Arista();
+                
+                if(provincias[i].limitrofes.contains(provincias[j].nombre)) {
+                	agregarArista(i, j);
+                }
+            }
+        }
 	}
 	
 	
@@ -23,7 +34,8 @@ public class Grafo {
 		verificarVertice(j);
 		verificarDistintos(i, j);
 		
-		_adj[i][j] = _adj[j][i] = true;
+		_adj[i][j].agregarArista();
+		_adj[j][i].agregarArista();
 	}
 
 	// Verifica que sea un vértice válido
@@ -50,7 +62,9 @@ public class Grafo {
 		verificarVertice(j);
 		verificarDistintos(i, j);
 		
-		_adj[i][j] = _adj[j][i] = false;
+		_adj[i][j].eliminarArista();
+		_adj[j][i].eliminarArista();
+		
 	}
 	
 	
@@ -58,7 +72,7 @@ public class Grafo {
 		verificarVertice(i);
 		verificarVertice(j);
 		
-		return _adj[i][j];
+		return _adj[i][j].existeArista;
 	}
 	
 	
