@@ -7,10 +7,10 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 import logica.Provincia;
 
 public class Config {
-	public Provincia[] provincias;
+	public Provincia[] PROVINCIAS;
 	
 	public Config() {
-		this.provincias = new Provincia[23];
+		this.PROVINCIAS = new Provincia[23];
 		
 		ArrayList<String> limitrofes_bsas = new ArrayList<>();
 		limitrofes_bsas.add("Cordoba");
@@ -19,7 +19,7 @@ public class Config {
 		limitrofes_bsas.add("La Pampa");
 		limitrofes_bsas.add("Rio Negro");
 		limitrofes_bsas.add("Ciudad Autonom de Buenos Aires");
-		provincias[0] = new Provincia("Buenos Aires", new Coordinate(-36.410246, -60.441624), limitrofes_bsas);
+		PROVINCIAS[0] = new Provincia("Buenos Aires", new Coordinate(-36.410246, -60.441624), limitrofes_bsas);
 		
 		ArrayList<String> limitrofes_cordoba = new ArrayList<>();
 		limitrofes_bsas.add("Buenos Aires");
@@ -27,6 +27,6 @@ public class Config {
 		limitrofes_bsas.add("San Luis");
 		limitrofes_bsas.add("La Pampa");
 		limitrofes_bsas.add("Santiago Del Estero");
-		provincias[1] = new Provincia("Córdoba", new Coordinate(-31.407339, -64.191297), limitrofes_cordoba);
+		PROVINCIAS[1] = new Provincia("Córdoba", new Coordinate(-31.407339, -64.191297), limitrofes_cordoba);
 	}
 }
