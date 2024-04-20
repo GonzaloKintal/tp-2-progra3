@@ -3,6 +3,7 @@ package interfaz;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,8 @@ public class Aplicacion {
 	private JFrame frame;
 
 	private JMapViewer mapa;
+
+	private HashMap<String, Coordinate> provincias;
 
 	/**
 	 * Launch the application.
@@ -39,6 +42,9 @@ public class Aplicacion {
 	 * Create the application.
 	 */
 	public Aplicacion() {
+		provincias = new HashMap<>();
+		provincias.put("Buenos Aires", new Coordinate(-36.410246, -60.441624));
+		provincias.put("Córdoba", new Coordinate(-31.407339, -64.191297));
 		initialize();
 	}
 
@@ -61,9 +67,11 @@ public class Aplicacion {
 		Coordinate posicion = new Coordinate(-42.3944, -64.425);
 		mapa.setDisplayPosition(posicion, 4);
 
-		MapMarker cordoba = new MapMarkerDot("", new Coordinate(-31.407339, -64.191297));
-		cordoba.getStyle().setBackColor(Color.RED);
-		mapa.addMapMarker(cordoba);
+		for (Coordinate provincia : provincias.values()) {
+			MapMarker p = new MapMarkerDot("", provincia);
+			p.getStyle().setBackColor(Color.BLUE);
+			mapa.addMapMarker(p);
+		}
 
 		JPanel panelIzquierdo = new JPanel();
 		panelIzquierdo.setBackground(Color.WHITE);
