@@ -8,11 +8,6 @@ public class Arista{
     	this.existeArista = false;
     	this.peso = 0;
     }
-    
-    public Arista(boolean existeArista, int peso) {
-        this.existeArista = existeArista;
-        this.peso = peso;
-    }
 
 	public boolean isExisteArista() {
 		return existeArista;

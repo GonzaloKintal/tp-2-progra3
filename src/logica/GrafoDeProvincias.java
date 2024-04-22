@@ -7,21 +7,37 @@ import utils.Config;
 
 public class GrafoDeProvincias {
 
-	private Provincia[] provincias;
-	private Arista[][] _adj;
+	private final Provincia[] provincias;
+	private Arista[][] matrizAdyacente;
 
 	public GrafoDeProvincias() {
-		provincias = new Config().PROVINCIAS;
-		Integer cantProvincias = provincias.length;
+		Config config = new Config();
+		provincias = config.PROVINCIAS;
+		int cantProvincias = provincias.length;
 
-		_adj = new Arista[cantProvincias][cantProvincias];
-		for (int i = 0; i < cantProvincias; i++) {
-			for (int j = 0; j < cantProvincias; j++) {
-				_adj[i][j] = new Arista();
+		matrizAdyacente = new Arista[cantProvincias][cantProvincias];
+		instanciarAristas();
+		asignarAristasPorDefecto();
+	}
 
+	private int tamañoMatriz() {
+		return this.matrizAdyacente.length;
+	}
+	
+	private void instanciarAristas() {
+		for (int i = 0; i < tamañoMatriz(); i++) {
+			for (int j = 0; j < tamañoMatriz(); j++) {
+				matrizAdyacente[i][j] = new Arista();
+			}
+		}
+	}
+
+	private void asignarAristasPorDefecto() {
+		for (int i = 0; i < tamañoMatriz(); i++) {
+			for (int j = 0; j < tamañoMatriz(); j++) {
 				if (provincias[i].limitrofes.contains(provincias[j].nombre)) {
 					agregarArista(i, j);
-				}
+				}				
 			}
 		}
 	}
@@ -33,8 +49,8 @@ public class GrafoDeProvincias {
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
-		_adj[i][j].agregarArista();
-		_adj[j][i].agregarArista();
+		matrizAdyacente[i][j].agregarArista();
+		matrizAdyacente[j][i].agregarArista();
 	}
 
 	public void eliminarArista(int i, int j) {
@@ -42,16 +58,15 @@ public class GrafoDeProvincias {
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
-		_adj[i][j].eliminarArista();
-		_adj[j][i].eliminarArista();
-
+		matrizAdyacente[i][j].eliminarArista();
+		matrizAdyacente[j][i].eliminarArista();
 	}
 
 	public boolean existeArista(int i, int j) {
 		verificarVertice(i);
 		verificarVertice(j);
 
-		return _adj[i][j].existeArista;
+		return matrizAdyacente[i][j].existeArista;
 	}
 
 	public Set<Integer> vecinos(int v) {
@@ -69,7 +84,7 @@ public class GrafoDeProvincias {
 	}
 
 	public int tamano() {
-		return _adj.length;
+		return matrizAdyacente.length;
 	}
 
 	// Verifica que sea un vértice válido
@@ -78,7 +93,7 @@ public class GrafoDeProvincias {
 			throw new IllegalArgumentException("El vértice no puede ser negativo: " + v);
 		}
 
-		if (v >= _adj.length) {
+		if (v >= matrizAdyacente.length) {
 			throw new IllegalArgumentException("Los vértices deben estar entre 0 y |V|-1");
 		}
 	}

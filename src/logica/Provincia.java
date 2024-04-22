@@ -14,4 +14,9 @@ public class Provincia {
 		this.coordenada = coordenada;
 		this.limitrofes = limitrofes;
 	}
+
+	@Override
+	public String toString() {
+		return "Provincia [nombre=" + nombre + ", coordenada=" + coordenada + ", limitrofes=" + limitrofes + "]";
+	}
 }
