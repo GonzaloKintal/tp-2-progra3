@@ -3,6 +3,8 @@ package logica;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openstreetmap.gui.jmapviewer.Coordinate;
+
 import utils.Config;
 
 public class GrafoDeProvincias {
@@ -17,6 +19,10 @@ public class GrafoDeProvincias {
 
 		matrizAdyacente = new Arista[cantProvincias][cantProvincias];
 		instanciarAristas();
+	}
+	
+	public Provincia[] obtenerProvincias() {
+		return this.provincias;
 	}
 	
 	private void instanciarAristas() {
@@ -75,6 +81,21 @@ public class GrafoDeProvincias {
 			}
 		}
 
+		return vecinos;
+	}
+	
+	public Set<Coordinate> obtenerCoordenadasLimitrofes(int v) {
+		verificarVertice(v);
+		
+		Set<Coordinate> vecinos = new HashSet<Coordinate>();
+		
+		for (int i = 0; i < this.tamano(); i++) {
+			if (this.existeArista(v, i)) {
+				Provincia provincia = this.provincias[i];
+				vecinos.add(provincia.coordenada);
+			}
+		}
+		
 		return vecinos;
 	}
 

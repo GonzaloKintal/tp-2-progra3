@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import logica.GrafoDeProvincias;
@@ -41,8 +42,6 @@ public class ConsultaDeVecinosTest
 		int[] esperados = {1, 2};
 		Assert.iguales(esperados, grafo.vecinos(3));
 	}
-	
-	
 }
 
 

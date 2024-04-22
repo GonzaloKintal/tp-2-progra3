@@ -3,7 +3,10 @@ package interfaz;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,15 +15,17 @@ import javax.swing.JSplitPane;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
+
+import logica.GrafoDeProvincias;
+import logica.Provincia;
 
 public class Aplicacion {
 
 	private JFrame frame;
-
 	private JMapViewer mapa;
-
-	private HashMap<String, Coordinate> provincias;
+	private GrafoDeProvincias grafo;
 
 	/**
 	 * Launch the application.
@@ -42,9 +47,8 @@ public class Aplicacion {
 	 * Create the application.
 	 */
 	public Aplicacion() {
-		provincias = new HashMap<>();
-		provincias.put("Buenos Aires", new Coordinate(-36.410246, -60.441624));
-		provincias.put("Córdoba", new Coordinate(-31.407339, -64.191297));
+		this.grafo = new GrafoDeProvincias();
+		grafo.asignarAristasLimitrofesPorDefecto();
 		initialize();
 	}
 
@@ -67,10 +71,20 @@ public class Aplicacion {
 		Coordinate posicion = new Coordinate(-42.3944, -64.425);
 		mapa.setDisplayPosition(posicion, 4);
 
-		for (Coordinate provincia : provincias.values()) {
-			MapMarker p = new MapMarkerDot("", provincia);
-			p.getStyle().setBackColor(Color.BLUE);
-			mapa.addMapMarker(p);
+		for (int i = 0; i < grafo.tamano(); i++) {
+			Provincia provincia = grafo.obtenerProvincias()[i];
+			Coordinate coordenada = provincia.coordenada;
+			
+			MapMarker vertice = new MapMarkerDot("", coordenada);
+			vertice.getStyle().setBackColor(Color.BLUE);
+			mapa.addMapMarker(vertice);
+			
+			Set<Coordinate> vecinos = grafo.obtenerCoordenadasLimitrofes(i);
+			
+			for(Coordinate coordenadaVecino: vecinos) {
+				List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(coordenadaVecino, coordenada, coordenada));
+				mapa.addMapPolygon(new MapPolygonImpl(route));
+			}
 		}
 
 		JPanel panelIzquierdo = new JPanel();
