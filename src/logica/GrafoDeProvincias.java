@@ -17,24 +17,19 @@ public class GrafoDeProvincias {
 
 		matrizAdyacente = new Arista[cantProvincias][cantProvincias];
 		instanciarAristas();
-		asignarAristasPorDefecto();
-	}
-
-	private int tamañoMatriz() {
-		return this.matrizAdyacente.length;
 	}
 	
 	private void instanciarAristas() {
-		for (int i = 0; i < tamañoMatriz(); i++) {
-			for (int j = 0; j < tamañoMatriz(); j++) {
+		for (int i = 0; i < this.tamano(); i++) {
+			for (int j = 0; j < this.tamano(); j++) {
 				matrizAdyacente[i][j] = new Arista();
 			}
 		}
 	}
 
-	private void asignarAristasPorDefecto() {
-		for (int i = 0; i < tamañoMatriz(); i++) {
-			for (int j = 0; j < tamañoMatriz(); j++) {
+	public void asignarAristasLimitrofesPorDefecto() {
+		for (int i = 0; i < this.tamano(); i++) {
+			for (int j = 0; j < this.tamano(); j++) {
 				if (provincias[i].limitrofes.contains(provincias[j].nombre)) {
 					agregarArista(i, j);
 				}				
@@ -72,15 +67,15 @@ public class GrafoDeProvincias {
 	public Set<Integer> vecinos(int v) {
 		verificarVertice(v);
 
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> vecinos = new HashSet<Integer>();
 
 		for (int i = 0; i < this.tamano(); i++) {
 			if (this.existeArista(v, i)) {
-				ret.add(i);
+				vecinos.add(i);
 			}
 		}
 
-		return ret;
+		return vecinos;
 	}
 
 	public int tamano() {
