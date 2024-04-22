@@ -21,11 +21,11 @@ public class Config {
 		PROVINCIAS[0] = new Provincia("Buenos Aires", new Coordinate(-36.410246, -60.441624), limitrofes_bsas);
 		
 		ArrayList<String> limitrofes_cordoba = new ArrayList<>();
-		limitrofes_bsas.add("Buenos Aires");
-		limitrofes_bsas.add("Santa Fé");
-		limitrofes_bsas.add("San Luis");
-		limitrofes_bsas.add("La Pampa");
-		limitrofes_bsas.add("Santiago del Estero");
+		limitrofes_cordoba.add("Buenos Aires");
+		limitrofes_cordoba.add("Santa Fé");
+		limitrofes_cordoba.add("San Luis");
+		limitrofes_cordoba.add("La Pampa");
+		limitrofes_cordoba.add("Santiago del Estero");
 		PROVINCIAS[1] = new Provincia("Córdoba", new Coordinate(-31.407339, -64.191297), limitrofes_cordoba);
 		
 		ArrayList<String> limitrofes_catamarca = new ArrayList<>();
@@ -37,27 +37,27 @@ public class Config {
 		PROVINCIAS[2] = new Provincia("Catamarca", new Coordinate(-28.458453, -65.783749), limitrofes_catamarca);
 		
 		ArrayList<String> limitrofes_entreRios = new ArrayList<>();
-		limitrofes_catamarca.add("Buenos Aires");
-		limitrofes_catamarca.add("Santa Fé");
-		limitrofes_catamarca.add("Corrientes");
+		limitrofes_entreRios.add("Buenos Aires");
+		limitrofes_entreRios.add("Santa Fé");
+		limitrofes_entreRios.add("Corrientes");
 		PROVINCIAS[3] = new Provincia("Entre Rios", new Coordinate(-32.020103, -59.300656), limitrofes_entreRios);
 		
 		ArrayList<String> limitrofes_santaFe = new ArrayList<>();
-		limitrofes_catamarca.add("Buenos Aires");
-		limitrofes_catamarca.add("Córdoba");
-		limitrofes_catamarca.add("Santiago del Estero");
-		limitrofes_catamarca.add("Chaco");
-		limitrofes_catamarca.add("Corrientes");
-		limitrofes_catamarca.add("Entre Rios");
+		limitrofes_santaFe.add("Buenos Aires");
+		limitrofes_santaFe.add("Córdoba");
+		limitrofes_santaFe.add("Santiago del Estero");
+		limitrofes_santaFe.add("Chaco");
+		limitrofes_santaFe.add("Corrientes");
+		limitrofes_santaFe.add("Entre Rios");
 		PROVINCIAS[4] = new Provincia("Santa Fé", new Coordinate(-30.734059, -61.045393), limitrofes_santaFe);
 	
 		ArrayList<String> limitrofes_laPampa = new ArrayList<>();
-		limitrofes_catamarca.add("Buenos Aires");
-		limitrofes_catamarca.add("Río Negro");
-		limitrofes_catamarca.add("Neuquén");
-		limitrofes_catamarca.add("Mendoza");
-		limitrofes_catamarca.add("San Luis");
-		limitrofes_catamarca.add("Córdoba");
+		limitrofes_laPampa.add("Buenos Aires");
+		limitrofes_laPampa.add("Río Negro");
+		limitrofes_laPampa.add("Neuquén");
+		limitrofes_laPampa.add("Mendoza");
+		limitrofes_laPampa.add("San Luis");
+		limitrofes_laPampa.add("Córdoba");
 		PROVINCIAS[5] = new Provincia("La Pampa", new Coordinate(-37.150575, -65.638422), limitrofes_laPampa);
 		
 		ArrayList<String> limitrofes_rioNegro = new ArrayList<>();
