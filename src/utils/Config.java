@@ -26,7 +26,7 @@ public class Config {
 		limitrofes_cordoba.add("San Luis");
 		limitrofes_cordoba.add("La Pampa");
 		limitrofes_cordoba.add("Santiago del Estero");
-		PROVINCIAS[1] = new Provincia("Córdoba", new Coordinate(-31.407339, -64.191297), limitrofes_cordoba);
+		PROVINCIAS[1] = new Provincia("Córdoba", new Coordinate(-32.018153, -63.779312), limitrofes_cordoba);
 		
 		ArrayList<String> limitrofes_catamarca = new ArrayList<>();
 		limitrofes_catamarca.add("Salta");
@@ -34,7 +34,7 @@ public class Config {
 		limitrofes_catamarca.add("Santiago del Estero");
 		limitrofes_catamarca.add("Córdoba");
 		limitrofes_catamarca.add("La Rioja");
-		PROVINCIAS[2] = new Provincia("Catamarca", new Coordinate(-28.458453, -65.783749), limitrofes_catamarca);
+		PROVINCIAS[2] = new Provincia("Catamarca", new Coordinate(-26.855350, -67.350725), limitrofes_catamarca);
 		
 		ArrayList<String> limitrofes_entreRios = new ArrayList<>();
 		limitrofes_entreRios.add("Buenos Aires");
@@ -148,7 +148,7 @@ public class Config {
 		limitrofes_tucuman.add("Salta");
 		limitrofes_tucuman.add("Santiago del Estero");
 		limitrofes_tucuman.add("Catamarca");
-		PROVINCIAS[20] = new Provincia("Tucumán", new Coordinate(-26.933428, -65.388273), limitrofes_tucuman);
+		PROVINCIAS[20] = new Provincia("Tucumán", new Coordinate(-26.747099, -65.392628), limitrofes_tucuman);
 		
 		ArrayList<String> limitrofes_sanLuis = new ArrayList<>();
 		limitrofes_sanLuis.add("La Rioja");
