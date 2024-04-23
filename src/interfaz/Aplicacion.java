@@ -20,6 +20,7 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 
 import logica.GrafoDeProvincias;
 import logica.Provincia;
+import utils.Config;
 
 public class Aplicacion {
 
@@ -73,17 +74,20 @@ public class Aplicacion {
 
 		for (int i = 0; i < grafo.tamano(); i++) {
 			Provincia provincia = grafo.obtenerProvincias()[i];
-			Coordinate coordenada = provincia.coordenada;
+			Coordinate coordenada = new Coordinate(provincia.getLatitud(), provincia.getLongitud());
 			
 			MapMarker vertice = new MapMarkerDot("", coordenada);
-			vertice.getStyle().setBackColor(Color.BLUE);
+			vertice.getStyle().setBackColor(Config.COLOR_NODO);
 			mapa.addMapMarker(vertice);
 			
 			Set<Coordinate> vecinos = grafo.obtenerCoordenadasLimitrofes(i);
 			
 			for(Coordinate coordenadaVecino: vecinos) {
-				List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(coordenadaVecino, coordenada, coordenada));
-				mapa.addMapPolygon(new MapPolygonImpl(route));
+				Coordinate cdVecino = new Coordinate(coordenadaVecino.getLat(), coordenadaVecino.getLon());
+				List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(cdVecino, coordenada, coordenada));
+				MapPolygonImpl aristas= new MapPolygonImpl(route);
+				aristas.getStyle().setColor(Config.COLOR_ARISTA);
+				mapa.addMapPolygon(aristas);
 			}
 		}
 

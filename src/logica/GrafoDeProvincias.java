@@ -13,8 +13,7 @@ public class GrafoDeProvincias {
 	private Arista[][] matrizAdyacente;
 
 	public GrafoDeProvincias() {
-		Config config = new Config();
-		provincias = config.PROVINCIAS;
+		this.provincias = Config.PROVINCIAS;
 		int cantProvincias = provincias.length;
 
 		matrizAdyacente = new Arista[cantProvincias][cantProvincias];
@@ -92,7 +91,7 @@ public class GrafoDeProvincias {
 		for (int i = 0; i < this.tamano(); i++) {
 			if (this.existeArista(v, i)) {
 				Provincia provincia = this.provincias[i];
-				vecinos.add(provincia.coordenada);
+				vecinos.add(new Coordinate(provincia.getLatitud(), provincia.getLongitud()));
 			}
 		}
 		
