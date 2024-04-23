@@ -3,7 +3,13 @@
     "nombre": "Buenos Aires",
     "latitud": -36.410246,
     "longitud": -60.441624,
-    "limitrofes": ["Córdoba", "Santa Fé", "Entre Rios", "La Pampa", "Río Negro"]
+    "limitrofes": [
+      "Córdoba",
+      "Santa Fé",
+      "Entre Rios",
+      "La Pampa",
+      "Río Negro"
+    ]
   },
   {
     "nombre": "Córdoba",
@@ -33,7 +39,11 @@
     "nombre": "Entre Rios",
     "latitud": -32.020103,
     "longitud": -59.300656,
-    "limitrofes": ["Buenos Aires", "Santa Fé", "Corrientes"]
+    "limitrofes": [
+      "Buenos Aires",
+      "Santa Fé",
+      "Corrientes"
+    ]
   },
   {
     "nombre": "Santa Fé",
@@ -65,49 +75,80 @@
     "nombre": "Río Negro",
     "latitud": -40.272863,
     "longitud": -67.371468,
-    "limitrofes": ["Chubut", "Neuquén", "La Pampa", "Buenos Aires"]
+    "limitrofes": [
+      "Chubut",
+      "Neuquén",
+      "La Pampa",
+      "Buenos Aires"
+    ]
   },
   {
     "nombre": "Chubut",
     "latitud": -43.885722,
     "longitud": -68.748194,
-    "limitrofes": ["Santa Cruz", "Río Negro"]
+    "limitrofes": [
+      "Santa Cruz",
+      "Río Negro"
+    ]
   },
   {
     "nombre": "Santa Cruz",
     "latitud": -48.784325,
     "longitud": -70.058595,
-    "limitrofes": ["Tierra del Fuego", "Chubut"]
+    "limitrofes": [
+      "Tierra del Fuego",
+      "Chubut"
+    ]
   },
   {
     "nombre": "Tierra del Fuego",
     "latitud": -54.357735,
     "longitud": -67.768914,
-    "limitrofes": ["Santa Cruz"]
+    "limitrofes": [
+      "Santa Cruz"
+    ]
   },
   {
     "nombre": "Neuquén",
     "latitud": -38.574205,
     "longitud": -69.924229,
-    "limitrofes": ["Mendoza", "La Pampa", "Río Negro"]
+    "limitrofes": [
+      "Mendoza",
+      "La Pampa",
+      "Río Negro"
+    ]
   },
   {
     "nombre": "Mendoza",
     "latitud": -34.561651,
     "longitud": -68.546747,
-    "limitrofes": ["San Juan", "San Luis", "La Pampa", "Neuquén"]
+    "limitrofes": [
+      "San Juan",
+      "San Luis",
+      "La Pampa",
+      "Neuquén"
+    ]
   },
   {
     "nombre": "San Juan",
     "latitud": -30.906648,
     "longitud": -69.015093,
-    "limitrofes": ["La Rioja", "San Luis", "Mendoza"]
+    "limitrofes": [
+      "La Rioja",
+      "San Luis",
+      "Mendoza"
+    ]
   },
   {
     "nombre": "La Rioja",
     "latitud": -29.616979,
     "longitud": -67.097551,
-    "limitrofes": ["Catamarca", "Córdoba", "San Luis", "San Juan"]
+    "limitrofes": [
+      "Catamarca",
+      "Córdoba",
+      "San Luis",
+      "San Juan"
+    ]
   },
   {
     "nombre": "Salta",
@@ -126,13 +167,18 @@
     "nombre": "Jujuy",
     "latitud": -22.987009,
     "longitud": -66.063212,
-    "limitrofes": ["Salta"]
+    "limitrofes": [
+      "Salta"
+    ]
   },
   {
     "nombre": "Formosa",
     "latitud": -24.713873,
     "longitud": -60.208776,
-    "limitrofes": ["Salta", "Chaco"]
+    "limitrofes": [
+      "Salta",
+      "Chaco"
+    ]
   },
   {
     "nombre": "Chaco",
@@ -150,25 +196,42 @@
     "nombre": "Corrientes",
     "latitud": -28.731096,
     "longitud": -57.885219,
-    "limitrofes": ["Misiones", "Entre Ríos", "Santa Fé", "Chaco"]
+    "limitrofes": [
+      "Misiones",
+      "Entre Ríos",
+      "Santa Fé",
+      "Chaco"
+    ]
   },
   {
     "nombre": "Misiones",
     "latitud": -27.042709,
     "longitud": -54.684721,
-    "limitrofes": ["Corrientes"]
+    "limitrofes": [
+      "Corrientes"
+    ]
   },
   {
     "nombre": "Tucumán",
     "latitud": -26.747099,
     "longitud": -65.392628,
-    "limitrofes": ["Salta", "Santiago del Estero", "Catamarca"]
+    "limitrofes": [
+      "Salta",
+      "Santiago del Estero",
+      "Catamarca"
+    ]
   },
   {
     "nombre": "San Luis",
     "latitud": -33.705925,
     "longitud": -66.026088,
-    "limitrofes": ["La Rioja", "Córdoba", "La Pampa", "Mendoza", "San Juan"]
+    "limitrofes": [
+      "La Rioja",
+      "Córdoba",
+      "La Pampa",
+      "Mendoza",
+      "San Juan"
+    ]
   },
   {
     "nombre": "Santiago del Estero",

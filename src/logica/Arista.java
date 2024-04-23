@@ -28,6 +28,4 @@ public class Arista{
 	public void setPeso(int peso) {
 		this.peso = peso;
 	}
-
-    
 }

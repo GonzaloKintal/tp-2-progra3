@@ -37,10 +37,25 @@ public class EdicionDeAristasTest
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
+	public void agregarPesoNegativoTest()
+	{
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.agregarArista(1, 3);
+		grafo.agregarPeso(1, 3, -1);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
 	public void agregarLoopTest()
 	{
 		GrafoDeProvincias grafo = new GrafoDeProvincias();
 		grafo.agregarArista(2, 2);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void agregarPesoEntreDosNoLimitrofesTest()
+	{
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.agregarPeso(2, 5, 10);
 	}
 
 	@Test
@@ -104,5 +119,28 @@ public class EdicionDeAristasTest
 		grafo.eliminarArista(2, 4);
 		grafo.eliminarArista(2, 4);
 		assertFalse( grafo.existeArista(2, 4) );
+	}
+	
+	@Test
+	public void agregarPesoEntreDosLimitrofesTest()
+	{
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.agregarArista(2, 4);
+		grafo.agregarPeso(2, 4, 10);
+	
+		assertEquals(10, grafo.consultarPeso(2, 4));
+		assertEquals(10, grafo.consultarPeso(4, 2));
+	}
+	
+	@Test
+	public void actualizarPesoEntreLimitrofes()
+	{
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.agregarArista(2, 4);
+		grafo.agregarPeso(2, 4, 10);
+		grafo.agregarPeso(2, 4, 5);
+		
+		assertEquals(5, grafo.consultarPeso(2, 4));
+		assertEquals(5, grafo.consultarPeso(4, 2));
 	}
 }
