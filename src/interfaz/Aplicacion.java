@@ -21,6 +21,11 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import logica.GrafoDeProvincias;
 import logica.Provincia;
 import utils.Config;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class Aplicacion {
 
@@ -50,6 +55,7 @@ public class Aplicacion {
 	public Aplicacion() {
 		this.grafo = new GrafoDeProvincias();
 		grafo.asignarAristasLimitrofesPorDefecto();
+		grafo.prueba();
 		initialize();
 	}
 
@@ -66,11 +72,14 @@ public class Aplicacion {
 		panelMapa.setLayout(null);
 
 		mapa = new JMapViewer();
+		
 		mapa.setBounds(0, 0, 300, 600);
 		mapa.setZoomControlsVisible(false);
 
 		Coordinate posicion = new Coordinate(-42.3944, -64.425);
 		mapa.setDisplayPosition(posicion, 4);
+		
+		fijarMapa(posicion);
 
 		for (int i = 0; i < grafo.tamano(); i++) {
 			Provincia provincia = grafo.obtenerProvincias()[i];
@@ -101,6 +110,21 @@ public class Aplicacion {
 
 		panelMapa.add(mapa);
 		frame.getContentPane().add(splitPane);
+	}
+
+	private void fijarMapa(Coordinate posicion) {
+		mapa.addMouseWheelListener(new MouseWheelListener() {
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				mapa.setDisplayPosition(posicion, 4);
+			}
+		});
+		
+		mapa.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				mapa.setDisplayPosition(posicion, 4);
+			}
+		});
 	}
 
 }
