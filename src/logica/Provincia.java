@@ -2,21 +2,38 @@ package logica;
 
 import java.util.ArrayList;
 
-import org.openstreetmap.gui.jmapviewer.Coordinate;
-
 public class Provincia {
 	public String nombre;
-	public Coordinate coordenada;
+	public double latitud;
+	public double longitud;
 	public ArrayList<String> limitrofes;
 
-	public Provincia(String nombre, Coordinate coordenada, ArrayList<String> limitrofes) {
+	public Provincia(String nombre, double latitud, double longitud, ArrayList<String> limitrofes) {
 		this.nombre = nombre;
-		this.coordenada = coordenada;
+		this.latitud = latitud;
+		this.longitud = longitud;
 		this.limitrofes = limitrofes;
 	}
 
 	@Override
 	public String toString() {
-		return "Provincia [nombre=" + nombre + ", coordenada=" + coordenada + ", limitrofes=" + limitrofes + "]";
+		return "Provincia [nombre=" + nombre + ", latitud=" + latitud + ", longitud=" + longitud + ", limitrofes="
+				+ limitrofes + "]";
+	}
+
+	public double getLatitud() {
+		return latitud;
+	}
+
+	public double getLongitud() {
+		return longitud;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public ArrayList<String> getLimitrofes() {
+		return limitrofes;
 	}
 }
