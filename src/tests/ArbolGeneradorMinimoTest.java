@@ -57,8 +57,24 @@ public class ArbolGeneradorMinimoTest {
 	
 	@Test
 	public void elegirAristaConMenorPesoTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		HashMap<Tupla<Integer, Integer>, Integer> aristas = new HashMap<>();
 		
+		aristas.put(new Tupla<>(0, 1), 20);
+		aristas.put(new Tupla<>(0, 2), 15);
+		aristas.put(new Tupla<>(0, 3), 25);
+		
+		Tupla<Integer, Integer> aristaEsperada = new Tupla<>(0, 2);
+		
+		assertEquals(aristaEsperada, grafo.elegirAristaConMenorPeso(aristas));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void elegirAristaConMenorPesoAristasVacioTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		HashMap<Tupla<Integer, Integer>, Integer> aristas = new HashMap<>();
+		
+		grafo.elegirAristaConMenorPeso(aristas);
 	}
 	
-
 }

@@ -160,11 +160,11 @@ public class GrafoDeProvincias {
 	public GrafoDeProvincias generarArbolMinimo() {
 		ArrayList<Integer> verticesMarcados = new ArrayList<>();
 		GrafoDeProvincias arbolGeneradorMinimo = new GrafoDeProvincias();
-		int provincias =0;
+		int provincias = 0;
 		// Empezamos desde un vertice elegido arbitrariamente
 		verticesMarcados.add(0);
 
-		while (provincias < 23 -1) {
+		while (provincias < 23 - 1) {
 			HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = new HashMap<>();
 
 			for (Integer vertice : verticesMarcados) {
@@ -200,7 +200,11 @@ public class GrafoDeProvincias {
 	}
 
 
-	private Tupla<Integer, Integer> elegirAristaConMenorPeso(HashMap<Tupla<Integer, Integer>, Integer> aristasTotales) {
+	public Tupla<Integer, Integer> elegirAristaConMenorPeso(HashMap<Tupla<Integer, Integer>, Integer> aristasTotales) {
+		if (aristasTotales.isEmpty()) {
+			throw new IllegalArgumentException("El conjunto de aristas no puede estar vacío.");
+		}
+		
 		Tupla<Integer, Integer> verticesAristaMinima = null;
 		int pesoMinimo = Integer.MAX_VALUE;
 		    
