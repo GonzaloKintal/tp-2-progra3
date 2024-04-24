@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
+import logica.BFS;
 import logica.GrafoDeProvincias;
 import utils.Tupla;
 
@@ -75,6 +76,38 @@ public class ArbolGeneradorMinimoTest {
 		HashMap<Tupla<Integer, Integer>, Integer> aristas = new HashMap<>();
 		
 		grafo.elegirAristaConMenorPeso(aristas);
+	}
+	
+	
+	@Test
+	public void generarArbolMinimoCantidadAristasTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.asignarAristasLimitrofesPorDefecto();
+		
+		GrafoDeProvincias ArbolGeneradorMinimo = grafo.generarArbolMinimo();
+		
+		assertEquals(22, ArbolGeneradorMinimo.obtenerCantidadDeAristas());
+	}
+	
+	@Test
+	public void generarArbolMinimoSinAristaEspecíficaTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.asignarAristasLimitrofesPorDefecto();
+		grafo.agregarPeso(0, 1, 10);
+		
+		GrafoDeProvincias ArbolGeneradorMinimo = grafo.generarArbolMinimo();
+		
+		assertFalse(ArbolGeneradorMinimo.existeArista(0, 1));
+	}
+	
+	@Test
+	public void generarArbolMinimoSigueSiendoConexoTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.asignarAristasLimitrofesPorDefecto();
+		
+		GrafoDeProvincias ArbolGeneradorMinimo = grafo.generarArbolMinimo();
+		
+		assertTrue(BFS.esConexo(ArbolGeneradorMinimo));
 	}
 	
 }

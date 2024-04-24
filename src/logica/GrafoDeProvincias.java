@@ -217,7 +217,20 @@ public class GrafoDeProvincias {
 			}
 		}
 		return verticesAristaMinima;
-	 }
+	}
 	
+	
+	public int obtenerCantidadDeAristas() {
+		int contador = 0;
+		
+		for (int i=0; i<tamano(); i++) {
+			for (int j=0; j<tamano(); j++) {
+				if (existeArista(i,j)) {
+					contador++;
+				}
+			}
+		}
+		return contador/2;
+	}
 	
 }
