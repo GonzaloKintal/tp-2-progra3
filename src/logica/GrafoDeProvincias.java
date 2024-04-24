@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -68,22 +69,22 @@ public class GrafoDeProvincias {
 		if (!existeArista(i, j)) {
 			throw new IllegalArgumentException("No existe una arista entre esas provincias");
 		}
-		
-		if(peso < 0) {
+
+		if (peso < 0) {
 			throw new IllegalArgumentException("El peso no puede ser negativo");
 		}
-		
+
 		verificarDistintos(i, j);
 
 		matrizAdyacente[i][j].setPeso(peso);
 		matrizAdyacente[j][i].setPeso(peso);
 	}
-	
+
 	public int consultarPeso(int i, int j) {
 		verificarVertice(i);
 		verificarVertice(j);
 		existeArista(i, j);
-		
+
 		return matrizAdyacente[i][j].peso;
 	}
 
@@ -154,4 +155,62 @@ public class GrafoDeProvincias {
 		}
 	}
 
+	public GrafoDeProvincias generarArbolMinimo() {
+		ArrayList<Integer> verticesMarcados = new ArrayList<Integer>();
+		ArrayList<Arista> aristasMinimas = new ArrayList<Arista>();
+		int provincias = 0;
+		
+		// Empezamos desde un vertice elegido arbitrariamente
+		verticesMarcados.add(0);
+
+		while (provincias < 23) {
+			ArrayList<Arista> aristasTotales = new ArrayList<Arista>();
+			
+			for (int i = 0; i < verticesMarcados.size(); i++) {
+				int indiceVertice = verticesMarcados.indexOf(i);
+				ArrayList<Arista> aristasDelVerticeI =obtenerAristas(indiceVertice,verticesMarcados);
+				aristasTotales.addAll(aristasDelVerticeI);
+			}
+			Arista aristaMinima = elegirAristaConMenorPeso(aristasTotales);
+			
+			aristasMinimas.add(aristaMinima);
+			verticesMarcados.add(null);
+			provincias++;
+		}
+	}
+
+	private ArrayList<Arista> obtenerAristas(int vertice, ArrayList<Integer> verticesMarcados) {
+		ArrayList<Arista> ret = new ArrayList<Arista>();
+
+		for (int i = 0; i < tamano(); i++) {
+			if (!verticesMarcados.contains(i) && existeArista(vertice, i)) {
+				ret.add(matrizAdyacente[vertice][i]);
+			}
+		}
+
+		return ret;
+	}
+
+	private ArrayList<Arista> obtenerAristas(int vertice) {
+		ArrayList<Arista> ret = new ArrayList<Arista>();
+
+		for (int i = 0; i < tamano(); i++) {
+			if (existeArista(vertice, i)) {
+				ret.add(matrizAdyacente[vertice][i]);
+			}
+		}
+		return ret;
+	}
+
+	private Arista elegirAristaConMenorPeso(ArrayList<Arista> aristas) {
+		Arista menorArista = aristas.get(0);
+
+		for (Arista ar : aristas) {
+			if (ar.peso < menorArista.peso) {
+				menorArista = ar;
+			}
+		}
+
+		return menorArista;
+	}
 }
