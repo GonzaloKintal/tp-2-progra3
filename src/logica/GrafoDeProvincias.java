@@ -1,13 +1,16 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 
 import utils.Config;
+import utils.Tupla;
 
 public class GrafoDeProvincias {
 
@@ -27,7 +30,7 @@ public class GrafoDeProvincias {
 			for (int j = 0; j < tamano(); j++) {
 				if (existeArista(i, j)) {
 					Random rd = new Random();
-					agregarPeso(i, j, rd.nextInt(30));
+					agregarPeso(i, j, rd.nextInt(200));
 					System.out.println(matrizAdyacente[i][j].peso);
 				}
 			}
@@ -156,61 +159,69 @@ public class GrafoDeProvincias {
 	}
 
 	public GrafoDeProvincias generarArbolMinimo() {
-		ArrayList<Integer> verticesMarcados = new ArrayList<Integer>();
-		ArrayList<Arista> aristasMinimas = new ArrayList<Arista>();
-		int provincias = 0;
-		
+		ArrayList<Integer> verticesMarcados = new ArrayList<>();
+		GrafoDeProvincias arbolGeneradorMinimo = new GrafoDeProvincias();
+		int provincias =0;
 		// Empezamos desde un vertice elegido arbitrariamente
 		verticesMarcados.add(0);
 
-		while (provincias < 23) {
-			ArrayList<Arista> aristasTotales = new ArrayList<Arista>();
-			
-			for (int i = 0; i < verticesMarcados.size(); i++) {
-				int indiceVertice = verticesMarcados.indexOf(i);
-				ArrayList<Arista> aristasDelVerticeI =obtenerAristas(indiceVertice,verticesMarcados);
-				aristasTotales.addAll(aristasDelVerticeI);
+		while (provincias < 23 -1) {
+			HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = new HashMap<>();
+
+			for (Integer vertice : verticesMarcados) {
+				HashMap<Tupla<Integer, Integer>, Integer> aristasDelVerticeI = obtenerPosiblesAristas(vertice,
+						verticesMarcados);
+				aristasTotales.putAll(aristasDelVerticeI);
 			}
-			Arista aristaMinima = elegirAristaConMenorPeso(aristasTotales);
+
+			Tupla<Integer, Integer> aristaMinima = elegirAristaConMenorPeso(aristasTotales);
+			int verticeMarcado = aristaMinima.getPrimero();
+			int verticeNoMarcado = aristaMinima.getSegundo();
+			int peso= matrizAdyacente[verticeMarcado][verticeNoMarcado].peso;
 			
-			aristasMinimas.add(aristaMinima);
-			verticesMarcados.add(null);
+			arbolGeneradorMinimo.agregarArista(verticeMarcado, verticeNoMarcado);
+			arbolGeneradorMinimo.agregarPeso(verticeMarcado, verticeNoMarcado, peso);
+			verticesMarcados.add(verticeNoMarcado);
 			provincias++;
+
 		}
+		return arbolGeneradorMinimo;
 	}
 
-	private ArrayList<Arista> obtenerAristas(int vertice, ArrayList<Integer> verticesMarcados) {
-		ArrayList<Arista> ret = new ArrayList<Arista>();
-
+	private HashMap<Tupla<Integer, Integer>, Integer> obtenerPosiblesAristas(int vertice, ArrayList<Integer> verticesMarcados) {
+		HashMap<Tupla<Integer, Integer>, Integer> ret = new HashMap<>();
 		for (int i = 0; i < tamano(); i++) {
 			if (!verticesMarcados.contains(i) && existeArista(vertice, i)) {
-				ret.add(matrizAdyacente[vertice][i]);
-			}
-		}
-
-		return ret;
-	}
-
-	private ArrayList<Arista> obtenerAristas(int vertice) {
-		ArrayList<Arista> ret = new ArrayList<Arista>();
-
-		for (int i = 0; i < tamano(); i++) {
-			if (existeArista(vertice, i)) {
-				ret.add(matrizAdyacente[vertice][i]);
+				Tupla<Integer, Integer> indice = new Tupla<>(vertice, i);
+				int peso=matrizAdyacente[vertice][i].peso;
+				ret.put(indice, peso);
+				
 			}
 		}
 		return ret;
 	}
 
-	private Arista elegirAristaConMenorPeso(ArrayList<Arista> aristas) {
-		Arista menorArista = aristas.get(0);
+	/**
+	 * private ArrayList<Arista> obtenerAristas(int vertice) { ArrayList<Arista> ret
+	 * = new ArrayList<Arista>();
+	 * 
+	 * for (int i = 0; i < tamano(); i++) { if (existeArista(vertice, i)) {
+	 * ret.add(matrizAdyacente[vertice][i]); } } return ret; }
+	 **/
 
-		for (Arista ar : aristas) {
-			if (ar.peso < menorArista.peso) {
-				menorArista = ar;
-			}
+	private Tupla<Integer, Integer> elegirAristaConMenorPeso(HashMap<Tupla<Integer, Integer>, Integer> aristasTotales) {
+		    Tupla<Integer, Integer> verticesAristaMinima = null;
+		    int pesoMinimo = Integer.MAX_VALUE;
+		    
+		    for (Entry<Tupla<Integer, Integer>, Integer> entry : aristasTotales.entrySet()) {
+		        Tupla<Integer, Integer> verticesArista = entry.getKey();
+		        int peso = entry.getValue();
+		        if (peso < pesoMinimo) {
+		            pesoMinimo = peso;
+		            verticesAristaMinima = verticesArista;
+		        }
+		    }
+		    
+		    return verticesAristaMinima;
 		}
-
-		return menorArista;
-	}
 }

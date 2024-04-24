@@ -55,9 +55,9 @@ public class Aplicacion {
 	public Aplicacion() {
 		this.grafo = new GrafoDeProvincias();
 		grafo.asignarAristasLimitrofesPorDefecto();
-		// Asignacion de pesos por arista
 		grafo.prueba();
-//		grafo.generarArbolMinimo();
+		// Asignacion de pesos por arista
+		this.grafo=grafo.generarArbolMinimo();
 		initialize();
 	}
 
