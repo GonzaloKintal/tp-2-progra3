@@ -131,7 +131,6 @@ public class GrafoDeProvincias {
 				vecinos.add(new Coordinate(provincia.getLatitud(), provincia.getLongitud()));
 			}
 		}
-
 		return vecinos;
 	}
 
@@ -231,6 +230,37 @@ public class GrafoDeProvincias {
 			}
 		}
 		return contador/2;
+	}
+	
+	
+	public void generarRegionesConexas(int k) {
+		int aristasAEliminar = k - 1;
+		
+		while (aristasAEliminar > 0) {
+			eliminarAristaDeMayorPeso();
+			aristasAEliminar--;
+		}
+	}
+
+	private void eliminarAristaDeMayorPeso() {
+		Tupla<Integer, Integer> aristaDeMayorPeso = obtenerAristaDeMayorPeso();
+		eliminarArista(aristaDeMayorPeso.getPrimero(), aristaDeMayorPeso.getSegundo());
+	}
+
+	private Tupla<Integer, Integer> obtenerAristaDeMayorPeso() {
+		Tupla<Integer, Integer> aristaDeMayorPeso = null;
+		int mayorPesoEncontrado = 0;
+		
+		for (int i=0; i<tamano(); i++) {
+			for (int j=0; j<tamano(); j++) {
+				int pesoActual = matrizAdyacente[i][j].obtenerPeso();
+				if (pesoActual > mayorPesoEncontrado) {
+					aristaDeMayorPeso = new Tupla<>(i,j);
+					mayorPesoEncontrado = pesoActual;
+				}
+			}
+		}
+		return aristaDeMayorPeso;
 	}
 	
 }

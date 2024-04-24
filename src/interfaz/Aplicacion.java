@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -32,6 +33,7 @@ public class Aplicacion {
 	private JFrame frame;
 	private JMapViewer mapa;
 	private GrafoDeProvincias grafo;
+	private GrafoDeProvincias grafoBackUp;
 
 	/**
 	 * Launch the application.
@@ -54,10 +56,10 @@ public class Aplicacion {
 	 */
 	public Aplicacion() {
 		this.grafo = new GrafoDeProvincias();
+		this.grafoBackUp = grafo;
 		grafo.asignarAristasLimitrofesPorDefecto();
 		grafo.prueba();
 		// Asignacion de pesos por arista
-		this.grafo = grafo.generarArbolMinimo();
 		initialize();
 	}
 
@@ -73,6 +75,53 @@ public class Aplicacion {
 		JPanel panelMapa = new JPanel();
 		panelMapa.setLayout(null);
 
+		crearMapa();
+
+		dibujarMapa();
+
+		JPanel panelIzquierdo = new JPanel();
+		panelIzquierdo.setBackground(Color.WHITE);
+		panelIzquierdo.setPreferredSize(new Dimension(300, 600));
+
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mapa.removeAllMapPolygons();
+
+				grafo = grafo.generarArbolMinimo();
+
+				dibujarMapa();
+			}
+		});
+		btnNewButton.setBounds(104, 86, 89, 23);
+		panelIzquierdo.add(btnNewButton);
+
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
+		panelIzquierdo.setLayout(null);
+
+		JButton botonComponentesConexas = new JButton("Generar regiones conexas");
+		botonComponentesConexas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mapa.removeAllMapPolygons();
+
+				grafo.generarRegionesConexas(3);
+
+				dibujarMapa();
+			}
+		});
+		botonComponentesConexas.setBounds(23, 164, 256, 23);
+		panelIzquierdo.add(botonComponentesConexas);
+
+		splitPane.setResizeWeight(0);
+		splitPane.setDividerSize(0);
+
+		panelMapa.add(mapa);
+		frame.getContentPane().add(splitPane);
+	}
+
+	private void crearMapa() {
 		mapa = new JMapViewer();
 
 		mapa.setBounds(0, 0, 300, 600);
@@ -82,7 +131,9 @@ public class Aplicacion {
 		mapa.setDisplayPosition(posicion, 4);
 
 		fijarMapa(posicion);
+	}
 
+	private void dibujarMapa() {
 		for (int i = 0; i < grafo.tamano(); i++) {
 			Provincia provincia = grafo.obtenerProvincias()[i];
 			Coordinate coordenada = new Coordinate(provincia.getLatitud(), provincia.getLongitud());
@@ -101,17 +152,6 @@ public class Aplicacion {
 				mapa.addMapPolygon(aristas);
 			}
 		}
-
-		JPanel panelIzquierdo = new JPanel();
-		panelIzquierdo.setBackground(Color.WHITE);
-		panelIzquierdo.setPreferredSize(new Dimension(300, 600));
-
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
-		splitPane.setResizeWeight(0);
-		splitPane.setDividerSize(0);
-
-		panelMapa.add(mapa);
-		frame.getContentPane().add(splitPane);
 	}
 
 	private void fijarMapa(Coordinate posicion) {
@@ -135,5 +175,4 @@ public class Aplicacion {
 			}
 		});
 	}
-
 }

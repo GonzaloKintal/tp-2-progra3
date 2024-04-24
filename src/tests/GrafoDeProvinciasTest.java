@@ -4,14 +4,17 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
+import org.openstreetmap.gui.jmapviewer.Coordinate;
 
 import logica.BFS;
 import logica.GrafoDeProvincias;
 import utils.Tupla;
 
-public class ArbolGeneradorMinimoTest {
+public class GrafoDeProvinciasTest {
 
 	
 	@Test
@@ -109,5 +112,19 @@ public class ArbolGeneradorMinimoTest {
 		
 		assertTrue(BFS.esConexo(ArbolGeneradorMinimo));
 	}
+	
+	
+	@Test
+	public void obtenerCoordenadasLimitrofesTrueTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		
+		grafo.agregarArista(9, 8);	// Agrego arista entre Tierra del Fuego y Santa Cruz
+		
+		Set<Coordinate> coordenadaSantaCruz = new HashSet<Coordinate>();
+		coordenadaSantaCruz.add(new Coordinate(-48.784325,-70.058595));
+		 
+		assertEquals(coordenadaSantaCruz, grafo.obtenerCoordenadasLimitrofes(9));
+	}
+	
 	
 }

@@ -20,6 +20,7 @@ public class Arista{
 	
 	public void eliminarArista() {
 		this.existeArista = false;
+		this.peso = 0;
 	}
 
 	public int obtenerPeso() {
