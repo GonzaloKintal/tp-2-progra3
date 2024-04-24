@@ -31,7 +31,6 @@ public class GrafoDeProvincias {
 				if (existeArista(i, j)) {
 					Random rd = new Random();
 					agregarPeso(i, j, rd.nextInt(200));
-					System.out.println(matrizAdyacente[i][j].peso);
 				}
 			}
 		}
@@ -88,7 +87,7 @@ public class GrafoDeProvincias {
 		verificarVertice(j);
 		existeArista(i, j);
 
-		return matrizAdyacente[i][j].peso;
+		return matrizAdyacente[i][j].obtenerPeso();
 	}
 
 	public void eliminarArista(int i, int j) {
@@ -104,7 +103,7 @@ public class GrafoDeProvincias {
 		verificarVertice(i);
 		verificarVertice(j);
 
-		return matrizAdyacente[i][j].existeArista;
+		return matrizAdyacente[i][j].existeArista();
 	}
 
 	public Set<Integer> vecinos(int v) {
@@ -169,15 +168,14 @@ public class GrafoDeProvincias {
 			HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = new HashMap<>();
 
 			for (Integer vertice : verticesMarcados) {
-				HashMap<Tupla<Integer, Integer>, Integer> aristasDelVerticeI = obtenerPosiblesAristas(vertice,
-						verticesMarcados);
-				aristasTotales.putAll(aristasDelVerticeI);
+				HashMap<Tupla<Integer, Integer>, Integer> aristasDelVerticeActual = obtenerAristasHaciaVerticesNoMarcados(vertice, verticesMarcados);
+				aristasTotales.putAll(aristasDelVerticeActual);
 			}
 
 			Tupla<Integer, Integer> aristaMinima = elegirAristaConMenorPeso(aristasTotales);
 			int verticeMarcado = aristaMinima.getPrimero();
 			int verticeNoMarcado = aristaMinima.getSegundo();
-			int peso= matrizAdyacente[verticeMarcado][verticeNoMarcado].peso;
+			int peso= matrizAdyacente[verticeMarcado][verticeNoMarcado].obtenerPeso();
 			
 			arbolGeneradorMinimo.agregarArista(verticeMarcado, verticeNoMarcado);
 			arbolGeneradorMinimo.agregarPeso(verticeMarcado, verticeNoMarcado, peso);
@@ -188,40 +186,34 @@ public class GrafoDeProvincias {
 		return arbolGeneradorMinimo;
 	}
 
-	private HashMap<Tupla<Integer, Integer>, Integer> obtenerPosiblesAristas(int vertice, ArrayList<Integer> verticesMarcados) {
-		HashMap<Tupla<Integer, Integer>, Integer> ret = new HashMap<>();
+	public HashMap<Tupla<Integer, Integer>, Integer> obtenerAristasHaciaVerticesNoMarcados(int vertice, ArrayList<Integer> verticesMarcados) {
+		HashMap<Tupla<Integer, Integer>, Integer> aristasHaciaNoMarcados = new HashMap<>();
 		for (int i = 0; i < tamano(); i++) {
 			if (!verticesMarcados.contains(i) && existeArista(vertice, i)) {
 				Tupla<Integer, Integer> indice = new Tupla<>(vertice, i);
-				int peso=matrizAdyacente[vertice][i].peso;
-				ret.put(indice, peso);
+				int peso = matrizAdyacente[vertice][i].obtenerPeso();
+				aristasHaciaNoMarcados.put(indice, peso);
 				
 			}
 		}
-		return ret;
+		return aristasHaciaNoMarcados;
 	}
 
-	/**
-	 * private ArrayList<Arista> obtenerAristas(int vertice) { ArrayList<Arista> ret
-	 * = new ArrayList<Arista>();
-	 * 
-	 * for (int i = 0; i < tamano(); i++) { if (existeArista(vertice, i)) {
-	 * ret.add(matrizAdyacente[vertice][i]); } } return ret; }
-	 **/
 
 	private Tupla<Integer, Integer> elegirAristaConMenorPeso(HashMap<Tupla<Integer, Integer>, Integer> aristasTotales) {
-		    Tupla<Integer, Integer> verticesAristaMinima = null;
-		    int pesoMinimo = Integer.MAX_VALUE;
+		Tupla<Integer, Integer> verticesAristaMinima = null;
+		int pesoMinimo = Integer.MAX_VALUE;
 		    
-		    for (Entry<Tupla<Integer, Integer>, Integer> entry : aristasTotales.entrySet()) {
-		        Tupla<Integer, Integer> verticesArista = entry.getKey();
-		        int peso = entry.getValue();
-		        if (peso < pesoMinimo) {
-		            pesoMinimo = peso;
-		            verticesAristaMinima = verticesArista;
-		        }
-		    }
-		    
-		    return verticesAristaMinima;
+		for (Entry<Tupla<Integer, Integer>, Integer> entry : aristasTotales.entrySet()) {
+			Tupla<Integer, Integer> verticesArista = entry.getKey();
+			int peso = entry.getValue();
+			if (peso < pesoMinimo) {
+		    	pesoMinimo = peso;
+		    	verticesAristaMinima = verticesArista;
+			}
 		}
+		return verticesAristaMinima;
+	 }
+	
+	
 }

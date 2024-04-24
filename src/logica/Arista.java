@@ -1,15 +1,16 @@
 package logica;
 
 public class Arista{
-    boolean existeArista;
-    int peso;
+	
+    private boolean existeArista;
+    private int peso;
 
     public Arista() {
     	this.existeArista = false;
     	this.peso = 0;
     }
 
-	public boolean isExisteArista() {
+	public boolean existeArista() {
 		return existeArista;
 	}
 
@@ -21,11 +22,12 @@ public class Arista{
 		this.existeArista = false;
 	}
 
-	public int getPeso() {
+	public int obtenerPeso() {
 		return peso;
 	}
 
 	public void setPeso(int peso) {
 		this.peso = peso;
 	}
+	
 }

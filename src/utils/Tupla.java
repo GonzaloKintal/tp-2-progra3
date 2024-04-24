@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Objects;
+
 public class Tupla<A, B> {
     private A primero;
     private B segundo;
@@ -29,4 +31,23 @@ public class Tupla<A, B> {
     public String toString() {
         return "(" + primero + ", " + segundo + ")";
     }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(primero, segundo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tupla other = (Tupla) obj;
+		return Objects.equals(primero, other.primero) && Objects.equals(segundo, other.segundo);
+	}
+    
+    
 }
