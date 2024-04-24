@@ -57,7 +57,7 @@ public class Aplicacion {
 		grafo.asignarAristasLimitrofesPorDefecto();
 		grafo.prueba();
 		// Asignacion de pesos por arista
-		this.grafo=grafo.generarArbolMinimo();
+		this.grafo = grafo.generarArbolMinimo();
 		initialize();
 	}
 
@@ -74,29 +74,29 @@ public class Aplicacion {
 		panelMapa.setLayout(null);
 
 		mapa = new JMapViewer();
-		
+
 		mapa.setBounds(0, 0, 300, 600);
 		mapa.setZoomControlsVisible(false);
 
 		Coordinate posicion = new Coordinate(-42.3944, -64.425);
 		mapa.setDisplayPosition(posicion, 4);
-		
+
 		fijarMapa(posicion);
 
 		for (int i = 0; i < grafo.tamano(); i++) {
 			Provincia provincia = grafo.obtenerProvincias()[i];
 			Coordinate coordenada = new Coordinate(provincia.getLatitud(), provincia.getLongitud());
-			
+
 			MapMarker vertice = new MapMarkerDot("", coordenada);
 			vertice.getStyle().setBackColor(Config.COLOR_NODO);
 			mapa.addMapMarker(vertice);
-			
+
 			Set<Coordinate> vecinos = grafo.obtenerCoordenadasLimitrofes(i);
-			
-			for(Coordinate coordenadaVecino: vecinos) {
+
+			for (Coordinate coordenadaVecino : vecinos) {
 				Coordinate cdVecino = new Coordinate(coordenadaVecino.getLat(), coordenadaVecino.getLon());
 				List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(cdVecino, coordenada, coordenada));
-				MapPolygonImpl aristas= new MapPolygonImpl(route);
+				MapPolygonImpl aristas = new MapPolygonImpl(route);
 				aristas.getStyle().setColor(Config.COLOR_ARISTA);
 				mapa.addMapPolygon(aristas);
 			}
@@ -120,10 +120,17 @@ public class Aplicacion {
 				mapa.setDisplayPosition(posicion, 4);
 			}
 		});
-		
+
 		mapa.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				mapa.setDisplayPosition(posicion, 4);
+			}
+		});
+
+		mapa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				mapa.setDisplayPosition(posicion, 4);
 			}
 		});

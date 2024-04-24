@@ -13,8 +13,8 @@
   },
   {
     "nombre": "Córdoba",
-    "latitud": -32.018153,
-    "longitud": -63.779312,
+    "latitud": -32.413370,
+    "longitud": -63.730990,
     "limitrofes": [
       "Buenos Aires",
       "Santa Fé",
@@ -25,8 +25,8 @@
   },
   {
     "nombre": "Catamarca",
-    "latitud": -26.85535,
-    "longitud": -67.350725,
+    "latitud": -27.247361,
+    "longitud": -67.210321,
     "limitrofes": [
       "Salta",
       "Tucumán",
