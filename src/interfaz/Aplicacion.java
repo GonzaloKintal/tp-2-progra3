@@ -19,7 +19,8 @@ import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 
-import logica.GrafoDeProvincias;
+import logica.AGM;
+import logica.Grafo;
 import logica.Provincia;
 import utils.Config;
 
@@ -33,8 +34,8 @@ public class Aplicacion {
 
 	private JFrame frame;
 	private JMapViewer mapa;
-	private GrafoDeProvincias grafo;
-	private GrafoDeProvincias grafoBackUp;
+	private Grafo grafo;
+	private Grafo grafoBackUp;
 
 	/**
 	 * Launch the application.
@@ -56,7 +57,7 @@ public class Aplicacion {
 	 * Create the application.
 	 */
 	public Aplicacion() {
-		this.grafo = new GrafoDeProvincias();
+		this.grafo = new Grafo();
 		this.grafoBackUp = grafo;
 		grafo.asignarAristasLimitrofesPorDefecto();
 		grafo.prueba();
@@ -89,7 +90,7 @@ public class Aplicacion {
 			public void mouseClicked(MouseEvent e) {
 				mapa.removeAllMapPolygons();
 
-				grafo = grafo.generarArbolMinimo();
+				grafo = AGM.generarArbolMinimo(grafoBackUp);
 
 				dibujarMapa();
 			}
@@ -106,7 +107,7 @@ public class Aplicacion {
 			public void mouseClicked(MouseEvent e) {
 				mapa.removeAllMapPolygons();
 
-				grafo.generarRegionesConexas(3);
+				AGM.generarRegionesConexas(grafo, 3);
 
 				dibujarMapa();
 			}
@@ -119,7 +120,7 @@ public class Aplicacion {
 		panelMapa.setLayout(null);
 
 		panelMapa.add(mapa);
-		
+
 		frame.getContentPane().add(splitPane);
 	}
 

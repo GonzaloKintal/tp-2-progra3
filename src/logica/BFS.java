@@ -12,7 +12,7 @@ public class BFS  {
 	private static boolean[] marcados;
 	
 	
-	public static boolean esConexo(GrafoDeProvincias g) {
+	public static boolean esConexo(Grafo g) {
 		if (g == null)
 			throw new IllegalArgumentException("El grafo no puede ser null.");
 		
@@ -20,7 +20,7 @@ public class BFS  {
 	}
 	
 
-	public static Set<Integer> alcanzables(GrafoDeProvincias g, int origen) {
+	public static Set<Integer> alcanzables(Grafo g, int origen) {
 		Set<Integer> ret = new HashSet<Integer>();
 		inicializarRecorrido(g, origen);
 		
@@ -37,14 +37,14 @@ public class BFS  {
 	}
 	
 
-	private static void agregarVecinosPendientes(GrafoDeProvincias g, int vertice) {		
+	private static void agregarVecinosPendientes(Grafo g, int vertice) {		
 		for (int vecino : g.vecinos(vertice))
 			if (!marcados[vecino] && !L.contains(vecino))
 				L.add(vecino);
 	}
 	
 	
-	private static void inicializarRecorrido(GrafoDeProvincias g, int origen) {
+	private static void inicializarRecorrido(Grafo g, int origen) {
 		L = new LinkedList<Integer>();
 		marcados = new boolean[g.tamano()];
 		L.add(origen);

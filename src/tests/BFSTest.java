@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import tests.Assert;
 import logica.BFS;
-import logica.GrafoDeProvincias;
+import logica.Grafo;
 
 public class BFSTest 
 {
@@ -15,19 +15,19 @@ public class BFSTest
 
 	@Test
 	public void grafoDosVerticesAisladosTest() {
-		assertFalse(BFS.esConexo(new GrafoDeProvincias()));
+		assertFalse(BFS.esConexo(new Grafo()));
 	}
 	
 	@Test
 	public void grafoInconexoTest() {
-		GrafoDeProvincias g = inicializarGrafoInconexo();
+		Grafo g = inicializarGrafoInconexo();
 		
 		assertFalse(BFS.esConexo(g));
 	}
 	
 	@Test
 	public void alcanzablesGrafoCompletoTest() {
-		GrafoDeProvincias g = inicializarGrafoCompleto();
+		Grafo g = inicializarGrafoCompleto();
 		
 		int[] esperado = {0, 1, 2, 3};
 		Assert.iguales(esperado, BFS.alcanzables(g, 0));
@@ -36,14 +36,14 @@ public class BFSTest
 	
 	@Test
 	public void alcanzablesInconexoTest() {
-		GrafoDeProvincias g = inicializarGrafoInconexo();
+		Grafo g = inicializarGrafoInconexo();
 		
 		int[] esperado = {0, 1, 2, 3, 4};
 		Assert.iguales(esperado, BFS.alcanzables(g, 0));
 	}
 	
-	private GrafoDeProvincias inicializarGrafoInconexo() {
-		GrafoDeProvincias g = new GrafoDeProvincias();
+	private Grafo inicializarGrafoInconexo() {
+		Grafo g = new Grafo();
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
@@ -55,8 +55,8 @@ public class BFSTest
 		return g;		
 	}
 	
-	private GrafoDeProvincias inicializarGrafoCompleto() {
-		GrafoDeProvincias g = new GrafoDeProvincias();
+	private Grafo inicializarGrafoCompleto() {
+		Grafo g = new Grafo();
 		g.agregarArista(0, 1);
 		g.agregarArista(1, 2);
 		g.agregarArista(2, 3);

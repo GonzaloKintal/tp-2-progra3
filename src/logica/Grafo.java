@@ -12,16 +12,12 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 import utils.Config;
 import utils.Tupla;
 
-public class GrafoDeProvincias {
+public class Grafo {
 
-	private final Provincia[] provincias;
 	private Arista[][] matrizAdyacente;
 
-	public GrafoDeProvincias() {
-		this.provincias = Config.PROVINCIAS;
-		int cantProvincias = provincias.length;
-
-		matrizAdyacente = new Arista[cantProvincias][cantProvincias];
+	public Grafo(int cantVertices) {
+		matrizAdyacente = new Arista[cantVertices][cantVertices];
 		instanciarAristas();
 	}
 
@@ -36,9 +32,6 @@ public class GrafoDeProvincias {
 		}
 	}
 
-	public Provincia[] obtenerProvincias() {
-		return this.provincias;
-	}
 
 	private void instanciarAristas() {
 		for (int i = 0; i < this.tamano(); i++) {
@@ -48,15 +41,6 @@ public class GrafoDeProvincias {
 		}
 	}
 
-	public void asignarAristasLimitrofesPorDefecto() {
-		for (int i = 0; i < this.tamano(); i++) {
-			for (int j = 0; j < this.tamano(); j++) {
-				if (provincias[i].limitrofes.contains(provincias[j].nombre)) {
-					agregarArista(i, j);
-				}
-			}
-		}
-	}
 
 	public void agregarArista(int i, int j) {
 		verificarVertice(i);
@@ -120,20 +104,6 @@ public class GrafoDeProvincias {
 		return vecinos;
 	}
 
-	public Set<Coordinate> obtenerCoordenadasLimitrofes(int v) {
-		verificarVertice(v);
-
-		Set<Coordinate> vecinos = new HashSet<Coordinate>();
-
-		for (int i = 0; i < this.tamano(); i++) {
-			if (this.existeArista(v, i)) {
-				Provincia provincia = this.provincias[i];
-				vecinos.add(new Coordinate(provincia.getLatitud(), provincia.getLongitud()));
-			}
-		}
-		return vecinos;
-	}
-
 	public int tamano() {
 		return matrizAdyacente.length;
 	}
@@ -154,35 +124,6 @@ public class GrafoDeProvincias {
 		if (i == j) {
 			throw new IllegalArgumentException("No se permiten loops!");
 		}
-	}
-
-	public GrafoDeProvincias generarArbolMinimo() {
-		ArrayList<Integer> verticesMarcados = new ArrayList<>();
-		GrafoDeProvincias arbolGeneradorMinimo = new GrafoDeProvincias();
-		int provincias = 0;
-		// Empezamos desde un vertice elegido arbitrariamente
-		verticesMarcados.add(0);
-
-		while (provincias < 23 - 1) {
-			HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = new HashMap<>();
-
-			for (Integer vertice : verticesMarcados) {
-				HashMap<Tupla<Integer, Integer>, Integer> aristasDelVerticeActual = obtenerAristasHaciaVerticesNoMarcados(vertice, verticesMarcados);
-				aristasTotales.putAll(aristasDelVerticeActual);
-			}
-
-			Tupla<Integer, Integer> aristaMinima = elegirAristaConMenorPeso(aristasTotales);
-			int verticeMarcado = aristaMinima.getPrimero();
-			int verticeNoMarcado = aristaMinima.getSegundo();
-			int peso= matrizAdyacente[verticeMarcado][verticeNoMarcado].obtenerPeso();
-			
-			arbolGeneradorMinimo.agregarArista(verticeMarcado, verticeNoMarcado);
-			arbolGeneradorMinimo.agregarPeso(verticeMarcado, verticeNoMarcado, peso);
-			verticesMarcados.add(verticeNoMarcado);
-			provincias++;
-
-		}
-		return arbolGeneradorMinimo;
 	}
 
 	public HashMap<Tupla<Integer, Integer>, Integer> obtenerAristasHaciaVerticesNoMarcados(int vertice, ArrayList<Integer> verticesMarcados) {
@@ -233,16 +174,7 @@ public class GrafoDeProvincias {
 	}
 	
 	
-	public void generarRegionesConexas(int k) {
-		int aristasAEliminar = k - 1;
-		
-		while (aristasAEliminar > 0) {
-			eliminarAristaDeMayorPeso();
-			aristasAEliminar--;
-		}
-	}
-
-	private void eliminarAristaDeMayorPeso() {
+	public void eliminarAristaDeMayorPeso() {
 		Tupla<Integer, Integer> aristaDeMayorPeso = obtenerAristaDeMayorPeso();
 		eliminarArista(aristaDeMayorPeso.getPrimero(), aristaDeMayorPeso.getSegundo());
 	}
