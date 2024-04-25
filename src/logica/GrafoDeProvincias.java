@@ -247,7 +247,7 @@ public class GrafoDeProvincias {
 		eliminarArista(aristaDeMayorPeso.getPrimero(), aristaDeMayorPeso.getSegundo());
 	}
 
-	private Tupla<Integer, Integer> obtenerAristaDeMayorPeso() {
+	public Tupla<Integer, Integer> obtenerAristaDeMayorPeso() {
 		Tupla<Integer, Integer> aristaDeMayorPeso = null;
 		int mayorPesoEncontrado = 0;
 		
@@ -260,6 +260,11 @@ public class GrafoDeProvincias {
 				}
 			}
 		}
+		
+		if(aristaDeMayorPeso == null) {
+			throw new RuntimeException("Las aristas deben tener peso");
+		}
+		
 		return aristaDeMayorPeso;
 	}
 	

@@ -22,6 +22,7 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import logica.GrafoDeProvincias;
 import logica.Provincia;
 import utils.Config;
+
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseAdapter;
@@ -73,7 +74,6 @@ public class Aplicacion {
 		frame.setTitle("JMapViewer");
 
 		JPanel panelMapa = new JPanel();
-		panelMapa.setLayout(null);
 
 		crearMapa();
 
@@ -116,14 +116,15 @@ public class Aplicacion {
 
 		splitPane.setResizeWeight(0);
 		splitPane.setDividerSize(0);
+		panelMapa.setLayout(null);
 
 		panelMapa.add(mapa);
+		
 		frame.getContentPane().add(splitPane);
 	}
 
 	private void crearMapa() {
 		mapa = new JMapViewer();
-
 		mapa.setBounds(0, 0, 300, 600);
 		mapa.setZoomControlsVisible(false);
 

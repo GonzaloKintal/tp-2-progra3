@@ -126,5 +126,29 @@ public class GrafoDeProvinciasTest {
 		assertEquals(coordenadaSantaCruz, grafo.obtenerCoordenadasLimitrofes(9));
 	}
 	
+	@Test
+	public void grafoNoConexoDespuesDeEliminarAristasTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.asignarAristasLimitrofesPorDefecto();
+		grafo = grafo.generarArbolMinimo();
+		
+		// Agrego peso desde Tierra del fuego - Santa Cruz
+		grafo.agregarPeso(9, 8, 10);
+		
+		// Agrego peso desde Santa Cruz - Chubut
+		grafo.agregarPeso(8, 7, 10);
+		
+		// Borro 2 aristas
+		grafo.generarRegionesConexas(3);
+		
+		assertFalse(BFS.esConexo(grafo));
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void obtenerAristaDeMayorPesoAristasTienenPesoCeroTest() {
+		GrafoDeProvincias grafo = new GrafoDeProvincias();
+		grafo.asignarAristasLimitrofesPorDefecto();
+		grafo.obtenerAristaDeMayorPeso();
+	}
 	
 }
