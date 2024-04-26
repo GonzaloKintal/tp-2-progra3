@@ -55,7 +55,7 @@ public class Aplicacion {
 	 * Create the application.
 	 */
 	public Aplicacion() {
-		this.pais = new Pais();
+		this.pais = new Pais(Config.PAIS);
 		// Asignacion de pesos por arista
 		initialize();
 	}
@@ -121,7 +121,7 @@ public class Aplicacion {
 		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				pais = new Pais();
+				pais.reestablecerConexionEntreLimitrofes();
 				dibujarMapa();
 			}
 		});
@@ -154,8 +154,8 @@ public class Aplicacion {
 		mapa.setBounds(0, 0, 300, 600);
 		mapa.setZoomControlsVisible(false);
 
-		Coordinate posicion = new Coordinate(-42.3944, -64.425);
-		mapa.setDisplayPosition(posicion, 4);
+		Coordinate posicion = new Coordinate(pais.latitud, pais.longitud);
+		mapa.setDisplayPosition(posicion, pais.getZoom());
 
 		fijarMapa(posicion);
 	}
@@ -186,21 +186,21 @@ public class Aplicacion {
 	private void fijarMapa(Coordinate posicion) {
 		mapa.addMouseWheelListener(new MouseWheelListener() {
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				mapa.setDisplayPosition(posicion, 4);
+				mapa.setDisplayPosition(posicion, pais.getZoom());
 			}
 		});
 
 		mapa.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				mapa.setDisplayPosition(posicion, 4);
+				mapa.setDisplayPosition(posicion, pais.getZoom());
 			}
 		});
 
 		mapa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				mapa.setDisplayPosition(posicion, 4);
+				mapa.setDisplayPosition(posicion, pais.getZoom());
 			}
 		});
 	}
