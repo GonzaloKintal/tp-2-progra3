@@ -4,14 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Test;
-import org.openstreetmap.gui.jmapviewer.Coordinate;
 
-import logica.AGM;
-import logica.BFS;
 import logica.Grafo;
 import utils.Tupla;
 
