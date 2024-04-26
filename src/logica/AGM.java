@@ -9,9 +9,7 @@ public class AGM {
 
 
 	public static Grafo generarArbolMinimo(Grafo grafo) {
-		if(!BFS.esConexo(grafo)) {
-			throw new IllegalArgumentException("No se puede generar un AGM de un grafo no conexo");
-		}
+		verificarConexo(grafo);
 		
 		ArrayList<Integer> verticesMarcados = new ArrayList<>();
 		Grafo arbolGeneradorMinimo = new Grafo(grafo.tamano());
@@ -21,25 +19,44 @@ public class AGM {
 		verticesMarcados.add(0);
 
 		while (contador < grafo.tamano() - 1) {
-			HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = new HashMap<>();
-
-			for (Integer vertice : verticesMarcados) {
-				HashMap<Tupla<Integer, Integer>, Integer> aristasDelVerticeActual = grafo.obtenerAristasHaciaVerticesNoMarcados(vertice, verticesMarcados);
-				aristasTotales.putAll(aristasDelVerticeActual);
-			}
+			HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = filtrarAristasDeNoMarcados(grafo, verticesMarcados);
 
 			Tupla<Integer, Integer> aristaMinima = grafo.elegirAristaConMenorPeso(aristasTotales);
-			int verticeMarcado = aristaMinima.getPrimero();
-			int verticeNoMarcado = aristaMinima.getSegundo();
-			int peso= grafo.consultarPeso(verticeMarcado, verticeNoMarcado);
-			
-			arbolGeneradorMinimo.agregarArista(verticeMarcado, verticeNoMarcado);
-			arbolGeneradorMinimo.agregarPeso(verticeMarcado, verticeNoMarcado, peso);
+			int verticeNoMarcado = setearArista(grafo, arbolGeneradorMinimo, aristaMinima);
 			verticesMarcados.add(verticeNoMarcado);
 			contador++;
 
 		}
 		return arbolGeneradorMinimo;
+	}
+
+
+	private static int setearArista(Grafo grafo, Grafo arbolGeneradorMinimo, Tupla<Integer, Integer> aristaMinima) {
+		int verticeMarcado = aristaMinima.getPrimero();
+		int verticeNoMarcado = aristaMinima.getSegundo();
+		int peso = grafo.consultarPeso(verticeMarcado, verticeNoMarcado);
+		
+		arbolGeneradorMinimo.agregarArista(verticeMarcado, verticeNoMarcado);
+		arbolGeneradorMinimo.agregarPeso(verticeMarcado, verticeNoMarcado, peso);
+		return verticeNoMarcado;
+	}
+
+
+	private static HashMap<Tupla<Integer, Integer>, Integer> filtrarAristasDeNoMarcados(Grafo grafo, ArrayList<Integer> verticesMarcados) {
+		HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = new HashMap<>();
+
+		for (Integer vertice : verticesMarcados) {
+			HashMap<Tupla<Integer, Integer>, Integer> aristasDelVerticeActual = grafo.obtenerAristasHaciaVerticesNoMarcados(vertice, verticesMarcados);
+			aristasTotales.putAll(aristasDelVerticeActual);
+		}
+		return aristasTotales;
+	}
+
+
+	private static void verificarConexo(Grafo grafo) {
+		if(!BFS.esConexo(grafo)) {
+			throw new IllegalArgumentException("No se puede generar un AGM de un grafo no conexo");
+		}
 	}
 	
 	

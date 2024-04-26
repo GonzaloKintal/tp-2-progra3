@@ -64,10 +64,8 @@ public class Aplicacion {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(300, 100, 600, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("JMapViewer");
+
+		crearFrame();
 
 		JPanel panelMapa = new JPanel();
 
@@ -75,12 +73,24 @@ public class Aplicacion {
 
 		dibujarMapa();
 
-		JPanel panelIzquierdo = new JPanel();
-		panelIzquierdo.setBackground(Color.WHITE);
-		panelIzquierdo.setPreferredSize(new Dimension(300, 600));
+		JPanel panelIzquierdo = crearPanelIzquierdo();
 
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		agregarBotones(panelIzquierdo);
+
+		JSplitPane splitPane = dividirPantalla(panelMapa, panelIzquierdo);
+
+		splitPane.setResizeWeight(0);
+		splitPane.setDividerSize(0);
+		panelMapa.setLayout(null);
+
+		panelMapa.add(mapa);
+
+		frame.getContentPane().add(splitPane);
+	}
+
+	private void agregarBotones(JPanel panelIzquierdo) {
+		JButton botonGenerarAGM = new JButton("Generar árbol mínimo");
+		botonGenerarAGM.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mapa.removeAllMapPolygons();
@@ -90,11 +100,8 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		btnNewButton.setBounds(104, 86, 89, 23);
-		panelIzquierdo.add(btnNewButton);
-
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
-		panelIzquierdo.setLayout(null);
+		botonGenerarAGM.setBounds(68, 86, 158, 23);
+		panelIzquierdo.add(botonGenerarAGM);
 
 		JButton botonComponentesConexas = new JButton("Generar regiones conexas");
 		botonComponentesConexas.addMouseListener(new MouseAdapter() {
@@ -103,7 +110,6 @@ public class Aplicacion {
 				mapa.removeAllMapPolygons();
 
 				pais.dividirRegiones(3);
-				
 
 				dibujarMapa();
 			}
@@ -111,13 +117,36 @@ public class Aplicacion {
 		botonComponentesConexas.setBounds(23, 164, 256, 23);
 		panelIzquierdo.add(botonComponentesConexas);
 
-		splitPane.setResizeWeight(0);
-		splitPane.setDividerSize(0);
-		panelMapa.setLayout(null);
+		JButton botonReiniciarMapa = new JButton("Reiniciar mapa");
+		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pais = new Pais();
+				dibujarMapa();
+			}
+		});
+		botonReiniciarMapa.setBounds(81, 259, 135, 23);
+		panelIzquierdo.add(botonReiniciarMapa);
+	}
 
-		panelMapa.add(mapa);
+	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
+		panelIzquierdo.setLayout(null);
+		return splitPane;
+	}
 
-		frame.getContentPane().add(splitPane);
+	private JPanel crearPanelIzquierdo() {
+		JPanel panelIzquierdo = new JPanel();
+		panelIzquierdo.setBackground(Color.WHITE);
+		panelIzquierdo.setPreferredSize(new Dimension(300, 600));
+		return panelIzquierdo;
+	}
+
+	private void crearFrame() {
+		frame = new JFrame();
+		frame.setBounds(300, 100, 600, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("JMapViewer");
 	}
 
 	private void crearMapa() {

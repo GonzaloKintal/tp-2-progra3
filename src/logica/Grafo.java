@@ -138,9 +138,7 @@ public class Grafo {
 
 
 	public Tupla<Integer, Integer> elegirAristaConMenorPeso(HashMap<Tupla<Integer, Integer>, Integer> aristasTotales) {
-		if (aristasTotales.isEmpty()) {
-			throw new IllegalArgumentException("El conjunto de aristas no puede estar vacío.");
-		}
+		verificarAristasVacio(aristasTotales);
 		
 		Tupla<Integer, Integer> verticesAristaMinima = null;
 		int pesoMinimo = Integer.MAX_VALUE;
@@ -154,6 +152,12 @@ public class Grafo {
 			}
 		}
 		return verticesAristaMinima;
+	}
+
+	private void verificarAristasVacio(HashMap<Tupla<Integer, Integer>, Integer> aristasTotales) {
+		if (aristasTotales.isEmpty()) {
+			throw new IllegalArgumentException("El conjunto de aristas no puede estar vacío.");
+		}
 	}
 	
 	
@@ -197,8 +201,5 @@ public class Grafo {
 		return aristaDeMayorPeso;
 	}
 	
-	public void generarAristasEntreVertices() {
-		
-	}
 	
 }
