@@ -3,11 +3,13 @@ package interfaz;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.JLabel;
 
 public class Aplicacion {
 
@@ -84,6 +87,14 @@ public class Aplicacion {
 		panelMapa.setLayout(null);
 
 		panelMapa.add(mapa);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(0, 0, 350, 700);
+		
+		Image img = new ImageIcon(this.getClass().getResource("/marco_derecha.png")).getImage();
+		lblNewLabel_1.setIcon(new ImageIcon(img));
+		
+		panelMapa.add(lblNewLabel_1);
 
 		frame.getContentPane().add(splitPane);
 	}
@@ -138,20 +149,28 @@ public class Aplicacion {
 	private JPanel crearPanelIzquierdo() {
 		JPanel panelIzquierdo = new JPanel();
 		panelIzquierdo.setBackground(Color.WHITE);
-		panelIzquierdo.setPreferredSize(new Dimension(300, 600));
+		panelIzquierdo.setPreferredSize(new Dimension(350, 700));
+		
+		JLabel lblNewLabel = new JLabel("");
+		
+		Image img = new ImageIcon(this.getClass().getResource("/marco_izquierda.png")).getImage();
+		lblNewLabel.setIcon(new ImageIcon(img));
+		
+		lblNewLabel.setBounds(0, 0, 350, 700);
+		panelIzquierdo.add(lblNewLabel);
 		return panelIzquierdo;
 	}
 
 	private void crearFrame() {
 		frame = new JFrame();
-		frame.setBounds(300, 100, 600, 600);
+		frame.setBounds(300, 100, 700, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("JMapViewer");
 	}
 
 	private void crearMapa() {
 		mapa = new JMapViewer();
-		mapa.setBounds(0, 0, 300, 600);
+		mapa.setBounds(0, 0, 350, 700);
 		mapa.setZoomControlsVisible(false);
 
 		Coordinate posicion = new Coordinate(pais.latitud, pais.longitud);
