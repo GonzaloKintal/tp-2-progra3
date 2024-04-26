@@ -7,16 +7,16 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 
 import utils.Config;
 
-public class País {
+public class Pais {
 	
 	private final Provincia[] provincias;
 	private Grafo grafo;
 	
-	
-	public País() {
+	public Pais() {
 		this.provincias = Config.PROVINCIAS;
 		this.grafo = new Grafo(23);
 		asignarAristasLimitrofesPorDefecto();
+		this.grafo.prueba();
 	}
 
 	public Provincia[] obtenerProvincias() {
@@ -44,6 +44,18 @@ public class País {
 			}
 		}
 		return vecinos;
+	}
+	
+	public Grafo obtenerGrafo() {
+		return this.grafo;
+	}
+
+	public void actualizarSimililaridades() {
+		this.grafo = AGM.generarArbolMinimo(grafo);
+	}
+
+	public void dividirRegiones(int i) {
+		AGM.generarRegionesConexas(this.grafo, 3);
 	}
 	
 }

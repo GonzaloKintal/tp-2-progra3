@@ -9,13 +9,18 @@ public class AGM {
 
 
 	public static Grafo generarArbolMinimo(Grafo grafo) {
+		if(!BFS.esConexo(grafo)) {
+			throw new IllegalArgumentException("No se puede generar un AGM de un grafo no conexo");
+		}
+		
 		ArrayList<Integer> verticesMarcados = new ArrayList<>();
-		Grafo arbolGeneradorMinimo = new Grafo(23);
-		int provincias = 0;
+		Grafo arbolGeneradorMinimo = new Grafo(grafo.tamano());
+		int contador = 0;
+		
 		// Empezamos desde un vertice elegido arbitrariamente
 		verticesMarcados.add(0);
 
-		while (provincias < 23 - 1) {
+		while (contador < grafo.tamano() - 1) {
 			HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = new HashMap<>();
 
 			for (Integer vertice : verticesMarcados) {
@@ -31,7 +36,7 @@ public class AGM {
 			arbolGeneradorMinimo.agregarArista(verticeMarcado, verticeNoMarcado);
 			arbolGeneradorMinimo.agregarPeso(verticeMarcado, verticeNoMarcado, peso);
 			verticesMarcados.add(verticeNoMarcado);
-			provincias++;
+			contador++;
 
 		}
 		return arbolGeneradorMinimo;

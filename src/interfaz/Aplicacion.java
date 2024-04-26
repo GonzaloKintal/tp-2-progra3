@@ -19,9 +19,8 @@ import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 
-import logica.AGM;
-import logica.Grafo;
 import logica.Provincia;
+import logica.Pais;
 import utils.Config;
 
 import java.awt.event.MouseWheelListener;
@@ -34,8 +33,7 @@ public class Aplicacion {
 
 	private JFrame frame;
 	private JMapViewer mapa;
-	private Grafo grafo;
-	private Grafo grafoBackUp;
+	private Pais pais;
 
 	/**
 	 * Launch the application.
@@ -57,10 +55,7 @@ public class Aplicacion {
 	 * Create the application.
 	 */
 	public Aplicacion() {
-		this.grafo = new Grafo();
-		this.grafoBackUp = grafo;
-		grafo.asignarAristasLimitrofesPorDefecto();
-		grafo.prueba();
+		this.pais = new Pais();
 		// Asignacion de pesos por arista
 		initialize();
 	}
@@ -90,7 +85,7 @@ public class Aplicacion {
 			public void mouseClicked(MouseEvent e) {
 				mapa.removeAllMapPolygons();
 
-				grafo = AGM.generarArbolMinimo(grafoBackUp);
+				pais.actualizarSimililaridades();
 
 				dibujarMapa();
 			}
@@ -107,7 +102,8 @@ public class Aplicacion {
 			public void mouseClicked(MouseEvent e) {
 				mapa.removeAllMapPolygons();
 
-				AGM.generarRegionesConexas(grafo, 3);
+				pais.dividirRegiones(3);
+				
 
 				dibujarMapa();
 			}
@@ -136,15 +132,17 @@ public class Aplicacion {
 	}
 
 	private void dibujarMapa() {
-		for (int i = 0; i < grafo.tamano(); i++) {
-			Provincia provincia = grafo.obtenerProvincias()[i];
+		Provincia[] arrProvincias = pais.obtenerProvincias();
+
+		for (int i = 0; i < arrProvincias.length; i++) {
+			Provincia provincia = arrProvincias[i];
 			Coordinate coordenada = new Coordinate(provincia.getLatitud(), provincia.getLongitud());
 
 			MapMarker vertice = new MapMarkerDot("", coordenada);
 			vertice.getStyle().setBackColor(Config.COLOR_NODO);
 			mapa.addMapMarker(vertice);
 
-			Set<Coordinate> vecinos = grafo.obtenerCoordenadasLimitrofes(i);
+			Set<Coordinate> vecinos = pais.obtenerCoordenadasLimitrofes(i);
 
 			for (Coordinate coordenadaVecino : vecinos) {
 				Coordinate cdVecino = new Coordinate(coordenadaVecino.getLat(), coordenadaVecino.getLon());

@@ -2,7 +2,6 @@ package tests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import tests.Assert;
 import logica.BFS;
 import logica.Grafo;
 
@@ -15,7 +14,7 @@ public class BFSTest
 
 	@Test
 	public void grafoDosVerticesAisladosTest() {
-		assertFalse(BFS.esConexo(new Grafo()));
+		assertFalse(BFS.esConexo(new Grafo(2)));
 	}
 	
 	@Test
@@ -43,7 +42,7 @@ public class BFSTest
 	}
 	
 	private Grafo inicializarGrafoInconexo() {
-		Grafo g = new Grafo();
+		Grafo g = new Grafo(7);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
@@ -56,7 +55,7 @@ public class BFSTest
 	}
 	
 	private Grafo inicializarGrafoCompleto() {
-		Grafo g = new Grafo();
+		Grafo g = new Grafo(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(1, 2);
 		g.agregarArista(2, 3);

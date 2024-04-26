@@ -7,9 +7,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
-import org.openstreetmap.gui.jmapviewer.Coordinate;
-
-import utils.Config;
 import utils.Tupla;
 
 public class Grafo {
@@ -198,6 +195,10 @@ public class Grafo {
 		}
 		
 		return aristaDeMayorPeso;
+	}
+	
+	public void generarAristasEntreVertices() {
+		
 	}
 	
 }
