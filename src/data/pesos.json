@@ -1,0 +1,109 @@
+[
+  {
+    "nombre": "Buenos Aires",
+    "limitrofes": [
+      { "provincia": "Córdoba", "peso": 10 },
+      { "provincia": "Santa Fé", "peso": 20 },
+      { "provincia": "Entre Rios", "peso": 30 },
+      { "provincia": "La Pampa", "peso": 40 },
+      { "provincia": "Río Negro", "peso": 50 }
+    ]
+  },
+  {
+    "nombre": "Córdoba",
+    "limitrofes": [
+      { "provincia": "Buenos Aires", "peso": 10 },
+      { "provincia": "Santa Fé", "peso": 40 },
+      { "provincia": "San Luis", "peso": 25 },
+      { "provincia": "Santiago Del Estero", "peso": 12 },
+      { "provincia": "La Pampa", "peso": 33 }
+    ]
+  },
+  {
+    "nombre": "Santa Fé",
+    "limitrofes": [
+      { "provincia": "Buenos Aires", "peso": 20 },
+      { "provincia": "Córdoba", "peso": 40 },
+      { "provincia": "Entre Rios", "peso": 15 },
+      { "provincia": "Chaco", "peso": 22 },
+      { "provincia": "Formosa", "peso": 18 }
+    ]
+  },
+  {
+    "nombre": "Entre Rios",
+    "limitrofes": [
+      { "provincia": "Buenos Aires", "peso": 30 },
+      { "provincia": "Santa Fé", "peso": 15 },
+      { "provincia": "Corrientes", "peso": 28 },
+      { "provincia": "Misiones", "peso": 35 }
+    ]
+  },
+  {
+    "nombre": "La Pampa",
+    "limitrofes": [
+      { "provincia": "Buenos Aires", "peso": 40 },
+      { "provincia": "Córdoba", "peso": 33 },
+      { "provincia": "San Luis", "peso": 20 },
+      { "provincia": "Mendoza", "peso": 28 },
+      { "provincia": "Neuquén", "peso": 22 },
+      { "provincia": "Río Negro", "peso": 25 }
+    ]
+  },
+  {
+    "nombre": "Río Negro",
+    "limitrofes": [
+      { "provincia": "Buenos Aires", "peso": 50 },
+      { "provincia": "La Pampa", "peso": 25 },
+      { "provincia": "Neuquén", "peso": 10 },
+      { "provincia": "Chubut", "peso": 18 },
+      { "provincia": "Santa Cruz", "peso": 30 }
+    ]
+  },
+  {
+    "nombre": "San Luis",
+    "limitrofes": [
+      { "provincia": "Córdoba", "peso": 25 },
+      { "provincia": "La Pampa", "peso": 20 },
+      { "provincia": "Mendoza", "peso": 15 },
+      { "provincia": "San Juan", "peso": 12 }
+    ]
+  },
+  {
+    "nombre": "Mendoza",
+    "limitrofes": [
+      { "provincia": "La Pampa", "peso": 28 },
+      { "provincia": "San Luis", "peso": 15 },
+      { "provincia": "San Juan", "peso": 10 },
+      { "provincia": "Neuquén", "peso": 22 }
+    ]
+  },
+  {
+    "nombre": "Neuquén",
+    "limitrofes": [
+      { "provincia": "La Pampa", "peso": 22 },
+      { "provincia": "Río Negro", "peso": 10 },
+      { "provincia": "Mendoza", "peso": 22 },
+      { "provincia": "Chubut", "peso": 18 }
+    ]
+  },
+  {
+    "nombre": "Chubut",
+    "limitrofes": [
+      { "provincia": "Río Negro", "peso": 18 },
+      { "provincia": "Neuquén", "peso": 18 },
+      { "provincia": "Santa Cruz", "peso": 20 }
+    ]
+  },
+  {
+    "nombre": "Santa Cruz",
+    "limitrofes": [
+      { "provincia": "Río Negro", "peso": 30 },
+      { "provincia": "Chubut", "peso": 20 },
+      { "provincia": "Tierra del Fuego", "peso": 12 }
+    ]
+  },
+  {
+    "nombre": "Tierra del Fuego",
+    "limitrofes": [{ "provincia": "Santa Cruz", "peso": 12 }]
+  }
+]

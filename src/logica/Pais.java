@@ -5,7 +5,10 @@ import java.util.Set;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 
+import utils.Config;
+import utils.InputUsuarioType;
 import utils.PaisType;
+import utils.PesosProvinciaType;
 
 public class Pais {
 	
@@ -15,13 +18,6 @@ public class Pais {
 	public double latitud;
 	public double longitud;
 	private Grafo grafo;
-	
-//	public Pais() {
-//		this.provincias = Config.PROVINCIAS;
-//		this.grafo = new Grafo(provincias.length);
-//		asignarAristasLimitrofesPorDefecto();
-//		this.grafo.prueba();
-//	}
 	
 	public Pais(PaisType info) {
 		this.provincias = info.getProvincias();
@@ -33,6 +29,12 @@ public class Pais {
 		
 		asignarAristasLimitrofesPorDefecto();
 		this.grafo.prueba();
+		
+		PesosProvinciaType[] p = Config.PP.getData();
+		
+		for(PesosProvinciaType p1: p) {
+			System.out.println(p1);
+		}
 	}
 
 	public Provincia[] obtenerProvincias() {
