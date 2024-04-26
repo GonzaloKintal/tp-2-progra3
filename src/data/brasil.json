@@ -1,0 +1,224 @@
+{
+  "nombre": "Brasil",
+  "latitud": -23.3944,
+  "longitud": -53,
+  "zoom": 3,
+  "provincias": [
+    {
+      "nombre": "Acre",
+      "latitud": -8.77,
+      "longitud": -70.55,
+      "limitrofes": ["Amazonas", "Rondônia"]
+    },
+    {
+      "nombre": "Alagoas",
+      "latitud": -9.71,
+      "longitud": -35.73,
+      "limitrofes": ["Pernambuco", "Sergipe"]
+    },
+    {
+      "nombre": "Amapá",
+      "latitud": 0.05,
+      "longitud": -51.13,
+      "limitrofes": ["Pará"]
+    },
+    {
+      "nombre": "Amazonas",
+      "latitud": -3.47,
+      "longitud": -65.1,
+      "limitrofes": [
+        "Acre",
+        "Rondônia",
+        "Roraima",
+        "Pará",
+        "Mato Grosso",
+        "Tocantins"
+      ]
+    },
+    {
+      "nombre": "Bahía",
+      "latitud": -12.97,
+      "longitud": -38.5,
+      "limitrofes": [
+        "Alagoas",
+        "Sergipe",
+        "Espírito Santo",
+        "Minas Gerais",
+        "Piauí",
+        "Goiás"
+      ]
+    },
+    {
+      "nombre": "Ceará",
+      "latitud": -5.2,
+      "longitud": -39.53,
+      "limitrofes": ["Piauí", "Paraíba", "Pernambuco", "Rio Grande do Norte"]
+    },
+    {
+      "nombre": "Distrito Federal",
+      "latitud": -15.83,
+      "longitud": -47.86,
+      "limitrofes": ["Goiás", "Minas Gerais"]
+    },
+    {
+      "nombre": "Espírito Santo",
+      "latitud": -19.19,
+      "longitud": -40.34,
+      "limitrofes": ["Bahía", "Minas Gerais", "Rio de Janeiro"]
+    },
+    {
+      "nombre": "Goiás",
+      "latitud": -15.98,
+      "longitud": -49.86,
+      "limitrofes": [
+        "Distrito Federal",
+        "Mato Grosso",
+        "Mato Grosso do Sul",
+        "Tocantins",
+        "Bahía",
+        "Minas Gerais"
+      ]
+    },
+    {
+      "nombre": "Maranhão",
+      "latitud": -5.42,
+      "longitud": -45.44,
+      "limitrofes": ["Piauí", "Tocantins", "Pará"]
+    },
+    {
+      "nombre": "Mato Grosso",
+      "latitud": -12.64,
+      "longitud": -55.42,
+      "limitrofes": [
+        "Amazonas",
+        "Pará",
+        "Rondônia",
+        "Goiás",
+        "Mato Grosso do Sul",
+        "Tocantins"
+      ]
+    },
+    {
+      "nombre": "Mato Grosso do Sul",
+      "latitud": -20.51,
+      "longitud": -54.54,
+      "limitrofes": ["Goiás", "Mato Grosso", "Paraná", "São Paulo"]
+    },
+    {
+      "nombre": "Minas Gerais",
+      "latitud": -18.1,
+      "longitud": -44.38,
+      "limitrofes": [
+        "Bahía",
+        "Distrito Federal",
+        "Espírito Santo",
+        "Goiás",
+        "Mato Grosso do Sul",
+        "São Paulo",
+        "Rio de Janeiro"
+      ]
+    },
+    {
+      "nombre": "Pará",
+      "latitud": -1.45,
+      "longitud": -48.5,
+      "limitrofes": [
+        "Amapá",
+        "Amazonas",
+        "Maranhão",
+        "Tocantins",
+        "Mato Grosso"
+      ]
+    },
+    {
+      "nombre": "Paraíba",
+      "latitud": -7.28,
+      "longitud": -36.72,
+      "limitrofes": ["Ceará", "Pernambuco", "Piauí", "Rio Grande do Norte"]
+    },
+    {
+      "nombre": "Paraná",
+      "latitud": -25.25,
+      "longitud": -52.42,
+      "limitrofes": ["Mato Grosso do Sul", "São Paulo", "Santa Catarina"]
+    },
+    {
+      "nombre": "Pernambuco",
+      "latitud": -8.38,
+      "longitud": -37.86,
+      "limitrofes": ["Alagoas", "Bahía", "Ceará", "Paraíba"]
+    },
+    {
+      "nombre": "Piauí",
+      "latitud": -7.71,
+      "longitud": -42.55,
+      "limitrofes": ["Ceará", "Maranhão", "Tocantins", "Bahía"]
+    },
+    {
+      "nombre": "Rio de Janeiro",
+      "latitud": -22.91,
+      "longitud": -43.2,
+      "limitrofes": ["Espírito Santo", "Minas Gerais", "São Paulo"]
+    },
+    {
+      "nombre": "Rio Grande do Norte",
+      "latitud": -5.81,
+      "longitud": -36.59,
+      "limitrofes": ["Ceará", "Paraíba"]
+    },
+    {
+      "nombre": "Rio Grande do Sul",
+      "latitud": -30.03,
+      "longitud": -51.23,
+      "limitrofes": ["Santa Catarina"]
+    },
+    {
+      "nombre": "Rondônia",
+      "latitud": -11.22,
+      "longitud": -62.8,
+      "limitrofes": ["Acre", "Amazonas", "Mato Grosso"]
+    },
+    {
+      "nombre": "Roraima",
+      "latitud": 1.89,
+      "longitud": -61.22,
+      "limitrofes": ["Amazonas"]
+    },
+    {
+      "nombre": "Santa Catarina",
+      "latitud": -27.59,
+      "longitud": -48.55,
+      "limitrofes": ["Paraná", "Rio Grande do Sul"]
+    },
+    {
+      "nombre": "São Paulo",
+      "latitud": -23.55,
+      "longitud": -46.64,
+      "limitrofes": [
+        "Mato Grosso do Sul",
+        "Minas Gerais",
+        "Paraná",
+        "Rio de Janeiro"
+      ]
+    },
+    {
+      "nombre": "Sergipe",
+      "latitud": -10.9,
+      "longitud": -37.07,
+      "limitrofes": ["Alagoas", "Bahía"]
+    },
+    {
+      "nombre": "Tocantins",
+      "latitud": -10.25,
+      "longitud": -48.25,
+      "limitrofes": [
+        "Bahía",
+        "Goiás",
+        "Maranhão",
+        "Mato Grosso",
+        "Piauí",
+        "Pará"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "nombre": "Uruguay",
+  "latitud": -33.3944,
+  "longitud": -56,
+  "zoom": 6,
+  "provincias": [
+    {
+      "nombre": "Artigas",
+      "latitud": -30.401915,
+      "longitud": -56.472227,
+      "limitrofes": ["Salto", "Rivera"]
+    },
+    {
+      "nombre": "Salto",
+      "latitud": -31.38377,
+      "longitud": -57.968154,
+      "limitrofes": ["Artigas", "Paysandú"]
+    },
+    {
+      "nombre": "Paysandú",
+      "latitud": -32.32147,
+      "longitud": -58.075685,
+      "limitrofes": ["Salto", "Río Negro"]
+    },
+    {
+      "nombre": "Río Negro",
+      "latitud": -33.122933,
+      "longitud": -58.324495,
+      "limitrofes": ["Paysandú", "Soriano"]
+    },
+    {
+      "nombre": "Soriano",
+      "latitud": -33.749177,
+      "longitud": -57.826679,
+      "limitrofes": ["Río Negro", "Flores"]
+    },
+    {
+      "nombre": "Flores",
+      "latitud": -33.520973,
+      "longitud": -56.894289,
+      "limitrofes": ["Soriano", "Florida"]
+    },
+    {
+      "nombre": "Florida",
+      "latitud": -34.095978,
+      "longitud": -56.214604,
+      "limitrofes": ["Flores", "Canelones"]
+    },
+    {
+      "nombre": "Canelones",
+      "latitud": -34.522155,
+      "longitud": -56.277746,
+      "limitrofes": ["Florida", "Montevideo", "Lavalleja"]
+    },
+    {
+      "nombre": "Montevideo",
+      "latitud": -34.901112,
+      "longitud": -56.164531,
+      "limitrofes": ["Canelones"]
+    },
+    {
+      "nombre": "Lavalleja",
+      "latitud": -34.372929,
+      "longitud": -55.237294,
+      "limitrofes": ["Canelones", "Maldonado"]
+    },
+    {
+      "nombre": "Maldonado",
+      "latitud": -34.90423,
+      "longitud": -54.968728,
+      "limitrofes": ["Lavalleja", "Rocha"]
+    },
+    {
+      "nombre": "Rocha",
+      "latitud": -34.479132,
+      "longitud": -54.335034,
+      "limitrofes": ["Maldonado", "Treinta y Tres"]
+    },
+    {
+      "nombre": "Treinta y Tres",
+      "latitud": -33.231309,
+      "longitud": -54.391819,
+      "limitrofes": ["Rocha", "Cerro Largo"]
+    },
+    {
+      "nombre": "Cerro Largo",
+      "latitud": -32.377903,
+      "longitud": -54.171482,
+      "limitrofes": ["Treinta y Tres", "Rivera", "Tacuarembó"]
+    },
+    {
+      "nombre": "Tacuarembó",
+      "latitud": -31.721012,
+      "longitud": -55.981059,
+      "limitrofes": ["Cerro Largo", "Rivera", "Durazno"]
+    },
+    {
+      "nombre": "Durazno",
+      "latitud": -33.37678,
+      "longitud": -56.517184,
+      "limitrofes": ["Tacuarembó", "Flores", "Florida"]
+    },
+    {
+      "nombre": "Rivera",
+      "latitud": -30.901883,
+      "longitud": -55.530736,
+      "limitrofes": ["Artigas", "Cerro Largo", "Tacuarembó"]
+    }
+  ]
+}

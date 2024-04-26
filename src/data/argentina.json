@@ -1,0 +1,198 @@
+{
+  "nombre": "Argentina",
+  "latitud": -42.3944,
+  "longitud": -64.425,
+  "zoom": 4,
+  "provincias": [
+    {
+      "nombre": "Buenos Aires",
+      "latitud": -36.410246,
+      "longitud": -60.441624,
+      "limitrofes": [
+        "Córdoba",
+        "Santa Fé",
+        "Entre Rios",
+        "La Pampa",
+        "Río Negro"
+      ]
+    },
+    {
+      "nombre": "Córdoba",
+      "latitud": -32.41337,
+      "longitud": -63.73099,
+      "limitrofes": [
+        "Buenos Aires",
+        "Santa Fé",
+        "San Luis",
+        "Santiago Del Estero",
+        "La Pampa"
+      ]
+    },
+    {
+      "nombre": "Catamarca",
+      "latitud": -27.247361,
+      "longitud": -67.210321,
+      "limitrofes": [
+        "Salta",
+        "Tucumán",
+        "Santiago del Estero",
+        "Córdoba",
+        "La Rioja"
+      ]
+    },
+    {
+      "nombre": "Entre Rios",
+      "latitud": -32.020103,
+      "longitud": -59.300656,
+      "limitrofes": ["Buenos Aires", "Santa Fé", "Corrientes"]
+    },
+    {
+      "nombre": "Santa Fé",
+      "latitud": -30.734059,
+      "longitud": -61.045393,
+      "limitrofes": [
+        "Buenos Aires",
+        "Córdoba",
+        "Santiago del Estero",
+        "Chaco",
+        "Corrientes",
+        "Entre Rios"
+      ]
+    },
+    {
+      "nombre": "La Pampa",
+      "latitud": -37.150575,
+      "longitud": -65.638422,
+      "limitrofes": [
+        "Buenos Aires",
+        "Río Negro",
+        "Neuquén",
+        "Mendoza",
+        "San Luis",
+        "Córdoba"
+      ]
+    },
+    {
+      "nombre": "Río Negro",
+      "latitud": -40.272863,
+      "longitud": -67.371468,
+      "limitrofes": ["Chubut", "Neuquén", "La Pampa", "Buenos Aires"]
+    },
+    {
+      "nombre": "Chubut",
+      "latitud": -43.885722,
+      "longitud": -68.748194,
+      "limitrofes": ["Santa Cruz", "Río Negro"]
+    },
+    {
+      "nombre": "Santa Cruz",
+      "latitud": -48.784325,
+      "longitud": -70.058595,
+      "limitrofes": ["Tierra del Fuego", "Chubut"]
+    },
+    {
+      "nombre": "Tierra del Fuego",
+      "latitud": -54.357735,
+      "longitud": -67.768914,
+      "limitrofes": ["Santa Cruz"]
+    },
+    {
+      "nombre": "Neuquén",
+      "latitud": -38.574205,
+      "longitud": -69.924229,
+      "limitrofes": ["Mendoza", "La Pampa", "Río Negro"]
+    },
+    {
+      "nombre": "Mendoza",
+      "latitud": -34.561651,
+      "longitud": -68.546747,
+      "limitrofes": ["San Juan", "San Luis", "La Pampa", "Neuquén"]
+    },
+    {
+      "nombre": "San Juan",
+      "latitud": -30.906648,
+      "longitud": -69.015093,
+      "limitrofes": ["La Rioja", "San Luis", "Mendoza"]
+    },
+    {
+      "nombre": "La Rioja",
+      "latitud": -29.616979,
+      "longitud": -67.097551,
+      "limitrofes": ["Catamarca", "Córdoba", "San Luis", "San Juan"]
+    },
+    {
+      "nombre": "Salta",
+      "latitud": -25.267636,
+      "longitud": -65.103732,
+      "limitrofes": [
+        "Jujuy",
+        "Formosa",
+        "Chaco",
+        "Santiago del Estero",
+        "Tucumán",
+        "Catamarca"
+      ]
+    },
+    {
+      "nombre": "Jujuy",
+      "latitud": -22.987009,
+      "longitud": -66.063212,
+      "limitrofes": ["Salta"]
+    },
+    {
+      "nombre": "Formosa",
+      "latitud": -24.713873,
+      "longitud": -60.208776,
+      "limitrofes": ["Salta", "Chaco"]
+    },
+    {
+      "nombre": "Chaco",
+      "latitud": -26.636121,
+      "longitud": -60.421103,
+      "limitrofes": [
+        "Formosa",
+        "Corrientes",
+        "Santa Fé",
+        "Santiago del Estero",
+        "Salta"
+      ]
+    },
+    {
+      "nombre": "Corrientes",
+      "latitud": -28.731096,
+      "longitud": -57.885219,
+      "limitrofes": ["Misiones", "Entre Ríos", "Santa Fé", "Chaco"]
+    },
+    {
+      "nombre": "Misiones",
+      "latitud": -27.042709,
+      "longitud": -54.684721,
+      "limitrofes": ["Corrientes"]
+    },
+    {
+      "nombre": "Tucumán",
+      "latitud": -26.747099,
+      "longitud": -65.392628,
+      "limitrofes": ["Salta", "Santiago del Estero", "Catamarca"]
+    },
+    {
+      "nombre": "San Luis",
+      "latitud": -33.705925,
+      "longitud": -66.026088,
+      "limitrofes": ["La Rioja", "Córdoba", "La Pampa", "Mendoza", "San Juan"]
+    },
+    {
+      "nombre": "Santiago del Estero",
+      "latitud": -27.729467,
+      "longitud": -63.406912,
+      "limitrofes": [
+        "Chaco",
+        "Santa Fé",
+        "Córdoba",
+        "Catamarca",
+        "Tucumán",
+        "Salta"
+      ]
+    }
+  ]
+}
