@@ -55,7 +55,7 @@ public class Pais {
 	}
 
 	public void dividirRegiones(int i) {
-		AGM.generarRegionesConexas(this.grafo, 3);
+		AGM.generarRegionesConexas(this.grafo, i);
 	}
 	
 }
