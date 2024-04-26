@@ -165,13 +165,14 @@ public class Grafo {
 		int contador = 0;
 		
 		for (int i=0; i<tamano(); i++) {
-			for (int j=0; j<tamano(); j++) {
+			for (int j = i ; j < tamano(); j++) {
 				if (existeArista(i,j)) {
 					contador++;
 				}
 			}
 		}
-		return contador/2;
+		
+		return contador;
 	}
 	
 	

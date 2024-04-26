@@ -83,5 +83,13 @@ public class GrafoTest {
 		grafo.obtenerAristaDeMayorPeso();
 	}
 	
-	
+	@Test
+	public void cantidadDeAristasIgualTest() {
+		Grafo grafo = new Grafo(5);
+		grafo.agregarArista(0, 1);
+		grafo.agregarArista(0, 2);
+		grafo.agregarArista(0, 3);
+		
+		assertEquals(3, grafo.obtenerCantidadDeAristas());
+	}
 }
