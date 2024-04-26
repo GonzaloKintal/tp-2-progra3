@@ -5,16 +5,32 @@ import java.util.Set;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 
-import utils.Config;
+import utils.PaisType;
 
 public class Pais {
 	
 	private final Provincia[] provincias;
+	private String nombre;
+	private int zoom;
+	public double latitud;
+	public double longitud;
 	private Grafo grafo;
 	
-	public Pais() {
-		this.provincias = Config.PROVINCIAS;
-		this.grafo = new Grafo(23);
+//	public Pais() {
+//		this.provincias = Config.PROVINCIAS;
+//		this.grafo = new Grafo(provincias.length);
+//		asignarAristasLimitrofesPorDefecto();
+//		this.grafo.prueba();
+//	}
+	
+	public Pais(PaisType info) {
+		this.provincias = info.getProvincias();
+		this.grafo = new Grafo(provincias.length);
+		this.latitud = info.getLatitud();
+		this.longitud = info.getLongitud();
+		this.zoom = info.getZoom();
+		this.nombre = info.getNombre();
+		
 		asignarAristasLimitrofesPorDefecto();
 		this.grafo.prueba();
 	}
@@ -49,7 +65,7 @@ public class Pais {
 	public Grafo obtenerGrafo() {
 		return this.grafo;
 	}
-
+	
 	public void actualizarSimililaridades() {
 		this.grafo = AGM.generarArbolMinimo(grafo);
 	}
@@ -57,5 +73,16 @@ public class Pais {
 	public void dividirRegiones(int i) {
 		AGM.generarRegionesConexas(this.grafo, i);
 	}
+
+	public void reestablecerConexionEntreLimitrofes() {
+		this.asignarAristasLimitrofesPorDefecto();
+	}
+
+	public int getZoom() {
+		return zoom;
+	}
 	
+	public String getNombre() {
+		return nombre;
+	}
 }
