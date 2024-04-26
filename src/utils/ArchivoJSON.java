@@ -8,22 +8,21 @@ import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import logica.Provincia;
-
 public class ArchivoJSON {
 	
-	public static Provincia[] leerJSON(String archivo) {
-		Gson gson = new Gson();
-		Provincia[] ret = null;
-		
-		try {
-			File directoryPath = new File("src/data/" + archivo);
-			BufferedReader reader = new BufferedReader(new FileReader(directoryPath));
-			Type tipoListaArchivoJSON = new TypeToken<Provincia[]>(){}.getType();
-			ret = gson.fromJson(reader, tipoListaArchivoJSON);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ret;
-	}
+	public static <T> T leerArchivo(String archivo, Class<T> clase) {
+        Gson gson = new Gson();
+        T datos = null;
+
+        try {
+            File archivoJSON = new File("src/data/" + archivo);
+            BufferedReader reader = new BufferedReader(new FileReader(archivoJSON));
+            Type tipoDatos = TypeToken.getParameterized(clase).getType();
+            datos = gson.fromJson(reader, tipoDatos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return datos;
+    }
 }
