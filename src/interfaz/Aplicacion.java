@@ -26,6 +26,8 @@ import logica.Pais;
 import utils.Config;
 
 import java.awt.event.MouseWheelListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -87,14 +89,6 @@ public class Aplicacion {
 		panelMapa.setLayout(null);
 
 		panelMapa.add(mapa);
-		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(0, 0, 350, 700);
-		
-		Image img = new ImageIcon(this.getClass().getResource("/marco_derecha.png")).getImage();
-		lblNewLabel_1.setIcon(new ImageIcon(img));
-		
-		panelMapa.add(lblNewLabel_1);
 
 		frame.getContentPane().add(splitPane);
 	}
@@ -143,6 +137,14 @@ public class Aplicacion {
 	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
 		panelIzquierdo.setLayout(null);
+		splitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, new PropertyChangeListener() {
+			int lastLocation = splitPane.getDividerLocation();
+
+			@Override
+			public void propertyChange(PropertyChangeEvent e) {
+				splitPane.setDividerLocation(lastLocation);
+			}
+		});
 		return splitPane;
 	}
 
@@ -150,20 +152,13 @@ public class Aplicacion {
 		JPanel panelIzquierdo = new JPanel();
 		panelIzquierdo.setBackground(Color.WHITE);
 		panelIzquierdo.setPreferredSize(new Dimension(350, 700));
-		
-		JLabel lblNewLabel = new JLabel("");
-		
-		Image img = new ImageIcon(this.getClass().getResource("/marco_izquierda.png")).getImage();
-		lblNewLabel.setIcon(new ImageIcon(img));
-		
-		lblNewLabel.setBounds(0, 0, 350, 700);
-		panelIzquierdo.add(lblNewLabel);
+
 		return panelIzquierdo;
 	}
 
 	private void crearFrame() {
 		frame = new JFrame();
-		frame.setBounds(300, 100, 700, 700);
+		frame.setBounds(300, 70, 700, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("JMapViewer");
 	}
