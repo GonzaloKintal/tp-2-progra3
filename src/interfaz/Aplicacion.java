@@ -1,8 +1,10 @@
 package interfaz;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -93,7 +95,67 @@ public class Aplicacion {
 	}
 
 	private void agregarBotones(JPanel panelIzquierdo) {
+
+		// *Botones similaridad**//
+		List<JButton> listaBotonesSimilaridad = new ArrayList<>();
+		Provincia[] provincias = pais.obtenerProvincias();
+		int cantProvincias = provincias.length;
+		int y = 10;
+		int x = 20;
+		for (int i = 0; i < cantProvincias; i++) {
+			JButton botonAbrirProvincia = new JButton(provincias[i].getNombre());
+			botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			botonAbrirProvincia.setBounds(x, y, 155, 23);
+			botonAbrirProvincia.setBackground(new Color(189, 242, 189));
+			y += 30;
+			if (i == 11) {
+				y = 10;
+				x += 160;
+			}
+			listaBotonesSimilaridad.add(botonAbrirProvincia);
+
+			// Crear una clase interna para el ActionListener que tenga acceso al índice i
+			final int indiceProvincia = i; // Declarar final para que pueda ser accedido dentro de la clase interna
+
+			botonAbrirProvincia.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					String nombreProvincia = pais.obtenerProvincias()[indiceProvincia].getNombre();
+
+					InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(indiceProvincia),
+							nombreProvincia, indiceProvincia);
+					inputWindow.setVisible(true);
+					botonAbrirProvincia.setEnabled(false);
+					botonAbrirProvincia.setBackground(new Color(230, 230, 230));
+
+				}
+			});
+
+			panelIzquierdo.add(botonAbrirProvincia);
+
+		}
+
+		JButton asignarSimilaridades = new JButton("Asignar aleatoriamente");
+		asignarSimilaridades.setBackground(new Color(106, 226, 246));
+		asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
+		asignarSimilaridades.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		asignarSimilaridades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (JButton boton : listaBotonesSimilaridad) {
+					boton.setEnabled(false);
+					boton.setBackground(new Color(230, 230, 230));
+				}
+				pais.asignarPesosAleatoriamente();
+				pais.actualizarSimililaridades();
+			}
+		});
+		asignarSimilaridades.setBounds(60, 410, 230, 40);
+		panelIzquierdo.add(asignarSimilaridades);
+
 		JButton botonGenerarAGM = new JButton("Generar árbol mínimo");
+		botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
+		botonGenerarAGM.setBackground(new Color(106, 226, 246));
+		botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		botonGenerarAGM.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -104,10 +166,13 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		botonGenerarAGM.setBounds(87, 505, 158, 23);
+		botonGenerarAGM.setBounds(60, 458, 230, 40);
 		panelIzquierdo.add(botonGenerarAGM);
 
 		JButton botonComponentesConexas = new JButton("Generar regiones conexas");
+		botonComponentesConexas.setFont(new Font("Arial", Font.BOLD, 14));
+		botonComponentesConexas.setBackground(new Color(106, 226, 246));
+		botonComponentesConexas.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		botonComponentesConexas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -118,75 +183,27 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		botonComponentesConexas.setBounds(87, 539, 158, 23);
+		botonComponentesConexas.setBounds(60, 504, 230, 40);
 		panelIzquierdo.add(botonComponentesConexas);
 
-		
-		
-		//*Botones similaridad**//
-		List<JButton> listaBotonesSimilaridad = new ArrayList<>();
-		Provincia[] provincias = pais.obtenerProvincias();
-		int cantProvincias = provincias.length;
-		int y = 10;
-		int x = 20;
-		for (int i = 0; i < cantProvincias; i++) {
-			JButton botonAbrirProvincia = new JButton(provincias[i].getNombre());
-			botonAbrirProvincia.setBounds(x, y, 135, 23);
-			y += 30;
-			if (i == 11) {
-				y = 10;
-				x += 150;
-			}
-			listaBotonesSimilaridad.add(botonAbrirProvincia);
-
-			// Crear una clase interna para el ActionListener que tenga acceso al índice i
-			final int indiceProvincia = i; // Declarar final para que pueda ser accedido dentro de la clase interna
-
-			botonAbrirProvincia.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				
-					String nombreProvincia=pais.obtenerProvincias()[indiceProvincia].getNombre();
-					
-					InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(indiceProvincia),nombreProvincia,indiceProvincia);
-					inputWindow.setVisible(true);
-					botonAbrirProvincia.setEnabled(false);
-			
-
-				}
-			});
-
-			panelIzquierdo.add(botonAbrirProvincia);
-
-		}
-		
-		JButton asignarSimilaridades = new JButton("Asignar aleatoriamente");
-		asignarSimilaridades.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        for (JButton boton : listaBotonesSimilaridad) {
-		            boton.setEnabled(false);
-		        }
-		        pais.asignarPesosAleatoriamente();
-		        pais.actualizarSimililaridades();
-		    }
-		});
-		asignarSimilaridades.setBounds(87, 471, 158, 23);
-		panelIzquierdo.add(asignarSimilaridades);
-		
-		
 		JButton botonReiniciarMapa = new JButton("Reiniciar mapa");
+		botonReiniciarMapa.setFont(new Font("Arial", Font.BOLD, 14));
+		botonReiniciarMapa.setBackground(new Color(106, 226, 246));
+		botonReiniciarMapa.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pais.reestablecerConexionEntreLimitrofes();
 				dibujarMapa();
 				for (JButton boton : listaBotonesSimilaridad) {
-		            boton.setEnabled(true);
-		        }
-				
+					boton.setEnabled(true);
+					boton.setBackground(new Color(189, 242, 189));
+				}
+
 			}
 		});
 
-		botonReiniciarMapa.setBounds(87, 573, 158, 23);
+		botonReiniciarMapa.setBounds(60, 551, 230, 40);
 		panelIzquierdo.add(botonReiniciarMapa);
 	}
 
@@ -214,7 +231,7 @@ public class Aplicacion {
 
 	private void crearFrame() {
 		frame = new JFrame();
-		frame.setBounds(300, 70, 700, 650);
+		frame.setBounds(350, 70, 700, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("JMapViewer");
 	}
