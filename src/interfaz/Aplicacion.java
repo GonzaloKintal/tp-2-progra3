@@ -2,18 +2,24 @@ package interfaz;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
@@ -28,6 +34,9 @@ import utils.Config;
 import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -92,6 +101,7 @@ public class Aplicacion {
 		panelMapa.add(mapa);
 
 		frame.getContentPane().add(splitPane);
+
 	}
 
 	private void agregarBotones(JPanel panelIzquierdo) {
@@ -149,7 +159,7 @@ public class Aplicacion {
 				pais.actualizarSimililaridades();
 			}
 		});
-		asignarSimilaridades.setBounds(60, 410, 230, 40);
+		asignarSimilaridades.setBounds(60, 380, 230, 40);
 		panelIzquierdo.add(asignarSimilaridades);
 
 		JButton botonGenerarAGM = new JButton("Generar árbol mínimo");
@@ -166,8 +176,16 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		botonGenerarAGM.setBounds(60, 458, 230, 40);
+		botonGenerarAGM.setBounds(60, 430, 230, 40);
 		panelIzquierdo.add(botonGenerarAGM);
+
+		JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
+		textoCantRegiones.setBounds(60, 475, 230, 40);
+		panelIzquierdo.add(textoCantRegiones);
+
+		JTextField inputCantRegiones = new JTextField();
+		inputCantRegiones.setBounds(240, 483, 50, 25);
+		panelIzquierdo.add(inputCantRegiones);
 
 		JButton botonComponentesConexas = new JButton("Generar regiones conexas");
 		botonComponentesConexas.setFont(new Font("Arial", Font.BOLD, 14));
@@ -178,17 +196,43 @@ public class Aplicacion {
 			public void mouseClicked(MouseEvent e) {
 				mapa.removeAllMapPolygons();
 
-				pais.dividirRegiones(3);
+				String valorIngresado = inputCantRegiones.getText();
+				if (valorIngresado.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Indique por favor la cantidad de regiones conexas", "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					int cantidadRegiones = Integer.parseInt(valorIngresado);
+					if (cantidadRegiones <= 0 || cantidadRegiones > 23) {
+						JOptionPane.showMessageDialog(null, "La cantidad de regiones conexas debe ser entre 1 a 23",
+								"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+					} else {
+						pais.dividirRegiones(cantidadRegiones);
+					}
+				}
 
 				dibujarMapa();
 			}
 		});
-		botonComponentesConexas.setBounds(60, 504, 230, 40);
+		botonComponentesConexas.setBounds(60, 510, 230, 40);
 		panelIzquierdo.add(botonComponentesConexas);
+
+		JButton botonVerInfoRegiones = new JButton("Ver información de las regiones");
+		botonVerInfoRegiones.setFont(new Font("Arial", Font.BOLD, 12));
+		botonVerInfoRegiones.setBackground(new Color(250, 255, 110));
+		botonVerInfoRegiones.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		botonVerInfoRegiones.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Hay que mostrar la info");
+			}
+		});
+		botonVerInfoRegiones.setBounds(60, 560, 230, 30);
+		panelIzquierdo.add(botonVerInfoRegiones);
 
 		JButton botonReiniciarMapa = new JButton("Reiniciar mapa");
 		botonReiniciarMapa.setFont(new Font("Arial", Font.BOLD, 14));
-		botonReiniciarMapa.setBackground(new Color(106, 226, 246));
+		botonReiniciarMapa.setBackground(new Color(219, 101, 90));
+		botonReiniciarMapa.setForeground(Color.WHITE);
 		botonReiniciarMapa.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
 			@Override
@@ -198,13 +242,29 @@ public class Aplicacion {
 				for (JButton boton : listaBotonesSimilaridad) {
 					boton.setEnabled(true);
 					boton.setBackground(new Color(189, 242, 189));
+					inputCantRegiones.setText("");
 				}
 
 			}
 		});
-
-		botonReiniciarMapa.setBounds(60, 551, 230, 40);
+		botonReiniciarMapa.setBounds(60, 600, 230, 40);
 		panelIzquierdo.add(botonReiniciarMapa);
+
+		// Agrego el JLabel con el logo de GitHub
+		Image githubImage = new ImageIcon(this.getClass().getResource("/github-logo.png")).getImage();
+		JLabel githubLabel = new JLabel();
+		githubLabel.setIcon(new ImageIcon(githubImage));
+		githubLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		githubLabel.setBounds(280, 610, 45, 45);
+		githubLabel.setToolTipText("Ir al repositorio de GitHub");
+		mapa.add(githubLabel);
+
+		githubLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				abrirEnlaceGitHub();
+			}
+		});
 	}
 
 	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
@@ -231,7 +291,7 @@ public class Aplicacion {
 
 	private void crearFrame() {
 		frame = new JFrame();
-		frame.setBounds(350, 70, 700, 650);
+		frame.setBounds(350, 30, 700, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("JMapViewer");
 	}
@@ -290,5 +350,13 @@ public class Aplicacion {
 				mapa.setDisplayPosition(posicion, pais.getZoom());
 			}
 		});
+	}
+
+	private void abrirEnlaceGitHub() {
+		try {
+			Desktop.getDesktop().browse(new URI("https://github.com/GonzaloKintal/tp-2-progra3"));
+		} catch (IOException | URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 }

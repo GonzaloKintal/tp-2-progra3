@@ -23,7 +23,7 @@ public class Grafo {
 			for (int j = 0; j < tamano(); j++) {
 				if (existeArista(i, j)) {
 					Random rd = new Random();
-					agregarPeso(i, j, rd.nextInt(200));
+					agregarPeso(i, j, rd.nextInt(101));
 				}
 			}
 		}
