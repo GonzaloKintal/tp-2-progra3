@@ -141,7 +141,7 @@ public class Aplicacion {
 		btnAbrirVentana.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Crear e mostrar la nueva ventana cuando se hace clic en el botón
-				InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(0));
+				InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(5));
 				inputWindow.setVisible(true);
 			}
 		});
