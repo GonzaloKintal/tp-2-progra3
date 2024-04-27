@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,5 +85,9 @@ public class Pais {
 	
 	public String getNombre() {
 		return nombre;
+	}
+
+	public ArrayList<String> obtenerLimitrofesDe(int indiceProvincia) {
+		return this.provincias[indiceProvincia].limitrofes;
 	}
 }

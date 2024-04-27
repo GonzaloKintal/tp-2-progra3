@@ -29,6 +29,8 @@ import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.MouseWheelEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -105,7 +107,7 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		botonGenerarAGM.setBounds(68, 86, 158, 23);
+		botonGenerarAGM.setBounds(87, 505, 158, 23);
 		panelIzquierdo.add(botonGenerarAGM);
 
 		JButton botonComponentesConexas = new JButton("Generar regiones conexas");
@@ -119,7 +121,7 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		botonComponentesConexas.setBounds(23, 164, 256, 23);
+		botonComponentesConexas.setBounds(42, 539, 256, 23);
 		panelIzquierdo.add(botonComponentesConexas);
 
 		JButton botonReiniciarMapa = new JButton("Reiniciar mapa");
@@ -130,8 +132,22 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		botonReiniciarMapa.setBounds(81, 259, 135, 23);
+		botonReiniciarMapa.setBounds(100, 573, 135, 23);
 		panelIzquierdo.add(botonReiniciarMapa);
+
+		// Crear botón
+		JButton btnAbrirVentana = new JButton("Abrir Ventana");
+		btnAbrirVentana.setBounds(100, 250, 135, 23);
+		btnAbrirVentana.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Crear e mostrar la nueva ventana cuando se hace clic en el botón
+				InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(0));
+				inputWindow.setVisible(true);
+			}
+		});
+
+		// Agregar botón a la ventana principal
+		panelIzquierdo.add(btnAbrirVentana);
 	}
 
 	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
