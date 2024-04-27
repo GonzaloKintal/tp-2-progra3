@@ -3,13 +3,11 @@ package interfaz;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,7 +32,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import javax.swing.JLabel;
 
 public class Aplicacion {
 
@@ -121,33 +118,76 @@ public class Aplicacion {
 				dibujarMapa();
 			}
 		});
-		botonComponentesConexas.setBounds(42, 539, 256, 23);
+		botonComponentesConexas.setBounds(87, 539, 158, 23);
 		panelIzquierdo.add(botonComponentesConexas);
 
+		
+		
+		//*Botones similaridad**//
+		List<JButton> listaBotonesSimilaridad = new ArrayList<>();
+		Provincia[] provincias = pais.obtenerProvincias();
+		int cantProvincias = provincias.length;
+		int y = 10;
+		int x = 20;
+		for (int i = 0; i < cantProvincias; i++) {
+			JButton botonAbrirProvincia = new JButton(provincias[i].getNombre());
+			botonAbrirProvincia.setBounds(x, y, 135, 23);
+			y += 30;
+			if (i == 11) {
+				y = 10;
+				x += 150;
+			}
+			listaBotonesSimilaridad.add(botonAbrirProvincia);
+
+			// Crear una clase interna para el ActionListener que tenga acceso al índice i
+			final int indiceProvincia = i; // Declarar final para que pueda ser accedido dentro de la clase interna
+
+			botonAbrirProvincia.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				
+					String nombreProvincia=pais.obtenerProvincias()[indiceProvincia].getNombre();
+					
+					InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(indiceProvincia),nombreProvincia,indiceProvincia);
+					inputWindow.setVisible(true);
+					botonAbrirProvincia.setEnabled(false);
+			
+
+				}
+			});
+
+			panelIzquierdo.add(botonAbrirProvincia);
+
+		}
+		
+		JButton asignarSimilaridades = new JButton("Asignar aleatoriamente");
+		asignarSimilaridades.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        for (JButton boton : listaBotonesSimilaridad) {
+		            boton.setEnabled(false);
+		        }
+		        pais.asignarPesosAleatoriamente();
+		        pais.actualizarSimililaridades();
+		    }
+		});
+		asignarSimilaridades.setBounds(87, 471, 158, 23);
+		panelIzquierdo.add(asignarSimilaridades);
+		
+		
 		JButton botonReiniciarMapa = new JButton("Reiniciar mapa");
 		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pais.reestablecerConexionEntreLimitrofes();
 				dibujarMapa();
+				for (JButton boton : listaBotonesSimilaridad) {
+		            boton.setEnabled(true);
+		        }
+				
 			}
 		});
-		botonReiniciarMapa.setBounds(100, 573, 135, 23);
+
+		botonReiniciarMapa.setBounds(87, 573, 158, 23);
 		panelIzquierdo.add(botonReiniciarMapa);
-
-		// Crear botón
-		JButton btnAbrirVentana = new JButton("Abrir Ventana");
-		btnAbrirVentana.setBounds(100, 250, 135, 23);
-		btnAbrirVentana.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Crear e mostrar la nueva ventana cuando se hace clic en el botón
-				InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(5));
-				inputWindow.setVisible(true);
-			}
-		});
-
-		// Agregar botón a la ventana principal
-		panelIzquierdo.add(btnAbrirVentana);
 	}
 
 	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {

@@ -10,15 +10,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+
 import javax.swing.JTextField;
 
 public class InputWindow extends JFrame {
 
-	public InputWindow(ArrayList<String> provinciasLimitrofes) {
+	public InputWindow(ArrayList<String> provinciasLimitrofes, String nombreProvincia, int indiceProvincia) {
 		// Configuración de la ventana
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //no deja que el usuario cierre la ventana
 		int cantProvincias = provinciasLimitrofes.size();
-		setTitle("ASIGNACION SIMILIARIDAD");
+		setTitle("Similaridad " + nombreProvincia);
 		setSize(350, 500);
 		setLocationRelativeTo(null);
 
@@ -26,7 +27,6 @@ public class InputWindow extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		JTextField[] pesosLimitrofes = new JTextField[cantProvincias];
-		int x = 0;
 		int y = 0;
 		int width = 100;
 		int heigth = 100;
@@ -42,13 +42,12 @@ public class InputWindow extends JFrame {
 
 		}
 
-		JButton botonTerminar = new JButton("Listorti José María");
+		JButton botonTerminar = new JButton("Confirmar");
 		botonTerminar.setBounds(50, 300, 200, 100);
 		panel.add(botonTerminar);
 
 		// Agregar panel a la ventana
 		getContentPane().add(panel);
-
 		botonTerminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int botonTerminarCont = 0;
@@ -60,14 +59,14 @@ public class InputWindow extends JFrame {
 						botonTerminarCont++;
 					} else {
 						JOptionPane.showMessageDialog(panel,
-								"El peso de " + provinciasLimitrofes.get(i) + " debe ser un numero", "ATENCIÓN",
+								"El peso de " + provinciasLimitrofes.get(i) + " debe ser un numero entero", "ATENCIÓN",
 								JOptionPane.WARNING_MESSAGE);
 
 					}
 
 				}
 				if (botonTerminarCont == pesosLimitrofes.length) {
-					botonTerminar.setEnabled(false);
+					dispose();
 
 				}
 			}

@@ -33,7 +33,6 @@ public class Pais {
 		this.nombre = info.getNombre();
 		
 		asignarAristasLimitrofesPorDefecto();
-		this.grafo.prueba();
 	}
 
 	public Provincia[] obtenerProvincias() {
@@ -89,5 +88,10 @@ public class Pais {
 
 	public ArrayList<String> obtenerLimitrofesDe(int indiceProvincia) {
 		return this.provincias[indiceProvincia].limitrofes;
+	}
+
+	public void asignarPesosAleatoriamente() {
+		grafo.prueba();
+		
 	}
 }
