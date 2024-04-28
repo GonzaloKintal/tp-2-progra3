@@ -28,7 +28,10 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
+import org.openstreetmap.gui.jmapviewer.TileController;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
+import org.openstreetmap.gui.jmapviewer.interfaces.TileSource;
+import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
 
 import logica.Provincia;
 import logica.Pais;
@@ -264,6 +267,12 @@ public class Aplicacion {
 		githubLabel.setBounds(280, 610, 45, 45);
 		githubLabel.setToolTipText("Ir al repositorio de GitHub");
 		mapa.add(githubLabel);
+		
+		Image islasImage = new ImageIcon(this.getClass().getResource("/malvinas_argentinas.png")).getImage();
+		JLabel islasLabel= new JLabel();
+		islasLabel.setIcon(new ImageIcon(islasImage));
+		islasLabel.setBounds(-350, 5, 700, 650);
+		mapa.add(islasLabel);
 
 		githubLabel.addMouseListener(new MouseAdapter() {
 			@Override
