@@ -7,11 +7,13 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
@@ -117,6 +120,7 @@ public class Aplicacion {
 			botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			botonAbrirProvincia.setBounds(x, y, 155, 23);
 			botonAbrirProvincia.setBackground(new Color(189, 242, 189));
+
 			y += 30;
 			if (i == 11) {
 				y = 10;
@@ -184,6 +188,8 @@ public class Aplicacion {
 		panelIzquierdo.add(textoCantRegiones);
 
 		JTextField inputCantRegiones = new JTextField();
+		Border border = BorderFactory.createLineBorder(Color.GRAY);
+		inputCantRegiones.setBorder(border);
 		inputCantRegiones.setBounds(240, 483, 50, 25);
 		panelIzquierdo.add(inputCantRegiones);
 
@@ -283,7 +289,7 @@ public class Aplicacion {
 
 	private JPanel crearPanelIzquierdo() {
 		JPanel panelIzquierdo = new JPanel();
-		panelIzquierdo.setBackground(Color.WHITE);
+		panelIzquierdo.setBackground(new Color(170, 211, 223));
 		panelIzquierdo.setPreferredSize(new Dimension(350, 700));
 
 		return panelIzquierdo;
@@ -293,12 +299,13 @@ public class Aplicacion {
 		frame = new JFrame();
 		frame.setBounds(350, 30, 700, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("JMapViewer");
+		frame.setTitle("Regiones de la Argentina");
+		frame.setResizable(false);
 	}
 
 	private void crearMapa() {
 		mapa = new JMapViewer();
-		mapa.setBounds(0, 0, 350, 700);
+		mapa.setBounds(0, 0, 340, 700);
 		mapa.setZoomControlsVisible(false);
 
 		Coordinate posicion = new Coordinate(pais.latitud, pais.longitud);

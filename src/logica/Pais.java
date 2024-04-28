@@ -17,13 +17,6 @@ public class Pais {
 	public double longitud;
 	private Grafo grafo;
 	
-//	public Pais() {
-//		this.provincias = Config.PROVINCIAS;
-//		this.grafo = new Grafo(provincias.length);
-//		asignarAristasLimitrofesPorDefecto();
-//		this.grafo.prueba();
-//	}
-	
 	public Pais(PaisType info) {
 		this.provincias = info.getProvincias();
 		this.grafo = new Grafo(provincias.length);
