@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,10 +27,7 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
-import org.openstreetmap.gui.jmapviewer.TileController;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
-import org.openstreetmap.gui.jmapviewer.interfaces.TileSource;
-import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
 
 import logica.Provincia;
 import logica.Pais;
