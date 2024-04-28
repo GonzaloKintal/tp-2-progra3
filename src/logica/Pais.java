@@ -7,6 +7,7 @@ import java.util.Set;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 
 import utils.PaisType;
+import utils.Tupla;
 
 public class Pais {
 	
@@ -54,6 +55,42 @@ public class Pais {
 		}
 		return vecinos;
 	}
+	
+	public ArrayList<Tupla<String, Integer>> obtenerAristasLimitrofes(String nombreProvincia) {
+		ArrayList<Tupla<String, Integer>> ret = new ArrayList<>();
+		
+		ArrayList<String> limitrofes = dameLimitrofesDe(nombreProvincia); 
+		System.out.println("limitrofes" + limitrofes.size());
+		
+		int indiceBsAs = indiceDe(nombreProvincia);
+		System.out.println(indiceBsAs);
+		
+		for(String limit: limitrofes) {
+			int peso = this.grafo.consultarPeso(indiceBsAs, indiceDe(limit));
+			ret.add(new Tupla<>(limit, peso));
+		}
+		
+		return ret;
+	}
+	
+	private int indiceDe(String nombre) {
+		int idx = 0;
+		
+		for(int i = 0; i < this.provincias.length; i++) {
+			if( provincias[i].nombre.equals(nombre)) {
+				idx = i;
+			}
+		}
+		
+		return idx;
+	}
+	
+	private ArrayList<String> dameLimitrofesDe(String nombre) {
+		ArrayList<String> limitrofes = this.provincias[indiceDe(nombre)].limitrofes;
+		
+		return limitrofes;
+	}
+
 	
 	public Grafo obtenerGrafo() {
 		return this.grafo;

@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,9 +15,11 @@ import javax.swing.JPanel;
 
 import javax.swing.JTextField;
 
+import utils.Tupla;
+
 public class InputWindow extends JFrame {
 
-	public InputWindow(ArrayList<String> provinciasLimitrofes, String nombreProvincia, int indiceProvincia) {
+	public InputWindow(ArrayList<Tupla<String, Integer>> provinciasLimitrofes, String nombreProvincia, int indiceProvincia) {
 		// Configuración de la ventana
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
 		int cantProvincias = provinciasLimitrofes.size();
@@ -33,8 +34,9 @@ public class InputWindow extends JFrame {
 		int y = 0;
 		int heigth = 100;
 		for (int i = 0; i < cantProvincias; i++) {
-			JLabel label = new JLabel(provinciasLimitrofes.get(i));
+			JLabel label = new JLabel(provinciasLimitrofes.get(i).getPrimero());
 			JTextField pesoLimitrofe = new JTextField();
+			pesoLimitrofe.setText(Integer.toString(provinciasLimitrofes.get(i).getSegundo()));
 			label.setBounds(20, y, 120, heigth);
 			pesoLimitrofe.setBounds(150, y + 35, 150, 30);
 			y += 40;

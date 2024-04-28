@@ -32,6 +32,7 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import logica.Provincia;
 import logica.Pais;
 import utils.Config;
+import utils.Tupla;
 
 import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
@@ -134,9 +135,9 @@ public class Aplicacion {
 				public void actionPerformed(ActionEvent e) {
 
 					String nombreProvincia = pais.obtenerProvincias()[indiceProvincia].getNombre();
+					ArrayList<Tupla<String, Integer>> limitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
 
-					InputWindow inputWindow = new InputWindow(pais.obtenerLimitrofesDe(indiceProvincia),
-							nombreProvincia, indiceProvincia);
+					InputWindow inputWindow = new InputWindow(limitrofes,nombreProvincia, indiceProvincia);
 					inputWindow.setVisible(true);
 					botonAbrirProvincia.setEnabled(false);
 					botonAbrirProvincia.setBackground(new Color(230, 230, 230));
@@ -162,6 +163,7 @@ public class Aplicacion {
 				pais.actualizarSimililaridades();
 			}
 		});
+		
 		asignarSimilaridades.setBounds(60, 380, 230, 40);
 		panelIzquierdo.add(asignarSimilaridades);
 
