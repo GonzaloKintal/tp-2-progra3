@@ -213,8 +213,8 @@ public class Aplicacion {
 				}
 
 				if (cantidadRegiones <= 0 || cantidadRegiones > 23) {
-					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_CANT_REGIONES_INVALIDO,
-							"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_CANT_REGIONES_INVALIDO, "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
 				} else {
 					pais.dividirRegiones(cantidadRegiones);
 				}
@@ -263,7 +263,7 @@ public class Aplicacion {
 		JLabel githubLabel = new JLabel();
 		githubLabel.setIcon(new ImageIcon(githubImage));
 		githubLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		githubLabel.setBounds(280, 610, 45, 45);
+		githubLabel.setBounds(285, 610, 45, 45);
 		githubLabel.setToolTipText("Ir al repositorio de GitHub");
 		mapa.add(githubLabel);
 
@@ -324,7 +324,7 @@ public class Aplicacion {
 
 	private void dibujarMapa() {
 		mapa.removeAllMapPolygons();
-		
+
 		Provincia[] arrProvincias = pais.obtenerProvincias();
 
 		for (int i = 0; i < arrProvincias.length; i++) {
