@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import logica.Pais;
 import utils.Tupla;

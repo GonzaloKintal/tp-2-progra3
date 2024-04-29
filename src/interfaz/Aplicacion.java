@@ -168,15 +168,19 @@ public class Aplicacion {
 		botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
 //		botonGenerarAGM.setBackground(new Color(106, 226, 246));
 		botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonGenerarAGM.setEnabled(false);
 		if (botonGenerarAGM.isEnabled()) {
 			botonGenerarAGM.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					pais.actualizarSimililaridades();
-					dibujarMapa();
-					// botonGenerarAGM.setEnabled(false);
-					// botonGenerarAGM.setBackground(new Color(220, 220, 220));
+					if (todasLasProvinciasDeshabilitadas(listaBotonesSimilaridad)) {
+						pais.actualizarSimililaridades();
+						dibujarMapa();
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Por favor, asigne similaridad entre provincias", "ATENCIÓN",
+								JOptionPane.WARNING_MESSAGE);
+						
+					}
 				}
 			});
 		}
@@ -186,11 +190,6 @@ public class Aplicacion {
 		JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
 		textoCantRegiones.setBounds(60, 475, 230, 40);
 		panelIzquierdo.add(textoCantRegiones);
-
-		if (todasLasProvinciasDeshabilitadas(listaBotonesSimilaridad)) {
-			System.out.println("asd");
-			botonGenerarAGM.setEnabled(true);
-		}
 
 		JTextField inputCantRegiones = new JTextField();
 		Border border = BorderFactory.createLineBorder(Color.GRAY);
@@ -215,18 +214,18 @@ public class Aplicacion {
 
 				int cantidadRegiones = Integer.parseInt(valorIngresado);
 
+				if (cantidadRegiones <= 0 || cantidadRegiones > 23) {
+					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_CANT_REGIONES_INVALIDO, "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+					
+				}
 				if (!pais.esPosibleDividirRegiones(cantidadRegiones)) {
 					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_DESCONEXAR, "ATENCIÓN",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-
-				if (cantidadRegiones <= 0 || cantidadRegiones > 23) {
-					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_CANT_REGIONES_INVALIDO, "ATENCIÓN",
-							JOptionPane.WARNING_MESSAGE);
-				} else {
-					pais.dividirRegiones(cantidadRegiones);
-				}
+				pais.dividirRegiones(cantidadRegiones);
 				dibujarMapa();
 			}
 		});
@@ -260,7 +259,7 @@ public class Aplicacion {
 					boton.setEnabled(true);
 					boton.setBackground(new Color(189, 242, 189));
 					inputCantRegiones.setText("");
-//					botonGenerarAGM.setEnabled(true);
+//
 				}
 
 			}
