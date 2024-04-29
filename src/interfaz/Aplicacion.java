@@ -166,22 +166,31 @@ public class Aplicacion {
 
 		JButton botonGenerarAGM = new JButton("Generar árbol mínimo");
 		botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
-		botonGenerarAGM.setBackground(new Color(106, 226, 246));
+//		botonGenerarAGM.setBackground(new Color(106, 226, 246));
 		botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonGenerarAGM.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				pais.actualizarSimililaridades();
-
-				dibujarMapa();
-			}
-		});
+		botonGenerarAGM.setEnabled(false);
+		if (botonGenerarAGM.isEnabled()) {
+			botonGenerarAGM.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					pais.actualizarSimililaridades();
+					dibujarMapa();
+					// botonGenerarAGM.setEnabled(false);
+					// botonGenerarAGM.setBackground(new Color(220, 220, 220));
+				}
+			});
+		}
 		botonGenerarAGM.setBounds(60, 430, 230, 40);
 		panelIzquierdo.add(botonGenerarAGM);
 
 		JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
 		textoCantRegiones.setBounds(60, 475, 230, 40);
 		panelIzquierdo.add(textoCantRegiones);
+
+		if (todasLasProvinciasDeshabilitadas(listaBotonesSimilaridad)) {
+			System.out.println("asd");
+			botonGenerarAGM.setEnabled(true);
+		}
 
 		JTextField inputCantRegiones = new JTextField();
 		Border border = BorderFactory.createLineBorder(Color.GRAY);
@@ -251,6 +260,7 @@ public class Aplicacion {
 					boton.setEnabled(true);
 					boton.setBackground(new Color(189, 242, 189));
 					inputCantRegiones.setText("");
+//					botonGenerarAGM.setEnabled(true);
 				}
 
 			}
@@ -279,6 +289,15 @@ public class Aplicacion {
 				abrirEnlaceGitHub();
 			}
 		});
+
+	}
+
+	private boolean todasLasProvinciasDeshabilitadas(List<JButton> listaBotonesSimilaridad) {
+		boolean ret = true;
+		for (JButton boton : listaBotonesSimilaridad) {
+			ret &= !boton.isEnabled();
+		}
+		return ret;
 	}
 
 	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {

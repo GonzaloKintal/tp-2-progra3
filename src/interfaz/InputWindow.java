@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import logica.Pais;
 import utils.Tupla;
@@ -21,9 +23,9 @@ import utils.Tupla;
 public class InputWindow extends JFrame {
 
 	public InputWindow(String nombreProvincia, Pais pais) {
-		int indiceProvincia= pais.indiceDe(nombreProvincia);
+		int indiceProvincia = pais.indiceDe(nombreProvincia);
 		ArrayList<Tupla<String, Integer>> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
-		
+
 		// Configuración de la ventana
 //		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
 		int cantProvinciasLimitrofes = provinciasLimitrofes.size();
@@ -40,7 +42,14 @@ public class InputWindow extends JFrame {
 		for (int i = 0; i < cantProvinciasLimitrofes; i++) {
 			JLabel label = new JLabel(provinciasLimitrofes.get(i).getPrimero());
 			JTextField pesoLimitrofe = new JTextField();
-			pesoLimitrofe.setText(Integer.toString(provinciasLimitrofes.get(i).getSegundo()));
+			int peso = provinciasLimitrofes.get(i).getSegundo();
+			if (peso > 0) {
+				pesoLimitrofe.setEditable(false);
+				pesoLimitrofe.setBackground(new Color(220, 220, 220));
+				pesoLimitrofe.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+			}
+			pesoLimitrofe.setText(Integer.toString(peso));
+
 			label.setBounds(20, y, 120, heigth);
 			pesoLimitrofe.setBounds(150, y + 35, 150, 30);
 			y += 40;
@@ -50,39 +59,37 @@ public class InputWindow extends JFrame {
 
 		}
 
-		JButton botonTerminar = new JButton("Confirmar");
-		botonTerminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonTerminar.setBounds(66, 330, 200, 100);
-		botonTerminar.setBackground(new Color(29, 245, 87));
-		botonTerminar.setFont(new Font("Arial", Font.BOLD, 14));
-		panel.add(botonTerminar);
+		JButton botonConfirmar = new JButton("Confirmar");
+		botonConfirmar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		botonConfirmar.setBounds(66, 330, 200, 100);
+		botonConfirmar.setBackground(new Color(29, 245, 87));
+		botonConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
+		panel.add(botonConfirmar);
 
 		// Agregar panel a la ventana
 		getContentPane().add(panel);
 
-		botonTerminar.addActionListener(new ActionListener() {
+		botonConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int botonTerminarCont = 0;
 				for (int i = 0; i < cantProvinciasLimitrofes; i++) {
 					String pesoProvincia = pesosLimitrofes[i].getText();
 					int pesoProvinciaInt = Integer.parseInt(pesoProvincia);
-					
+
 					int indiceSegundaProvincia = pais.indiceDe(provinciasLimitrofes.get(i).getPrimero());
-					
-					pais.actualizarSimilaridad(indiceProvincia, indiceSegundaProvincia, pesoProvinciaInt);
-					
-					if (!pesoProvincia.isEmpty() && esUnNumero(pesoProvincia)) {
+
+					if (!pesoProvincia.isEmpty() && esUnNumero(pesoProvincia) && pesoProvinciaInt > 0) {
+						pais.actualizarSimilaridad(indiceProvincia, indiceSegundaProvincia, pesoProvinciaInt);
 						pesosLimitrofes[i].setBackground(Color.gray);
 						pesosLimitrofes[i].setEnabled(false);
 						botonTerminarCont++;
-					} else {
-						JOptionPane.showMessageDialog(panel,
-								"El peso de " + provinciasLimitrofes.get(i) + " debe ser un numero entero", "ATENCIÓN",
-								JOptionPane.WARNING_MESSAGE);
-
 					}
 
 				}
+				if (botonTerminarCont < cantProvinciasLimitrofes)
+					JOptionPane.showMessageDialog(panel, "Por favor, asigne similaridad positiva a las provincias",
+							"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+
 				if (botonTerminarCont == pesosLimitrofes.length) {
 					dispose();
 				}
