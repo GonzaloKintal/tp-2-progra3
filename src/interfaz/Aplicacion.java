@@ -32,7 +32,6 @@ import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import logica.Provincia;
 import logica.Pais;
 import utils.Config;
-import utils.Tupla;
 
 import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
@@ -133,11 +132,9 @@ public class Aplicacion {
 
 			botonAbrirProvincia.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					String nombreProvincia = pais.obtenerNombrePorIndice(indiceProvincia);
 
-					String nombreProvincia = pais.obtenerProvincias()[indiceProvincia].getNombre();
-					ArrayList<Tupla<String, Integer>> limitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
-
-					InputWindow inputWindow = new InputWindow(limitrofes,nombreProvincia, indiceProvincia);
+					InputWindow inputWindow = new InputWindow(nombreProvincia, pais);
 					inputWindow.setVisible(true);
 					botonAbrirProvincia.setEnabled(false);
 					botonAbrirProvincia.setBackground(new Color(230, 230, 230));
@@ -163,7 +160,7 @@ public class Aplicacion {
 				pais.actualizarSimililaridades();
 			}
 		});
-		
+
 		asignarSimilaridades.setBounds(60, 380, 230, 40);
 		panelIzquierdo.add(asignarSimilaridades);
 
@@ -174,8 +171,6 @@ public class Aplicacion {
 		botonGenerarAGM.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				mapa.removeAllMapPolygons();
-
 				pais.actualizarSimililaridades();
 
 				dibujarMapa();
@@ -201,22 +196,28 @@ public class Aplicacion {
 		botonComponentesConexas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				mapa.removeAllMapPolygons();
-
 				String valorIngresado = inputCantRegiones.getText();
+
 				if (valorIngresado.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Indique por favor la cantidad de regiones conexas", "ATENCIÓN",
+					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_REGIONES_VACIO, "ATENCIÓN",
 							JOptionPane.WARNING_MESSAGE);
-				} else {
-					int cantidadRegiones = Integer.parseInt(valorIngresado);
-					if (cantidadRegiones <= 0 || cantidadRegiones > 23) {
-						JOptionPane.showMessageDialog(null, "La cantidad de regiones conexas debe ser entre 1 a 23",
-								"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
-					} else {
-						pais.dividirRegiones(cantidadRegiones);
-					}
+					return;
 				}
 
+				int cantidadRegiones = Integer.parseInt(valorIngresado);
+
+				if (!pais.esPosibleDividirRegiones(cantidadRegiones)) {
+					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_DESCONEXAR, "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+
+				if (cantidadRegiones <= 0 || cantidadRegiones > 23) {
+					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_CANT_REGIONES_INVALIDO,
+							"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+				} else {
+					pais.dividirRegiones(cantidadRegiones);
+				}
 				dibujarMapa();
 			}
 		});
@@ -265,9 +266,9 @@ public class Aplicacion {
 		githubLabel.setBounds(280, 610, 45, 45);
 		githubLabel.setToolTipText("Ir al repositorio de GitHub");
 		mapa.add(githubLabel);
-		
+
 		Image islasImage = new ImageIcon(this.getClass().getResource("/malvinas_argentinas.png")).getImage();
-		JLabel islasLabel= new JLabel();
+		JLabel islasLabel = new JLabel();
 		islasLabel.setIcon(new ImageIcon(islasImage));
 		islasLabel.setBounds(-350, 5, 700, 650);
 		mapa.add(islasLabel);
@@ -322,6 +323,8 @@ public class Aplicacion {
 	}
 
 	private void dibujarMapa() {
+		mapa.removeAllMapPolygons();
+		
 		Provincia[] arrProvincias = pais.obtenerProvincias();
 
 		for (int i = 0; i < arrProvincias.length; i++) {

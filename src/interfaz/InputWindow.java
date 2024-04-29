@@ -15,14 +15,18 @@ import javax.swing.JPanel;
 
 import javax.swing.JTextField;
 
+import logica.Pais;
 import utils.Tupla;
 
 public class InputWindow extends JFrame {
 
-	public InputWindow(ArrayList<Tupla<String, Integer>> provinciasLimitrofes, String nombreProvincia, int indiceProvincia) {
+	public InputWindow(String nombreProvincia, Pais pais) {
+		int indiceProvincia= pais.indiceDe(nombreProvincia);
+		ArrayList<Tupla<String, Integer>> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
+		
 		// Configuración de la ventana
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
-		int cantProvincias = provinciasLimitrofes.size();
+//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
+		int cantProvinciasLimitrofes = provinciasLimitrofes.size();
 		setTitle("Similaridad " + nombreProvincia);
 		setSize(350, 500);
 		setLocationRelativeTo(null);
@@ -30,10 +34,10 @@ public class InputWindow extends JFrame {
 		// Layout de la ventana
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		JTextField[] pesosLimitrofes = new JTextField[cantProvincias];
+		JTextField[] pesosLimitrofes = new JTextField[cantProvinciasLimitrofes];
 		int y = 0;
 		int heigth = 100;
-		for (int i = 0; i < cantProvincias; i++) {
+		for (int i = 0; i < cantProvinciasLimitrofes; i++) {
 			JLabel label = new JLabel(provinciasLimitrofes.get(i).getPrimero());
 			JTextField pesoLimitrofe = new JTextField();
 			pesoLimitrofe.setText(Integer.toString(provinciasLimitrofes.get(i).getSegundo()));
@@ -59,9 +63,14 @@ public class InputWindow extends JFrame {
 		botonTerminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int botonTerminarCont = 0;
-				for (int i = 0; i < cantProvincias; i++) {
+				for (int i = 0; i < cantProvinciasLimitrofes; i++) {
 					String pesoProvincia = pesosLimitrofes[i].getText();
 					int pesoProvinciaInt = Integer.parseInt(pesoProvincia);
+					
+					int indiceSegundaProvincia = pais.indiceDe(provinciasLimitrofes.get(i).getPrimero());
+					
+					pais.actualizarSimilaridad(indiceProvincia, indiceSegundaProvincia, pesoProvinciaInt);
+					
 					if (!pesoProvincia.isEmpty() && esUnNumero(pesoProvincia)) {
 						pesosLimitrofes[i].setBackground(Color.gray);
 						pesosLimitrofes[i].setEnabled(false);
