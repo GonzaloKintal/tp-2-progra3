@@ -226,5 +226,17 @@ public class Grafo {
 		System.out.println(pesosDistintos.size());
 		return pesosDistintos.size();
 	}
+
+	public boolean todasLasAristasTienenPeso() {
+		for(int i = 0; i < tamano(); i++) {
+			for(int j = 0; j < tamano(); j++) {
+				if (i!=j && existeArista(i, j) && !(consultarPeso(i, j)>0)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	
 }

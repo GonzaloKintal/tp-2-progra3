@@ -134,4 +134,18 @@ public class Pais {
 	public void actualizarSimilaridad(int indiceProvincia1, int indiceProvincia2, int similaridad) {
 		this.grafo.agregarPeso(indiceProvincia1, indiceProvincia2, similaridad);
 	}
+	
+	public boolean todasLasProvinciasTienenSimilaridad() {
+		return this.grafo.todasLasAristasTienenPeso();
+	}
+	
+	public boolean estaTodoConectado() {
+		return BFS.esConexo(grafo);
+	}
+
+	public boolean esArbol() {
+		return this.provincias.length == this.grafo.obtenerCantidadDeAristas() + 1
+				&& estaTodoConectado();
+	}
+	
 }

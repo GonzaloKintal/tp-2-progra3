@@ -52,6 +52,13 @@ public class Aplicacion {
 	private JMapViewer mapa;
 	private Pais pais;
 
+	private ArrayList<JButton> listaBotonesSimilaridad;
+	private JButton asignarSimilaridades;
+	private JButton botonGenerarAGM;
+	private JButton botonComponentesConexas;
+	private JButton botonVerInfoRegiones;
+	private JButton botonReiniciarMapa;
+
 	/**
 	 * Launch the application.
 	 */
@@ -104,12 +111,60 @@ public class Aplicacion {
 
 		frame.getContentPane().add(splitPane);
 
+		agregarLogoGithub();
+
+		agregarImagenMalvinas();
+
 	}
 
 	private void agregarBotones(JPanel panelIzquierdo) {
 
 		// *Botones similaridad**//
-		List<JButton> listaBotonesSimilaridad = new ArrayList<>();
+		crearBotonesProvincias(panelIzquierdo);
+
+		crearBotonAsignarSimilaridades(panelIzquierdo);
+
+		crearBotonGenerarAGM(panelIzquierdo);
+
+		JTextField inputCantRegiones = crearInputRegiones(panelIzquierdo);
+
+		crearBotonComponentesConexas(panelIzquierdo);
+
+		crearBotonVerInfoRegiones(panelIzquierdo);
+
+		crearBotonReiniciarMapa(panelIzquierdo);
+
+		escucharBotones(inputCantRegiones);
+
+	}
+
+	private void agregarLogoGithub() {
+		Image githubImage = new ImageIcon(this.getClass().getResource("/github-logo.png")).getImage();
+		JLabel githubLabel = new JLabel();
+		githubLabel.setIcon(new ImageIcon(githubImage));
+		githubLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		githubLabel.setBounds(285, 610, 45, 45);
+		githubLabel.setToolTipText("Ir al repositorio de GitHub");
+		mapa.add(githubLabel);
+
+		githubLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				abrirEnlaceGitHub();
+			}
+		});
+	}
+
+	private void agregarImagenMalvinas() {
+		Image islasImage = new ImageIcon(this.getClass().getResource("/malvinas_argentinas.png")).getImage();
+		JLabel islasLabel = new JLabel();
+		islasLabel.setIcon(new ImageIcon(islasImage));
+		islasLabel.setBounds(-350, 5, 700, 650);
+		mapa.add(islasLabel);
+	}
+
+	private void crearBotonesProvincias(JPanel panelIzquierdo) {
+		listaBotonesSimilaridad = new ArrayList<>();
 		Provincia[] provincias = pais.obtenerProvincias();
 		int cantProvincias = provincias.length;
 		int y = 10;
@@ -130,77 +185,66 @@ public class Aplicacion {
 			// Crear una clase interna para el ActionListener que tenga acceso al índice i
 			final int indiceProvincia = i; // Declarar final para que pueda ser accedido dentro de la clase interna
 
-			botonAbrirProvincia.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String nombreProvincia = pais.obtenerNombrePorIndice(indiceProvincia);
-
-					InputWindow inputWindow = new InputWindow(nombreProvincia, pais);
-					inputWindow.setVisible(true);
-					botonAbrirProvincia.setEnabled(false);
-					botonAbrirProvincia.setBackground(new Color(230, 230, 230));
-
-				}
-			});
-
+			escucharBotonesProvincia(botonAbrirProvincia, indiceProvincia);
 			panelIzquierdo.add(botonAbrirProvincia);
 
 		}
+	}
 
-		JButton asignarSimilaridades = new JButton("Asignar aleatoriamente");
-		asignarSimilaridades.setBackground(new Color(106, 226, 246));
-		asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
-		asignarSimilaridades.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		asignarSimilaridades.addActionListener(new ActionListener() {
-
+	private void escucharBotonesProvincia(JButton botonAbrirProvincia, final int indiceProvincia) {
+		botonAbrirProvincia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for (JButton boton : listaBotonesSimilaridad) {
-					boton.setEnabled(false);
-					boton.setBackground(new Color(230, 230, 230));
-				}
-				pais.asignarPesosAleatoriamente();
-				pais.actualizarSimililaridades();
+				String nombreProvincia = pais.obtenerNombrePorIndice(indiceProvincia);
+
+				InputWindow inputWindow = new InputWindow(nombreProvincia, pais);
+				inputWindow.setVisible(true);
+				botonAbrirProvincia.setEnabled(false);
+				botonAbrirProvincia.setBackground(new Color(230, 230, 230));
+
 			}
 		});
+	}
 
-		asignarSimilaridades.setBounds(60, 380, 230, 40);
-		panelIzquierdo.add(asignarSimilaridades);
+	private void escucharBotones(JTextField inputCantRegiones) {
+		escucharBotonAsignarSimilaridades();
 
-		JButton botonGenerarAGM = new JButton("Generar árbol mínimo");
-		botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
-//		botonGenerarAGM.setBackground(new Color(106, 226, 246));
-		botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		if (botonGenerarAGM.isEnabled()) {
-			botonGenerarAGM.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (todasLasProvinciasDeshabilitadas(listaBotonesSimilaridad)) {
-						pais.actualizarSimililaridades();
-						dibujarMapa();
-					} else {
-						JOptionPane.showMessageDialog(null, "Por favor, asigne similaridad entre provincias",
-								"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+		escucharBotonGenerarAGM();
 
-					}
+		escucharBotonComponentesConexas(inputCantRegiones);
+
+		escucharBotonVerInfoRegiones();
+
+		escucharBotonReiniciarMapa(inputCantRegiones);
+	}
+
+	private void escucharBotonReiniciarMapa(JTextField inputCantRegiones) {
+		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pais.reestablecerConexionEntreLimitrofes();
+				dibujarMapa();
+				for (JButton boton : listaBotonesSimilaridad) {
+					boton.setEnabled(true);
+					boton.setBackground(new Color(189, 242, 189));
+					inputCantRegiones.setText("");
 				}
-			});
-		}
-		botonGenerarAGM.setBounds(60, 430, 230, 40);
-		panelIzquierdo.add(botonGenerarAGM);
+				botonGenerarAGM.setEnabled(true);
+				botonGenerarAGM.setBackground(new Color(106, 226, 246));
 
-		JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
-		textoCantRegiones.setBounds(60, 475, 230, 40);
-		panelIzquierdo.add(textoCantRegiones);
+			}
+		});
+	}
 
-		JTextField inputCantRegiones = new JTextField();
-		Border border = BorderFactory.createLineBorder(Color.GRAY);
-		inputCantRegiones.setBorder(border);
-		inputCantRegiones.setBounds(240, 483, 50, 25);
-		panelIzquierdo.add(inputCantRegiones);
+	private void escucharBotonVerInfoRegiones() {
+		botonVerInfoRegiones.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Hay que mostrar la info");
+			}
+		});
+	}
 
-		JButton botonComponentesConexas = new JButton("Generar regiones conexas");
-		botonComponentesConexas.setFont(new Font("Arial", Font.BOLD, 14));
-		botonComponentesConexas.setBackground(new Color(106, 226, 246));
-		botonComponentesConexas.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	private void escucharBotonComponentesConexas(JTextField inputCantRegiones) {
 		botonComponentesConexas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -220,80 +264,128 @@ public class Aplicacion {
 					return;
 
 				}
-				
+
+				if (!pais.estaTodoConectado()) {
+					return;
+				}
+
+				if (!pais.esArbol()) {
+					JOptionPane.showMessageDialog(null, "Debe generar el árbol mínimo primero.", "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+
 				pais.dividirRegiones(cantidadRegiones);
 				dibujarMapa();
 			}
 		});
-		botonComponentesConexas.setBounds(60, 510, 230, 40);
-		panelIzquierdo.add(botonComponentesConexas);
+	}
 
-		JButton botonVerInfoRegiones = new JButton("Ver información de las regiones");
-		botonVerInfoRegiones.setFont(new Font("Arial", Font.BOLD, 12));
-		botonVerInfoRegiones.setBackground(new Color(250, 255, 110));
-		botonVerInfoRegiones.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonVerInfoRegiones.addMouseListener(new MouseAdapter() {
+	private void escucharBotonGenerarAGM() {
+		botonGenerarAGM.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Hay que mostrar la info");
+				if (!pais.todasLasProvinciasTienenSimilaridad()) {
+					JOptionPane.showMessageDialog(null, "Por favor, asigne similaridad entre provincias", "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				if (!pais.estaTodoConectado()) {
+					return;
+				}
+				pais.actualizarSimililaridades();
+				dibujarMapa();
+				botonGenerarAGM.setEnabled(false);
+				botonGenerarAGM.setBackground(new Color(230, 230, 230));
 			}
 		});
-		botonVerInfoRegiones.setBounds(60, 560, 230, 30);
-		panelIzquierdo.add(botonVerInfoRegiones);
+	}
 
-		JButton botonReiniciarMapa = new JButton("Reiniciar mapa");
+	private void escucharBotonAsignarSimilaridades() {
+		asignarSimilaridades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (JButton boton : listaBotonesSimilaridad) {
+					boton.setEnabled(false);
+					boton.setBackground(new Color(230, 230, 230));
+				}
+				pais.asignarPesosAleatoriamente();
+				pais.actualizarSimililaridades();
+			}
+		});
+	}
+
+	private void crearBotonReiniciarMapa(JPanel panelIzquierdo) {
+		botonReiniciarMapa = new JButton("Reiniciar mapa");
 		botonReiniciarMapa.setFont(new Font("Arial", Font.BOLD, 14));
 		botonReiniciarMapa.setBackground(new Color(219, 101, 90));
 		botonReiniciarMapa.setForeground(Color.WHITE);
 		botonReiniciarMapa.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				pais.reestablecerConexionEntreLimitrofes();
-				dibujarMapa();
-				for (JButton boton : listaBotonesSimilaridad) {
-					boton.setEnabled(true);
-					boton.setBackground(new Color(189, 242, 189));
-					inputCantRegiones.setText("");
-//
-				}
 
-			}
-		});
 		botonReiniciarMapa.setBounds(60, 600, 230, 40);
 		panelIzquierdo.add(botonReiniciarMapa);
-
-		// Agrego el JLabel con el logo de GitHub
-		Image githubImage = new ImageIcon(this.getClass().getResource("/github-logo.png")).getImage();
-		JLabel githubLabel = new JLabel();
-		githubLabel.setIcon(new ImageIcon(githubImage));
-		githubLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		githubLabel.setBounds(285, 610, 45, 45);
-		githubLabel.setToolTipText("Ir al repositorio de GitHub");
-		mapa.add(githubLabel);
-
-		Image islasImage = new ImageIcon(this.getClass().getResource("/malvinas_argentinas.png")).getImage();
-		JLabel islasLabel = new JLabel();
-		islasLabel.setIcon(new ImageIcon(islasImage));
-		islasLabel.setBounds(-350, 5, 700, 650);
-		mapa.add(islasLabel);
-
-		githubLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				abrirEnlaceGitHub();
-			}
-		});
-
 	}
 
-	private boolean todasLasProvinciasDeshabilitadas(List<JButton> listaBotonesSimilaridad) {
-		boolean ret = true;
-		for (JButton boton : listaBotonesSimilaridad) {
-			ret &= !boton.isEnabled();
-		}
-		return ret;
+	private void crearBotonVerInfoRegiones(JPanel panelIzquierdo) {
+		botonVerInfoRegiones = new JButton("Ver información de las regiones");
+		botonVerInfoRegiones.setFont(new Font("Arial", Font.BOLD, 12));
+		botonVerInfoRegiones.setBackground(new Color(250, 255, 110));
+		botonVerInfoRegiones.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		botonVerInfoRegiones.setBounds(60, 560, 230, 30);
+		panelIzquierdo.add(botonVerInfoRegiones);
 	}
+
+	private void crearBotonComponentesConexas(JPanel panelIzquierdo) {
+		botonComponentesConexas = new JButton("Generar regiones conexas");
+		botonComponentesConexas.setFont(new Font("Arial", Font.BOLD, 14));
+		botonComponentesConexas.setBackground(new Color(106, 226, 246));
+		botonComponentesConexas.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		botonComponentesConexas.setBounds(60, 510, 230, 40);
+		panelIzquierdo.add(botonComponentesConexas);
+	}
+
+	private JTextField crearInputRegiones(JPanel panelIzquierdo) {
+		JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
+		textoCantRegiones.setBounds(60, 475, 230, 40);
+		panelIzquierdo.add(textoCantRegiones);
+
+		JTextField inputCantRegiones = new JTextField();
+		Border border = BorderFactory.createLineBorder(Color.GRAY);
+		inputCantRegiones.setBorder(border);
+		inputCantRegiones.setBounds(240, 483, 50, 25);
+		panelIzquierdo.add(inputCantRegiones);
+		return inputCantRegiones;
+	}
+
+	private void crearBotonGenerarAGM(JPanel panelIzquierdo) {
+		botonGenerarAGM = new JButton("Generar árbol mínimo");
+		botonGenerarAGM.setBackground(new Color(106, 226, 246));
+		botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
+		botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		botonGenerarAGM.setBounds(60, 430, 230, 40);
+		panelIzquierdo.add(botonGenerarAGM);
+	}
+
+	private void crearBotonAsignarSimilaridades(JPanel panelIzquierdo) {
+		asignarSimilaridades = new JButton("Asignar aleatoriamente");
+		asignarSimilaridades.setBackground(new Color(106, 226, 246));
+		asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
+		asignarSimilaridades.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		asignarSimilaridades.setBounds(60, 380, 230, 40);
+		panelIzquierdo.add(asignarSimilaridades);
+	}
+
+//	private boolean todasLasProvinciasDeshabilitadas(List<JButton> listaBotonesSimilaridad) {
+//		boolean ret = true;
+//		for (JButton boton : listaBotonesSimilaridad) {
+//			ret &= !boton.isEnabled();
+//		}
+//		System.out.println(ret);
+//		return ret;
+//	}
 
 	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
