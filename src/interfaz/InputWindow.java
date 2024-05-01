@@ -26,7 +26,7 @@ public class InputWindow extends JFrame {
 		ArrayList<Tupla<String, Integer>> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
 
 		// Configuración de la ventana
-//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
 		int cantProvinciasLimitrofes = provinciasLimitrofes.size();
 		setTitle("Similaridad " + nombreProvincia);
 		setSize(350, 500);
@@ -43,7 +43,9 @@ public class InputWindow extends JFrame {
 			JTextField pesoLimitrofe = new JTextField();
 			int peso = provinciasLimitrofes.get(i).getSegundo();
 			if (peso > 0) {
-				pesoLimitrofe.setEnabled(false);
+				pesoLimitrofe.setEditable(false);
+				pesoLimitrofe.setBackground(new Color(130, 130, 130));
+				pesoLimitrofe.setForeground(Color.WHITE);
 				pesoLimitrofe.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
 			}
 			pesoLimitrofe.setText(Integer.toString(peso));
@@ -53,8 +55,11 @@ public class InputWindow extends JFrame {
 			y += 40;
 			panel.add(label);
 			panel.add(pesoLimitrofe);
+			
+//			if (Integer.parseInt(pesosLimitrofes[i].getText()) > 0) {
+//				continue;
+//			}
 			pesosLimitrofes[i] = pesoLimitrofe;
-
 		}
 
 		JButton botonConfirmar = new JButton("Confirmar");

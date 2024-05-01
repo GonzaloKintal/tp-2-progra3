@@ -127,7 +127,7 @@ public class Pais {
 	}
 
 	public void asignarPesosAleatoriamente() {
-		grafo.prueba();
+		grafo.asignarPesosRandom();
 
 	}
 

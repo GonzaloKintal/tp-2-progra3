@@ -18,7 +18,7 @@ public class Grafo {
 		instanciarAristas();
 	}
 
-	public void prueba() {
+	public void asignarPesosRandom() {
 		for (int i = 0; i < tamano(); i++) {
 			for (int j = 0; j < tamano(); j++) {
 				if (existeArista(i, j)) {
