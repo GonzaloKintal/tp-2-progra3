@@ -43,8 +43,7 @@ public class InputWindow extends JFrame {
 			JTextField pesoLimitrofe = new JTextField();
 			int peso = provinciasLimitrofes.get(i).getSegundo();
 			if (peso > 0) {
-				pesoLimitrofe.setEditable(false);
-				pesoLimitrofe.setBackground(new Color(220, 220, 220));
+				pesoLimitrofe.setEnabled(false);
 				pesoLimitrofe.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
 			}
 			pesoLimitrofe.setText(Integer.toString(peso));
@@ -109,7 +108,7 @@ public class InputWindow extends JFrame {
 		botonCompletarCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (JTextField textField : pesosLimitrofes) {
-					int randomNumber = (int) (Math.random() * 101);
+					int randomNumber = (int) (Math.random() * 101 + 1);
 					textField.setText(Integer.toString(randomNumber));
 				}
 			}
