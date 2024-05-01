@@ -305,7 +305,6 @@ public class Aplicacion {
 	private void escucharBotonAsignarSimilaridades() {
 		asignarSimilaridades.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	            pais = new Pais(Config.PAIS);
 	            pais.asignarPesosAleatoriamente();
 	            for (JButton boton : listaBotonesSimilaridad) {
 	                boton.setEnabled(false);
