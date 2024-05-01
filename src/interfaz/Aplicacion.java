@@ -194,13 +194,8 @@ public class Aplicacion {
 	private void escucharBotonesProvincia(JButton botonAbrirProvincia, final int indiceProvincia) {
 		botonAbrirProvincia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombreProvincia = pais.obtenerNombrePorIndice(indiceProvincia);
-
-				InputWindow inputWindow = new InputWindow(nombreProvincia, pais);
+				InputWindow inputWindow =new InputWindow(botonAbrirProvincia, pais);
 				inputWindow.setVisible(true);
-				botonAbrirProvincia.setEnabled(false);
-				botonAbrirProvincia.setBackground(new Color(230, 230, 230));
-
 			}
 		});
 	}
@@ -255,7 +250,13 @@ public class Aplicacion {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-
+								
+				if (!valorIngresado.matches("\\d+")) {
+					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_SOLO_NUMERO, "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
 				int cantidadRegiones = Integer.parseInt(valorIngresado);
 
 				if (cantidadRegiones <= 0 || cantidadRegiones > 23) {

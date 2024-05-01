@@ -11,7 +11,7 @@
       "limitrofes": [
         "Córdoba",
         "Santa Fé",
-        "Entre Rios",
+        "Entre Ríos",
         "La Pampa",
         "Río Negro"
       ]
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "nombre": "Entre Rios",
+      "nombre": "Entre Ríos",
       "latitud": -32.020103,
       "longitud": -59.300656,
       "limitrofes": ["Buenos Aires", "Santa Fé", "Corrientes"]
@@ -56,7 +56,7 @@
         "Santiago del Estero",
         "Chaco",
         "Corrientes",
-        "Entre Rios"
+        "Entre Ríos"
       ]
     },
     {

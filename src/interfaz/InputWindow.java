@@ -21,12 +21,13 @@ import utils.Tupla;
 
 public class InputWindow extends JFrame {
 
-	public InputWindow(String nombreProvincia, Pais pais) {
+	public InputWindow(JButton botonProvincia, Pais pais) {
+		String nombreProvincia = botonProvincia.getText();
 		int indiceProvincia = pais.indiceDe(nombreProvincia);
 		ArrayList<Tupla<String, Integer>> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
 
 		// Configuración de la ventana
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
+//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
 		int cantProvinciasLimitrofes = provinciasLimitrofes.size();
 		setTitle("Similaridad " + nombreProvincia);
 		setSize(350, 500);
@@ -94,6 +95,8 @@ public class InputWindow extends JFrame {
 							"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
 
 				if (botonTerminarCont == pesosLimitrofes.length) {
+					botonProvincia.setEnabled(false);
+					botonProvincia.setBackground(new Color(230, 230, 230));
 					dispose();
 				}
 			}
@@ -113,6 +116,9 @@ public class InputWindow extends JFrame {
 		botonCompletarCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (JTextField textField : pesosLimitrofes) {
+					if(!textField.isEditable()) {
+						continue;
+					}
 					int randomNumber = (int) (Math.random() * 101 + 1);
 					textField.setText(Integer.toString(randomNumber));
 				}
