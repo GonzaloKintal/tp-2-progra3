@@ -151,6 +151,7 @@ public class Aplicacion {
 		asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
 		asignarSimilaridades.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		asignarSimilaridades.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				for (JButton boton : listaBotonesSimilaridad) {
 					boton.setEnabled(false);
@@ -175,11 +176,10 @@ public class Aplicacion {
 					if (todasLasProvinciasDeshabilitadas(listaBotonesSimilaridad)) {
 						pais.actualizarSimililaridades();
 						dibujarMapa();
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Por favor, asigne similaridad entre provincias", "ATENCIÓN",
-								JOptionPane.WARNING_MESSAGE);
-						
+					} else {
+						JOptionPane.showMessageDialog(null, "Por favor, asigne similaridad entre provincias",
+								"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+
 					}
 				}
 			});
@@ -218,13 +218,9 @@ public class Aplicacion {
 					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_CANT_REGIONES_INVALIDO, "ATENCIÓN",
 							JOptionPane.WARNING_MESSAGE);
 					return;
-					
+
 				}
-				if (!pais.esPosibleDividirRegiones(cantidadRegiones)) {
-					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_DESCONEXAR, "ATENCIÓN",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
+				
 				pais.dividirRegiones(cantidadRegiones);
 				dibujarMapa();
 			}
