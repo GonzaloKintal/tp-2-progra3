@@ -304,16 +304,17 @@ public class Aplicacion {
 
 	private void escucharBotonAsignarSimilaridades() {
 		asignarSimilaridades.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for (JButton boton : listaBotonesSimilaridad) {
-					boton.setEnabled(false);
-					boton.setBackground(new Color(230, 230, 230));
-				}
-				pais.asignarPesosAleatoriamente();
-				pais.actualizarSimililaridades();
-			}
-		});
+	        public void actionPerformed(ActionEvent e) {
+	            pais = new Pais(Config.PAIS);
+	            pais.asignarPesosAleatoriamente();
+	            for (JButton boton : listaBotonesSimilaridad) {
+	                boton.setEnabled(false);
+	                boton.setBackground(new Color(230, 230, 230));
+	            }
+	        }
+	    });
 	}
+
 
 	private void crearBotonReiniciarMapa(JPanel panelIzquierdo) {
 		botonReiniciarMapa = new JButton("Reiniciar mapa");
