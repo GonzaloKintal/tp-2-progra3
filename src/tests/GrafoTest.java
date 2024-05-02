@@ -92,4 +92,17 @@ public class GrafoTest {
 		
 		assertEquals(3, grafo.obtenerCantidadDeAristas());
 	}
+	
+	
+//	@Test (HAY QUE ARREGLAR LO DE DESCONEXAR CON TODOS LOS PESOS IGUALES Y DESPUÉS TESTEAR ESTE MÉTODO)
+//	public void esPosibleDesconexarTest() {
+//		Grafo grafo = new Grafo(3);
+//		grafo.agregarArista(0, 1);
+//		grafo.agregarArista(0, 2);
+//		
+//		assertTrue(grafo.esPosibleDesconexar(2));
+//	}
+	
+	
+	
 }

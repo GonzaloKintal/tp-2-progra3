@@ -64,6 +64,10 @@ public class AGM {
 		int aristasAEliminar = k - 1;
 		
 		while (aristasAEliminar > 0) {
+//			if (grafo.todasLasAristasMismoPeso()) {
+//				grafo.eliminarAristaAlAzar();
+//				aristasAEliminar--;
+//			}
 			grafo.eliminarAristaDeMayorPeso();
 			aristasAEliminar--;
 		}

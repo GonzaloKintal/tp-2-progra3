@@ -237,6 +237,54 @@ public class Grafo {
 		}
 		return true;
 	}
-
+	
+	
+//	public boolean todasLasAristasMismoPeso() {
+//		boolean mismoPeso = true;
+//		int primerPeso = -1;
+//		
+//		for (int i=0; i<tamano(); i++)
+//			for (int j=0; j<tamano(); j++)
+//				if (existeArista(i, j)) {
+//					int pesoActual = consultarPeso(i, j);
+//					if (mismoPeso) {
+//	                    primerPeso = pesoActual;
+//	                    mismoPeso = false;
+//	                } else {
+//	                    if (pesoActual != primerPeso) {
+//	                        return false; // Se encontró una arista con peso diferente
+//	                    }
+//	                }
+//				}
+//		return true;
+//	}
+//	
+//	public void eliminarAristaAlAzar() {
+//	    ArrayList<Tupla<Integer, Integer>> aristas = obtenerTodasLasAristas();
+//
+//	    if (!aristas.isEmpty()) {
+//	        // Se genera un número aleatorio entre 0 y la cantidad total de aristas - 1
+//	        Random random = new Random();
+//	        int indiceAleatorio = random.nextInt(aristas.size());
+//
+//	        Tupla<Integer, Integer> aristaAEliminar = aristas.get(indiceAleatorio);
+//
+//	        eliminarArista(aristaAEliminar.getPrimero(), aristaAEliminar.getSegundo());
+//	    }
+//	}
+//
+//	private ArrayList<Tupla<Integer, Integer>> obtenerTodasLasAristas() {
+//	    ArrayList<Tupla<Integer, Integer>> aristas = new ArrayList<>();
+//
+//	    for (int i = 0; i < tamano(); i++) {
+//	        for (int j = i + 1; j < tamano(); j++) {
+//	            if (existeArista(i, j)) {
+//	                aristas.add(new Tupla<>(i, j));
+//	            }
+//	        }
+//	    }
+//
+//	    return aristas;
+//	}
 	
 }

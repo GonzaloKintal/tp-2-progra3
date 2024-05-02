@@ -92,6 +92,7 @@ public class Aplicacion {
 		agregarLogoGithub();
 
 		agregarImagenMalvinas();
+		
 
 	}
 

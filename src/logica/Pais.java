@@ -61,6 +61,10 @@ public class Pais {
 	}
 
 	public ArrayList<Tupla<String, Integer>> obtenerAristasLimitrofes(String nombreProvincia) {
+		if (nombreProvincia.isEmpty()) {
+			throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
+		}
+		
 		ArrayList<Tupla<String, Integer>> ret = new ArrayList<>();
 
 		ArrayList<String> limitrofes = dameLimitrofesDe(nombreProvincia);
@@ -77,6 +81,10 @@ public class Pais {
 	}
 
 	public int indiceDe(String nombre) {
+		if (nombre.isEmpty()) {
+			throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
+		}
+		
 		int idx = 0;
 
 		for (int i = 0; i < this.provincias.length; i++) {
@@ -88,7 +96,11 @@ public class Pais {
 		return idx;
 	}
 
-	private ArrayList<String> dameLimitrofesDe(String nombre) {
+	public ArrayList<String> dameLimitrofesDe(String nombre) {
+		if (nombre.isEmpty()) {
+			throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
+		}
+		
 		ArrayList<String> limitrofes = this.provincias[indiceDe(nombre)].limitrofes;
 
 		return limitrofes;
