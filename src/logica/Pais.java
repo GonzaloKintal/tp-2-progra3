@@ -32,7 +32,7 @@ public class Pais {
 	public Provincia[] obtenerProvincias() {
 		return this.provincias;
 	}
-	
+
 	public String obtenerNombrePorIndice(int idxProvincia) {
 		return this.provincias[idxProvincia].nombre;
 	}
@@ -64,7 +64,7 @@ public class Pais {
 		if (nombreProvincia.isEmpty()) {
 			throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
 		}
-		
+
 		ArrayList<Tupla<String, Integer>> ret = new ArrayList<>();
 
 		ArrayList<String> limitrofes = dameLimitrofesDe(nombreProvincia);
@@ -84,7 +84,7 @@ public class Pais {
 		if (nombre.isEmpty()) {
 			throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
 		}
-		
+
 		int idx = 0;
 
 		for (int i = 0; i < this.provincias.length; i++) {
@@ -100,12 +100,12 @@ public class Pais {
 		if (nombre.isEmpty()) {
 			throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
 		}
-		
+
 		ArrayList<String> limitrofes = this.provincias[indiceDe(nombre)].limitrofes;
 
 		return limitrofes;
 	}
-	
+
 	public boolean esPosibleDividirRegiones(int cantRegiones) {
 		return this.grafo.esPosibleDesconexarEnRegiones(cantRegiones);
 	}
@@ -146,18 +146,35 @@ public class Pais {
 	public void actualizarSimilaridad(int indiceProvincia1, int indiceProvincia2, int similaridad) {
 		this.grafo.agregarPeso(indiceProvincia1, indiceProvincia2, similaridad);
 	}
-	
+
 	public boolean todasLasProvinciasTienenSimilaridad() {
 		return this.grafo.todasLasAristasTienenPeso();
 	}
-	
+
 	public boolean estaTodoConectado() {
 		return BFS.esConexo(grafo);
 	}
 
 	public boolean esArbol() {
-		return this.provincias.length == this.grafo.obtenerCantidadDeAristas() + 1
-				&& estaTodoConectado();
+		return this.provincias.length == this.grafo.obtenerCantidadDeAristas() + 1 && estaTodoConectado();
 	}
-	
+
+	public int obtenerCantProvincias() {
+		return this.provincias.length;
+	}
+
+	public ArrayList<> obtenerInformacionRegiones() {
+		ArrayList<Set<Integer>> regiones = obtenerRegiones();
+
+	}
+
+	public ArrayList<Set<Integer>> obtenerRegiones() {
+		ArrayList<Set<Integer>> regiones = new ArrayList<>();
+
+		for (int i = 0; i < obtenerCantProvincias(); i++) {
+			Set<Integer> region = BFS.alcanzables(grafo, zoom);
+		}
+		
+		return regiones;
+	}
 }
