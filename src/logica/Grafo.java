@@ -207,31 +207,16 @@ public class Grafo {
 		return aristaDeMayorPeso;
 	}
 	
-	public boolean esPosibleDesconexar(int cantComponentesConexas) {
+	public boolean esPosibleDesconexarEnRegiones(int cantComponentesConexas) {
 		int aristasAEliminar = cantComponentesConexas - 1;
 		
-		if(aristasAEliminar <= cantPesosDistintos()) {
+		if(aristasAEliminar <= this.obtenerCantidadDeAristas()) {
 			return true;
 		}
 		
 		return false;
 	}
 	
-	private int cantPesosDistintos() {
-		Set<Integer> pesosDistintos = new HashSet<>();
-		
-		for(int i = 0; i < tamano(); i++) {
-			for(int j = 0; j < tamano(); j++) {
-				int peso = consultarPeso(i, j);
-				if(peso != 0) {
-					pesosDistintos.add(consultarPeso(i, j));					
-				}
-			}
-		}
-		System.out.println(pesosDistintos.size());
-		return pesosDistintos.size();
-	}
-
 	public boolean todasLasAristasTienenPeso() {
 		for(int i = 0; i < tamano(); i++) {
 			for(int j = 0; j < tamano(); j++) {

@@ -102,14 +102,23 @@ public class GrafoTest {
 	}
 	
 	
-//	@Test	(TESTEAR)
-//	public void esPosibleDesconexarTest() {
-//		Grafo grafo = new Grafo(3);
-//		grafo.agregarArista(0, 1);
-//		grafo.agregarArista(0, 2);
-//		
-//		assertTrue(grafo.esPosibleDesconexar(2));
-//	}
+	@Test
+	public void esPosibleDesconexarTest() {
+		Grafo grafo = new Grafo(3);
+		grafo.agregarArista(0, 1);
+		grafo.agregarArista(0, 2);
+		
+		assertTrue(grafo.esPosibleDesconexarEnRegiones(2));
+	}
+	
+	@Test
+	public void esPosibleDesconexarFalseTest() {
+		Grafo grafo = new Grafo(3);
+		grafo.agregarArista(0, 1);
+		grafo.agregarArista(0, 2);
+		
+		assertFalse(grafo.esPosibleDesconexarEnRegiones(4));
+	}
 	
 	
 	@Test

@@ -107,7 +107,7 @@ public class Pais {
 	}
 	
 	public boolean esPosibleDividirRegiones(int cantRegiones) {
-		return this.grafo.esPosibleDesconexar(cantRegiones);
+		return this.grafo.esPosibleDesconexarEnRegiones(cantRegiones);
 	}
 
 	public Grafo obtenerGrafo() {
