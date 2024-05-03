@@ -14,6 +14,14 @@ public class GrafoTest {
 
 	
 	@Test
+	public void instanciarAristasTest() {
+		Grafo grafo = new Grafo(2);
+		grafo.instanciarAristas();
+		assertNotNull(grafo.obtenerArista(0, 1));
+	}
+	
+	
+	@Test
 	public void obtenerPosiblesAristasTrueTest() {
 		Grafo grafo = new Grafo(23);
 		ArrayList<Integer> verticesMarcados = new ArrayList<>();
@@ -94,7 +102,7 @@ public class GrafoTest {
 	}
 	
 	
-//	@Test (HAY QUE ARREGLAR LO DE DESCONEXAR CON TODOS LOS PESOS IGUALES Y DESPUÉS TESTEAR ESTE MÉTODO)
+//	@Test	(TESTEAR)
 //	public void esPosibleDesconexarTest() {
 //		Grafo grafo = new Grafo(3);
 //		grafo.agregarArista(0, 1);
@@ -103,6 +111,21 @@ public class GrafoTest {
 //		assertTrue(grafo.esPosibleDesconexar(2));
 //	}
 	
+	
+	@Test
+	public void todasLasAristasTienenPesoTest() {
+		Grafo grafo = new Grafo(5);
+		grafo.asignarPesosRandom();
+		
+		assertTrue(grafo.todasLasAristasTienenPeso());
+	}
+	
+	@Test
+	public void todasLasAristasTienenPesoFalseTest() {
+		Grafo grafo = new Grafo(5);
+		grafo.instanciarAristas();
+		assertTrue(grafo.todasLasAristasTienenPeso());
+	}
 	
 	
 }
