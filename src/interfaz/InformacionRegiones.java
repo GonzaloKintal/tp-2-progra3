@@ -19,6 +19,7 @@ public class InformacionRegiones extends JFrame {
 	public InformacionRegiones(String info) {
 		setTitle("Estadísticas de las regiones");
 		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+		setBounds(0, 0, 700, 700);
 		setLocationRelativeTo(null);
 
 		// Layout de la ventana
@@ -27,7 +28,10 @@ public class InformacionRegiones extends JFrame {
 		panel.setLayout(null);
 
 		JList<String> list = new JList<>();
+		list.setBackground(new Color(9, 48, 67));
+		list.setForeground(Color.WHITE);
 		list.setFocusable(false);
+		setResizable(false);
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(10, 10, 675, 560);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

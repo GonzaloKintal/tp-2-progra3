@@ -176,10 +176,16 @@ public class Pais {
 			informacion.append("La región " + regionActual + " está compuesta por: \n");
 			for (Integer indice: region) {
 				informacion.append(nombreDe(indice));
-				informacion.append("  -  ");
+				informacion.append("   |   ");
 			}
+			informacion.append("\n");
+			informacion.append("El mínimo indice de similaridad es: " + obtenerMinimoIndiceDeSimilaridad(region));
+			informacion.append("\n");
+			informacion.append("El índice promedio de similaridad es: " + obtenerIndicePromedioDeSimilaridad(region));
+			informacion.append("\n");
+			informacion.append("El máximo indice de similaridad es: " + obtenerMaximoIndiceDeSimilaridad(region));
+			
 			regionActual++;
-			informacion.delete(informacion.length()-4, informacion.length());
 			agregarEspacio(informacion);
 		}
 		System.out.println(informacion.toString());
@@ -187,6 +193,63 @@ public class Pais {
 	}
 
 
+	private int obtenerMinimoIndiceDeSimilaridad(Set<Integer> region) {
+		int minimoActual = Integer.MAX_VALUE;
+		
+		if (region.size() == 1) {
+			return 0;
+		}
+		
+		for (Integer i: region)
+			for (Integer j: region)
+				if (existeConexión(i, j) && obtenerSimilaridad(i, j) < minimoActual) {
+					minimoActual = obtenerSimilaridad(i, j);
+					System.out.println(obtenerSimilaridad(i, j));
+				}
+		
+		return minimoActual;
+	}
+	
+	private int obtenerMaximoIndiceDeSimilaridad(Set<Integer> region) {
+		int maximoActual = 0;
+		
+		for (Integer i: region)
+			for (Integer j: region)
+				if (existeConexión(i, j) && obtenerSimilaridad(i, j) > maximoActual) {
+					maximoActual = obtenerSimilaridad(i, j);
+				}
+		
+		return maximoActual;
+	}
+	
+	private double obtenerIndicePromedioDeSimilaridad(Set<Integer> region) {
+	    double totalSimilaridad = 0;
+	    int totalPares = 0;
+
+	    for (Integer i : region) {
+	        for (Integer j : region) {
+	            if (i < j && existeConexión(i, j)) {
+	                totalSimilaridad += obtenerSimilaridad(i, j);
+	                totalPares++;
+	            }
+	        }
+	    }
+
+	    if (totalPares == 0) {
+	        return 0;
+	    }
+
+	    return totalSimilaridad / totalPares;
+	}
+	
+	private int obtenerSimilaridad(int i, int j) {
+		return grafo.consultarPeso(i, j);
+	}
+
+	private boolean existeConexión(int i, int j) {
+		return grafo.existeArista(i, j);
+	}
+	
 	public ArrayList<Set<Integer>> obtenerRegiones() {
 		ArrayList<Set<Integer>> regiones = new ArrayList<>();
 		Set<Integer> provinciasYaVisitadas = new HashSet<>();
