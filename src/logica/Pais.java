@@ -95,6 +95,10 @@ public class Pais {
 
 		return idx;
 	}
+	
+	public String nombreDe(int indice) {
+		return this.provincias[indice].nombre;
+	}
 
 	public ArrayList<String> dameLimitrofesDe(String nombre) {
 		if (nombre.isEmpty()) {
@@ -163,18 +167,60 @@ public class Pais {
 		return this.provincias.length;
 	}
 
-	public ArrayList<> obtenerInformacionRegiones() {
+	public String obtenerInformacionRegiones() {
 		ArrayList<Set<Integer>> regiones = obtenerRegiones();
-
+		StringBuilder informacion = new StringBuilder();
+		int regionActual = 1;
+		
+		for (Set<Integer> region: regiones) {
+			informacion.append("La región " + regionActual + " está compuesta por: \n");
+			for (Integer indice: region) {
+				informacion.append(nombreDe(indice));
+				informacion.append("  -  ");
+			}
+			regionActual++;
+			informacion.delete(informacion.length()-4, informacion.length());
+			agregarEspacio(informacion);
+		}
+		System.out.println(informacion.toString());
+		return informacion.toString();
 	}
+
 
 	public ArrayList<Set<Integer>> obtenerRegiones() {
 		ArrayList<Set<Integer>> regiones = new ArrayList<>();
+		Set<Integer> provinciasYaVisitadas = new HashSet<>();
 
 		for (int i = 0; i < obtenerCantProvincias(); i++) {
-			Set<Integer> region = BFS.alcanzables(grafo, zoom);
+			if (!provinciasYaVisitadas.contains(i)) {
+				Set<Integer> region = BFS.alcanzables(grafo, i);
+				regiones.add(region);
+				agregarProvinciasDeLaMismaRegion(region, provinciasYaVisitadas);
+			}
 		}
-		
+		System.out.println(regiones.size());
 		return regiones;
 	}
+
+	private void agregarProvinciasDeLaMismaRegion(Set<Integer> region, Set<Integer> provinciasYaVisitadas) {
+		for (Integer provincia: region) {
+			provinciasYaVisitadas.add(provincia);
+		}
+	}
+	
+	private void agregarEspacio(StringBuilder informacion) {
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+		informacion.append("\n");
+	}
+	
+	
 }

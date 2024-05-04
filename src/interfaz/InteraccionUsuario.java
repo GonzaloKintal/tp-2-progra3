@@ -271,7 +271,7 @@ public class InteraccionUsuario {
 		botonVerInfoRegiones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				InformacionRegiones infoRegiones = new InformacionRegiones();
+				InformacionRegiones infoRegiones = new InformacionRegiones(pais.obtenerInformacionRegiones());
 				infoRegiones.setVisible(true);
 			}
 		});
