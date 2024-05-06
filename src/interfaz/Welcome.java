@@ -1,0 +1,101 @@
+package interfaz;
+
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import utils.Config;
+
+public class Welcome {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Welcome window = new Welcome();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Welcome() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(350, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Regiones de la Argentina");
+		frame.setResizable(false);
+
+		JPanel panelWelcome = new JPanel();
+		panelWelcome.setLayout(null);
+
+		Image backgroundImage = new ImageIcon(this.getClass().getResource("/Welcome.png")).getImage();
+		JLabel backgroundLabel = new JLabel();
+		backgroundLabel.setBounds(0, 0, 690, 665);
+		backgroundLabel.setIcon(new ImageIcon(backgroundImage));
+		panelWelcome.add(backgroundLabel);
+
+		JButton botonIniciar = new JButton("INICIAR");
+		botonIniciar.setBounds(140, 410, 400, 70);
+		botonIniciar.setFont(new Font("Verdana", Font.BOLD, 30));
+		botonIniciar.setForeground(Color.WHITE);
+		botonIniciar.setBackground(new Color(93, 189, 72));
+		botonIniciar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		botonIniciar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				Aplicacion aplicacion = new Aplicacion();
+			}
+		});
+		panelWelcome.add(botonIniciar);
+
+		JButton botonSalir = new JButton("SALIR");
+		botonSalir.setBounds(140, 520, 400, 70);
+		botonSalir.setFont(new Font("Verdana", Font.BOLD, 30));
+		botonSalir.setForeground(Color.WHITE);
+		botonSalir.setBackground(new Color(194, 10, 10));
+		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		botonSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+			}
+		});
+		panelWelcome.add(botonSalir);
+
+		frame.getContentPane().add(panelWelcome);
+
+	}
+
+}

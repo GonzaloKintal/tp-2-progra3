@@ -89,7 +89,8 @@ public class InteraccionUsuario {
 			JButton botonAbrirProvincia = new JButton(provincias[i].getNombre());
 			botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			botonAbrirProvincia.setBounds(x, y, 155, 23);
-			botonAbrirProvincia.setBackground(new Color(189, 242, 189));
+			botonAbrirProvincia.setBackground(new Color(52, 148, 58));
+			botonAbrirProvincia.setForeground(Color.WHITE);
 
 			y += 30;
 			if (i == 11) {
@@ -285,7 +286,7 @@ public class InteraccionUsuario {
 				MapUtil.dibujarMapa(pais, mapa);
 				for (JButton boton : listaBotonesSimilaridad) {
 					boton.setEnabled(true);
-					boton.setBackground(new Color(189, 242, 189));
+					boton.setBackground(new Color(52, 148, 58));
 					inputCantRegiones.setText("");
 				}
 				botonGenerarAGM.setEnabled(true);

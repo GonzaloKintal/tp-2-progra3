@@ -42,12 +42,12 @@ public class Aplicacion {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					Aplicacion window = new Aplicacion();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				try {
+//					Aplicacion window = new Aplicacion();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 			}
 		});
 	}
@@ -57,8 +57,8 @@ public class Aplicacion {
 	 */
 	public Aplicacion() {
 		this.pais = new Pais(Config.PAIS);
-		// Asignacion de pesos por arista
 		initialize();
+		this.frame.setVisible(true);
 	}
 
 	/**
