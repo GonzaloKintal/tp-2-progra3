@@ -1,5 +1,7 @@
 package logica;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -178,12 +180,15 @@ public class Pais {
 				informacion.append(nombreDe(indice));
 				informacion.append("   |   ");
 			}
-			informacion.append("\n");
-			informacion.append("El mínimo indice de similaridad es: " + obtenerMinimoIndiceDeSimilaridad(region));
-			informacion.append("\n");
-			informacion.append("El índice promedio de similaridad es: " + obtenerIndicePromedioDeSimilaridad(region));
-			informacion.append("\n");
-			informacion.append("El máximo indice de similaridad es: " + obtenerMaximoIndiceDeSimilaridad(region));
+			
+			if (region.size() > 1) {
+				informacion.append("\n");
+				informacion.append("El mínimo indice de similaridad es: " + obtenerMinimoIndiceDeSimilaridad(region));
+				informacion.append("\n");
+				informacion.append("El índice promedio de similaridad es: " + obtenerIndicePromedioDeSimilaridad(region));
+				informacion.append("\n");
+				informacion.append("El máximo indice de similaridad es: " + obtenerMaximoIndiceDeSimilaridad(region));
+			}
 			
 			regionActual++;
 			agregarEspacio(informacion);
@@ -239,7 +244,22 @@ public class Pais {
 	        return 0;
 	    }
 
-	    return totalSimilaridad / totalPares;
+
+	    return retornarDecimalAcotado(totalSimilaridad, totalPares);
+	}
+
+	private double retornarDecimalAcotado(double totalSimilaridad, int totalPares) {
+		double promedio = totalSimilaridad / totalPares;
+
+        DecimalFormat df = new DecimalFormat("#.####");
+        String promedioFormateado = df.format(promedio);
+
+        try {
+            return df.parse(promedioFormateado).doubleValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0.0;
+        }
 	}
 	
 	private int obtenerSimilaridad(int i, int j) {

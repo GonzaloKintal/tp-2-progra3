@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +21,8 @@ import logica.Pais;
 import utils.Tupla;
 
 public class InputWindow extends JFrame {
+	
+	JTextField[] pesosLimitrofes;
 
 	public InputWindow(JButton botonProvincia, Pais pais) {
 		String nombreProvincia = botonProvincia.getText();
@@ -27,16 +30,16 @@ public class InputWindow extends JFrame {
 		ArrayList<Tupla<String, Integer>> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
 
 		// Configuración de la ventana
-//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // no deja que el usuario cierre la ventana
 		int cantProvinciasLimitrofes = provinciasLimitrofes.size();
 		setTitle("Similaridad " + nombreProvincia);
 		setSize(350, 500);
 		setLocationRelativeTo(null);
+		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
 
 		// Layout de la ventana
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		JTextField[] pesosLimitrofes = new JTextField[cantProvinciasLimitrofes];
+		pesosLimitrofes = new JTextField[cantProvinciasLimitrofes];
 		int y = 0;
 		int heigth = 100;
 		for (int i = 0; i < cantProvinciasLimitrofes; i++) {
@@ -57,9 +60,6 @@ public class InputWindow extends JFrame {
 			panel.add(label);
 			panel.add(pesoLimitrofe);
 			
-//			if (Integer.parseInt(pesosLimitrofes[i].getText()) > 0) {
-//				continue;
-//			}
 			pesosLimitrofes[i] = pesoLimitrofe;
 		}
 
@@ -125,5 +125,8 @@ public class InputWindow extends JFrame {
 			}
 		});
 
+		
 	}
+	
+
 }

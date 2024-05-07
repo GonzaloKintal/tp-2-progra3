@@ -48,7 +48,7 @@ public class InteraccionUsuario {
 	public JPanel obtenerPanelInteractivo() {
 		configurarPanelInteractivo();
 
-		agregarBotones(panelInteractivo);
+		agregarBotones();
 
 		return this.panelInteractivo;
 	}
@@ -58,28 +58,27 @@ public class InteraccionUsuario {
 		panelInteractivo.setPreferredSize(new Dimension(350, 700));
 	}
 
-	private void agregarBotones(JPanel panelInteractivo) {
+	private void agregarBotones() {
 
-		// *Botones similaridad**//
-		crearBotonesProvincias(panelInteractivo);
+		crearBotonesProvincias();
 
-		crearBotonAsignarSimilaridades(panelInteractivo);
+		crearBotonAsignarSimilaridades();
 
-		crearBotonGenerarAGM(panelInteractivo);
+		crearBotonGenerarAGM();
 
-		JTextField inputCantRegiones = crearInputRegiones(panelInteractivo);
+		JTextField inputCantRegiones = crearInputRegiones();
 
-		crearBotonComponentesConexas(panelInteractivo);
+		crearBotonComponentesConexas();
 
-		crearBotonVerInfoRegiones(panelInteractivo);
+		crearBotonVerInfoRegiones();
 
-		crearBotonReiniciarMapa(panelInteractivo);
+		crearBotonReiniciarMapa();
 
 		escucharBotones(inputCantRegiones);
 
 	}
 
-	private void crearBotonesProvincias(JPanel panelInteractivo) {
+	private void crearBotonesProvincias() {
 		listaBotonesSimilaridad = new ArrayList<>();
 		Provincia[] provincias = pais.obtenerProvincias();
 		int cantProvincias = provincias.length;
@@ -108,68 +107,68 @@ public class InteraccionUsuario {
 		}
 	}
 
-	private void crearBotonAsignarSimilaridades(JPanel panelIzquierdo) {
+	private void crearBotonAsignarSimilaridades() {
 		asignarSimilaridades = new JButton("Asignar aleatoriamente");
 		asignarSimilaridades.setBackground(new Color(106, 226, 246));
 		asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
 		asignarSimilaridades.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		asignarSimilaridades.setBounds(60, 380, 230, 40);
-		panelIzquierdo.add(asignarSimilaridades);
+		panelInteractivo.add(asignarSimilaridades);
 	}
 
-	private void crearBotonGenerarAGM(JPanel panelIzquierdo) {
+	private void crearBotonGenerarAGM() {
 		botonGenerarAGM = new JButton("Generar árbol mínimo");
 		botonGenerarAGM.setBackground(new Color(106, 226, 246));
 		botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
 		botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		botonGenerarAGM.setBounds(60, 430, 230, 40);
-		panelIzquierdo.add(botonGenerarAGM);
+		panelInteractivo.add(botonGenerarAGM);
 	}
 
-	private JTextField crearInputRegiones(JPanel panelIzquierdo) {
+	private JTextField crearInputRegiones() {
 		JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
 		textoCantRegiones.setBounds(60, 475, 230, 40);
-		panelIzquierdo.add(textoCantRegiones);
+		panelInteractivo.add(textoCantRegiones);
 
 		JTextField inputCantRegiones = new JTextField();
 		Border border = BorderFactory.createLineBorder(Color.GRAY);
 		inputCantRegiones.setBorder(border);
 		inputCantRegiones.setBounds(240, 483, 50, 25);
-		panelIzquierdo.add(inputCantRegiones);
+		panelInteractivo.add(inputCantRegiones);
 		return inputCantRegiones;
 	}
 
-	private void crearBotonComponentesConexas(JPanel panelIzquierdo) {
+	private void crearBotonComponentesConexas() {
 		botonComponentesConexas = new JButton("Generar regiones conexas");
 		botonComponentesConexas.setFont(new Font("Arial", Font.BOLD, 14));
 		botonComponentesConexas.setBackground(new Color(106, 226, 246));
 		botonComponentesConexas.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		botonComponentesConexas.setBounds(60, 510, 230, 40);
-		panelIzquierdo.add(botonComponentesConexas);
+		panelInteractivo.add(botonComponentesConexas);
 	}
 
-	private void crearBotonVerInfoRegiones(JPanel panelIzquierdo) {
+	private void crearBotonVerInfoRegiones() {
 		botonVerInfoRegiones = new JButton("Ver información de las regiones");
 		botonVerInfoRegiones.setFont(new Font("Arial", Font.BOLD, 12));
 		botonVerInfoRegiones.setBackground(new Color(250, 255, 110));
 		botonVerInfoRegiones.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		botonVerInfoRegiones.setBounds(60, 560, 230, 30);
-		panelIzquierdo.add(botonVerInfoRegiones);
+		panelInteractivo.add(botonVerInfoRegiones);
 	}
 
-	private void crearBotonReiniciarMapa(JPanel panelIzquierdo) {
+	private void crearBotonReiniciarMapa() {
 		botonReiniciarMapa = new JButton("Reiniciar mapa");
 		botonReiniciarMapa.setFont(new Font("Arial", Font.BOLD, 14));
-		botonReiniciarMapa.setBackground(new Color(219, 101, 90));
+		botonReiniciarMapa.setBackground(new Color(247, 77, 64));
 		botonReiniciarMapa.setForeground(Color.WHITE);
 		botonReiniciarMapa.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		botonReiniciarMapa.setBounds(60, 600, 230, 40);
-		panelIzquierdo.add(botonReiniciarMapa);
+		panelInteractivo.add(botonReiniciarMapa);
 	}
 
 	private void escucharBotones(JTextField inputCantRegiones) {
@@ -237,7 +236,7 @@ public class InteraccionUsuario {
 					return;
 				}
 
-				if (!valorIngresado.matches("\\d+")) {
+				if (esNumero(valorIngresado)) {
 					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_SOLO_NUMERO, "ATENCIÓN",
 							JOptionPane.WARNING_MESSAGE);
 					return;
@@ -264,6 +263,10 @@ public class InteraccionUsuario {
 
 				pais.dividirRegiones(cantidadRegiones);
 				MapUtil.dibujarMapa(pais, mapa);
+			}
+
+			private boolean esNumero(String valorIngresado) {
+				return !valorIngresado.matches("\\d+");
 			}
 		});
 	}

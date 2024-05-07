@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -21,10 +22,11 @@ public class InformacionRegiones extends JFrame {
 		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
 		setBounds(0, 0, 700, 700);
 		setLocationRelativeTo(null);
+		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
 
 		// Layout de la ventana
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(170, 211, 223));
 		panel.setLayout(null);
 
 		JList<String> list = new JList<>();
@@ -44,8 +46,8 @@ public class InformacionRegiones extends JFrame {
 
 		JButton botonSalir = new JButton("Salir");
 		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonSalir.setBounds(240, 580, 200, 60);
-		botonSalir.setBackground(new Color(219, 101, 90));
+		botonSalir.setBounds(245, 580, 200, 60);
+		botonSalir.setBackground(new Color(227, 0, 0));
 		botonSalir.setForeground(Color.WHITE);
 		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
 		panel.add(botonSalir);

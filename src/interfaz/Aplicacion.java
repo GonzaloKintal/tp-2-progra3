@@ -42,12 +42,6 @@ public class Aplicacion {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-//				try {
-//					Aplicacion window = new Aplicacion();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
 			}
 		});
 	}
@@ -144,6 +138,8 @@ public class Aplicacion {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Regiones de la Argentina");
 		frame.setResizable(false);
+		
+		frame.setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
 	}
 
 	private void crearMapa() {
