@@ -67,7 +67,7 @@ public class InputWindow extends JFrame {
 
 		JButton botonConfirmar = new JButton("Confirmar");
 		botonConfirmar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonConfirmar.setBounds(66, 330, 200, 100);
+		botonConfirmar.setBounds(66, 370, 200, 80);
 		botonConfirmar.setBackground(new Color(29, 245, 87));
 		botonConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
 		panel.add(botonConfirmar);
@@ -122,7 +122,7 @@ public class InputWindow extends JFrame {
 
 		JButton botonCompletarCampos = new JButton("Llenar campos aleatoriamente");
 		botonCompletarCampos.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonCompletarCampos.setBounds(42, 289, 248, 30);
+		botonCompletarCampos.setBounds(42, 329, 248, 30);
 		botonCompletarCampos.setBackground(new Color(106, 226, 246));
 		botonCompletarCampos.setFont(new Font("Arial", Font.BOLD, 14));
 		panel.add(botonCompletarCampos);
