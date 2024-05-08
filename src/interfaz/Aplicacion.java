@@ -31,156 +31,147 @@ import java.awt.event.MouseMotionAdapter;
 
 public class Aplicacion {
 
-	private JFrame frame;
-	private JMapViewer mapa;
-	private Pais pais;
+  private JFrame frame;
+  private JMapViewer mapa;
+  private Pais pais;
 
+  /**
+   * Launch the application.
+   */
+  public static void main(String[] args) {
+    EventQueue.invokeLater(new Runnable() {
+      public void run() {
+      }
+    });
+  }
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-			}
-		});
-	}
+  /**
+   * Create the application.
+   */
+  public Aplicacion() {
+    this.pais = new Pais(Config.PAIS);
+    initialize();
+    this.frame.setVisible(true);
+  }
 
-	/**
-	 * Create the application.
-	 */
-	public Aplicacion() {
-		this.pais = new Pais(Config.PAIS);
-		initialize();
-		this.frame.setVisible(true);
-	}
+  /**
+   * Initialize the contents of the frame.
+   */
+  private void initialize() {
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+    crearFrame();
 
-		crearFrame();
+    JPanel panelMapa = new JPanel();
 
-		JPanel panelMapa = new JPanel();
+    crearMapa();
 
-		crearMapa();
+    MapUtil.dibujarMapa(this.pais, this.mapa);
 
-		MapUtil.dibujarMapa(this.pais, this.mapa);
+    InteraccionUsuario interaccionUsuario = new InteraccionUsuario(this.pais, this.mapa);
+    JPanel panelInteractivo = interaccionUsuario.obtenerPanelInteractivo();
 
-		
-		InteraccionUsuario interaccionUsuario = new InteraccionUsuario(this.pais, this.mapa);
-		JPanel panelInteractivo = interaccionUsuario.obtenerPanelInteractivo();
+    JSplitPane splitPane = dividirPantalla(panelMapa, panelInteractivo);
 
+    splitPane.setResizeWeight(0);
+    splitPane.setDividerSize(0);
+    panelMapa.setLayout(null);
 
-		JSplitPane splitPane = dividirPantalla(panelMapa, panelInteractivo);
+    panelMapa.add(mapa);
 
-		splitPane.setResizeWeight(0);
-		splitPane.setDividerSize(0);
-		panelMapa.setLayout(null);
+    frame.getContentPane().add(splitPane);
 
-		panelMapa.add(mapa);
+    agregarLogoGithub();
 
-		frame.getContentPane().add(splitPane);
+    agregarImagenMalvinas();
 
-		agregarLogoGithub();
+  }
 
-		agregarImagenMalvinas();
-		
+  private void agregarLogoGithub() {
+    Image githubImage = new ImageIcon(this.getClass().getResource("/github-logo.png")).getImage();
+    JLabel githubLabel = new JLabel();
+    githubLabel.setIcon(new ImageIcon(githubImage));
+    githubLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    githubLabel.setBounds(285, 610, 45, 45);
+    githubLabel.setToolTipText("Ir al repositorio de GitHub");
+    mapa.add(githubLabel);
 
-	}
+    githubLabel.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        abrirEnlaceGitHub();
+      }
+    });
+  }
 
+  private void agregarImagenMalvinas() {
+    Image islasImage = new ImageIcon(this.getClass().getResource("/malvinas_argentinas.png")).getImage();
+    JLabel islasLabel = new JLabel();
+    islasLabel.setIcon(new ImageIcon(islasImage));
+    islasLabel.setBounds(-350, 5, 700, 650);
+    mapa.add(islasLabel);
+  }
 
-	private void agregarLogoGithub() {
-		Image githubImage = new ImageIcon(this.getClass().getResource("/github-logo.png")).getImage();
-		JLabel githubLabel = new JLabel();
-		githubLabel.setIcon(new ImageIcon(githubImage));
-		githubLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		githubLabel.setBounds(285, 610, 45, 45);
-		githubLabel.setToolTipText("Ir al repositorio de GitHub");
-		mapa.add(githubLabel);
+  private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
+    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
+    panelIzquierdo.setLayout(null);
+    splitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, new PropertyChangeListener() {
+      int lastLocation = splitPane.getDividerLocation();
 
-		githubLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				abrirEnlaceGitHub();
-			}
-		});
-	}
+      @Override
+      public void propertyChange(PropertyChangeEvent e) {
+        splitPane.setDividerLocation(lastLocation);
+      }
+    });
+    return splitPane;
+  }
 
-	private void agregarImagenMalvinas() {
-		Image islasImage = new ImageIcon(this.getClass().getResource("/malvinas_argentinas.png")).getImage();
-		JLabel islasLabel = new JLabel();
-		islasLabel.setIcon(new ImageIcon(islasImage));
-		islasLabel.setBounds(-350, 5, 700, 650);
-		mapa.add(islasLabel);
-	}
+  private void crearFrame() {
+    frame = new JFrame();
+    frame.setBounds(350, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setTitle("Regiones de la Argentina");
+    frame.setResizable(false);
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+  }
 
+  private void crearMapa() {
+    mapa = new JMapViewer();
+    mapa.setBounds(0, 0, 340, 700);
+    mapa.setZoomControlsVisible(false);
 
-	private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
-		panelIzquierdo.setLayout(null);
-		splitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, new PropertyChangeListener() {
-			int lastLocation = splitPane.getDividerLocation();
+    Coordinate posicion = new Coordinate(pais.latitud, pais.longitud);
+    mapa.setDisplayPosition(posicion, pais.getZoom());
 
-			@Override
-			public void propertyChange(PropertyChangeEvent e) {
-				splitPane.setDividerLocation(lastLocation);
-			}
-		});
-		return splitPane;
-	}
+    fijarMapa(posicion);
+  }
 
+  private void fijarMapa(Coordinate posicion) {
+    mapa.addMouseWheelListener(new MouseWheelListener() {
+      public void mouseWheelMoved(MouseWheelEvent e) {
+        mapa.setDisplayPosition(posicion, pais.getZoom());
+      }
+    });
 
-	private void crearFrame() {
-		frame = new JFrame();
-		frame.setBounds(350, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Regiones de la Argentina");
-		frame.setResizable(false);
-		
-		frame.setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
-	}
+    mapa.addMouseMotionListener(new MouseMotionAdapter() {
+      @Override
+      public void mouseDragged(MouseEvent e) {
+        mapa.setDisplayPosition(posicion, pais.getZoom());
+      }
+    });
 
-	private void crearMapa() {
-		mapa = new JMapViewer();
-		mapa.setBounds(0, 0, 340, 700);
-		mapa.setZoomControlsVisible(false);
+    mapa.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        mapa.setDisplayPosition(posicion, pais.getZoom());
+      }
+    });
+  }
 
-		Coordinate posicion = new Coordinate(pais.latitud, pais.longitud);
-		mapa.setDisplayPosition(posicion, pais.getZoom());
-
-		fijarMapa(posicion);
-	}
-
-
-	private void fijarMapa(Coordinate posicion) {
-		mapa.addMouseWheelListener(new MouseWheelListener() {
-			public void mouseWheelMoved(MouseWheelEvent e) {
-				mapa.setDisplayPosition(posicion, pais.getZoom());
-			}
-		});
-
-		mapa.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				mapa.setDisplayPosition(posicion, pais.getZoom());
-			}
-		});
-
-		mapa.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				mapa.setDisplayPosition(posicion, pais.getZoom());
-			}
-		});
-	}
-
-	private void abrirEnlaceGitHub() {
-		try {
-			Desktop.getDesktop().browse(new URI("https://github.com/GonzaloKintal/tp-2-progra3"));
-		} catch (IOException | URISyntaxException e) {
-			e.printStackTrace();
-		}
-	}
+  private void abrirEnlaceGitHub() {
+    try {
+      Desktop.getDesktop().browse(new URI("https://github.com/GonzaloKintal/tp-2-progra3"));
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
 }
