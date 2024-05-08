@@ -25,7 +25,9 @@
         "Santa Fé",
         "San Luis",
         "Santiago del Estero",
-        "La Pampa"
+        "La Pampa",
+        "Catamarca",
+        "La Rioja"
       ]
     },
     {
@@ -118,7 +120,7 @@
       "nombre": "La Rioja",
       "latitud": -29.616979,
       "longitud": -67.097551,
-      "limitrofes": ["Catamarca", "Córdoba", "San Luis", "San Juan"]
+      "limitrofes": ["Catamarca", "San Luis", "San Juan","Córdoba"]
     },
     {
       "nombre": "Salta",

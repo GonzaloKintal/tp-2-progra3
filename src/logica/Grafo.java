@@ -227,6 +227,19 @@ public class Grafo {
 		}
 		return true;
 	}
+
+	public boolean tieneAsignadaSimilaridad(int indiceProvincia) {
+		for (int i = 0; i < tamano(); i++) {
+	        if (indiceProvincia != i && existeArista(indiceProvincia, i)) {
+	            int peso = consultarPeso(indiceProvincia, i);
+	            if (peso == 0) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true; 
+	}
+	}
 	
 	
-}
+

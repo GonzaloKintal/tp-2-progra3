@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,7 +26,7 @@ public class InputWindow extends JFrame {
 	
 	JTextField[] pesosLimitrofes;
 
-	public InputWindow(JButton botonProvincia, Pais pais) {
+	public InputWindow(JButton botonProvincia, Pais pais,HashMap<String,JButton> listaBotonesSimilaridad) {
 		String nombreProvincia = botonProvincia.getText();
 		int indiceProvincia = pais.indiceDe(nombreProvincia);
 		ArrayList<Tupla<String, Integer>> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
@@ -95,15 +97,27 @@ public class InputWindow extends JFrame {
 							"ATENCIÓN", JOptionPane.WARNING_MESSAGE);
 
 				if (botonTerminarCont == pesosLimitrofes.length) {
-					botonProvincia.setEnabled(false);
-					botonProvincia.setBackground(new Color(230, 230, 230));
 					dispose();
 				}
+				
+				verificarBotones();
 			}
 
 			private boolean esUnNumero(String pesoProvincia) {
 				return pesoProvincia.matches("\\d+");
 			}
+			private void verificarBotones() {
+			    for (Entry<String, JButton> entry : listaBotonesSimilaridad.entrySet()) {
+			        String nombreProvincia = entry.getKey();
+			        JButton botonProvincia = entry.getValue();
+			        if(pais.tieneAsignadaSimilaridad(nombreProvincia)) {
+			        	botonProvincia.setEnabled(false);
+			        	botonProvincia.setBackground(new Color(230, 230, 230));
+			        }
+			    }
+			}
+			
+			
 		});
 
 		JButton botonCompletarCampos = new JButton("Llenar campos aleatoriamente");
@@ -122,11 +136,15 @@ public class InputWindow extends JFrame {
 					int randomNumber = (int) (Math.random() * 101 + 1);
 					textField.setText(Integer.toString(randomNumber));
 				}
+			
 			}
+			
+			
 		});
 
 		
 	}
+	
 	
 
 }

@@ -290,6 +290,10 @@ public class Pais {
 			provinciasYaVisitadas.add(provincia);
 		}
 	}
+	public boolean tieneAsignadaSimilaridad(String nombreProvincia) {
+	    int indiceProvincia = indiceDe(nombreProvincia);
+	    return grafo.tieneAsignadaSimilaridad(indiceProvincia);
+	}
 	
 	private void agregarEspacio(StringBuilder informacion) {
 		informacion.append("\n");
@@ -304,6 +308,7 @@ public class Pais {
 		informacion.append("\n");
 		informacion.append("\n");
 	}
-	
+
+
 	
 }
