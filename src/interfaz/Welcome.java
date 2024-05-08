@@ -60,7 +60,6 @@ public class Welcome {
 		agregarImagenFondo();
 
 		frame.getContentPane().add(panelWelcome);
-
 	}
 
 	private void agregarImagenFondo() {

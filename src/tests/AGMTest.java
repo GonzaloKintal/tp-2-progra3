@@ -17,24 +17,24 @@ public class AGMTest {
 	public void init() {
 		this.grafo = new Grafo(8);
 
-		grafo.agregarArista(0, 1);
-		grafo.agregarArista(0, 4);
+		grafo.agregarArista(0, 1, 5);
+		grafo.agregarArista(0, 4, 5);
 
-		grafo.agregarArista(1, 2);
-		grafo.agregarArista(1, 4);
+		grafo.agregarArista(1, 2, 5);
+		grafo.agregarArista(1, 4, 5);
 
-		grafo.agregarArista(2, 3);
-		grafo.agregarArista(2, 4);
+		grafo.agregarArista(2, 3, 5);
+		grafo.agregarArista(2, 4, 5);
 
-		grafo.agregarArista(3, 4);
-		grafo.agregarArista(3, 1);
+		grafo.agregarArista(3, 4, 5);
+		grafo.agregarArista(3, 1, 5);
 
-		grafo.agregarArista(4, 1);
-		grafo.agregarArista(4, 5);
+		grafo.agregarArista(4, 1, 5);
+		grafo.agregarArista(4, 5, 5);
 		
-		grafo.agregarArista(5, 6);
+		grafo.agregarArista(5, 6, 5);
 		
-		grafo.agregarArista(6, 7);
+		grafo.agregarArista(6, 7, 5);
 	}
 
 	@Test
@@ -55,8 +55,6 @@ public class AGMTest {
 
 	@Test
 	public void generarArbolMinimoSigueSiendoConexoTest() {
-		
-
 		Grafo ArbolGeneradorMinimo = AGM.generarArbolMinimo(grafo);
 
 		assertTrue(BFS.esConexo(ArbolGeneradorMinimo));
@@ -81,5 +79,32 @@ public class AGMTest {
 		Grafo g = new Grafo(4);
 		AGM.generarArbolMinimo(g);
 	}
+	
+	
+	@Test
+	public void generarRegionesConexasTest() {
+		grafo = AGM.generarArbolMinimo(grafo);
+		AGM.generarRegionesConexas(grafo, 3);
+		// Tenía 8 vértices, 7 aristas. Generé 3 regiones, eliminé 2 aristas, quedan 5.
+		assertEquals(5, grafo.obtenerCantidadDeAristas());
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void generarRegionesConexasGrafoNullTest() {
+		AGM.generarRegionesConexas(null, 3);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void generarRegionesConexasCantidadExcedidoTest() {
+		grafo = AGM.generarArbolMinimo(grafo);
+		AGM.generarRegionesConexas(grafo, grafo.tamano()+1);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void generarRegionesConexasCantidadCeroTest() {
+		grafo = AGM.generarArbolMinimo(grafo);
+		AGM.generarRegionesConexas(grafo, 0);
+	}
+	
 
 }

@@ -52,6 +52,16 @@ public class Grafo {
 		matrizAdyacente[i][j].agregarArista();
 		matrizAdyacente[j][i].agregarArista();
 	}
+	
+	public void agregarArista(int i, int j, int peso) {
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
+
+		matrizAdyacente[i][j].agregarArista();
+		matrizAdyacente[j][i].agregarArista();
+		agregarPeso(i, j, peso);
+	}
 
 	public void agregarPeso(int i, int j, int peso) {
 		if (!existeArista(i, j)) {
@@ -228,18 +238,19 @@ public class Grafo {
 		return true;
 	}
 
-	public boolean tieneAsignadaSimilaridad(int indiceProvincia) {
+	public boolean tieneAsignadoPeso(int indiceProvincia) {
 		for (int i = 0; i < tamano(); i++) {
 	        if (indiceProvincia != i && existeArista(indiceProvincia, i)) {
-	            int peso = consultarPeso(indiceProvincia, i);
-	            if (peso == 0) {
+	            if (consultarPeso(indiceProvincia, i) == 0) {
 	                return false;
 	            }
 	        }
 	    }
 	    return true; 
 	}
-	}
+	
+	
+}
 	
 	
 

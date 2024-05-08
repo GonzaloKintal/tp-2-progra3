@@ -33,7 +33,7 @@ public class InteraccionUsuario {
 	private Pais pais;
 	private JMapViewer mapa;
 
-	private HashMap<String,JButton> listaBotonesSimilaridad;
+	private HashMap<String, JButton> listaBotonesSimilaridad;
 	private JButton asignarSimilaridades;
 	private JButton botonGenerarAGM;
 	private JButton botonComponentesConexas;
@@ -75,23 +75,19 @@ public class InteraccionUsuario {
 		crearBotonVerInfoRegiones();
 
 		crearBotonReiniciarMapa();
-		
-	
-		escucharBotones(inputCantRegiones);
-		
-		
 
+		escucharBotones(inputCantRegiones);
 
 	}
 
 	private void crearBotonesProvincias() {
-		listaBotonesSimilaridad = new HashMap<String,JButton>();
+		listaBotonesSimilaridad = new HashMap<String, JButton>();
 		Provincia[] provincias = pais.obtenerProvincias();
 		int cantProvincias = provincias.length;
 		int y = 10;
 		int x = 20;
 		for (int i = 0; i < cantProvincias; i++) {
-			String nombreProvincia=provincias[i].getNombre();
+			String nombreProvincia = provincias[i].getNombre();
 			JButton botonAbrirProvincia = new JButton(nombreProvincia);
 			botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			botonAbrirProvincia.setBounds(x, y, 155, 23);
@@ -103,7 +99,7 @@ public class InteraccionUsuario {
 				y = 10;
 				x += 160;
 			}
-			listaBotonesSimilaridad.put(nombreProvincia,botonAbrirProvincia);
+			listaBotonesSimilaridad.put(nombreProvincia, botonAbrirProvincia);
 
 			// Crear una clase interna para el ActionListener que tenga acceso al índice i
 			final int indiceProvincia = i; // Declarar final para que pueda ser accedido dentro de la clase interna
@@ -188,18 +184,15 @@ public class InteraccionUsuario {
 		escucharBotonVerInfoRegiones();
 
 		escucharBotonReiniciarMapa(inputCantRegiones);
-		
+
 	}
 
 	private void escucharBotonesProvincia(JButton botonAbrirProvincia, final int indiceProvincia) {
 		botonAbrirProvincia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InputWindow inputWindow = new InputWindow(botonAbrirProvincia, pais,listaBotonesSimilaridad);
+				InputWindow inputWindow = new InputWindow(botonAbrirProvincia.getText(), pais, listaBotonesSimilaridad);
 				inputWindow.setVisible(true);
-	
 			}
-			
-			
 		});
 	}
 
@@ -227,7 +220,7 @@ public class InteraccionUsuario {
 				if (!pais.estaTodoConectado()) {
 					return;
 				}
-				pais.actualizarSimililaridades();
+				pais.generarCaminoÚnico();
 				MapUtil.dibujarMapa(pais, mapa);
 				botonGenerarAGM.setEnabled(false);
 				botonGenerarAGM.setBackground(new Color(230, 230, 230));
@@ -255,8 +248,9 @@ public class InteraccionUsuario {
 
 				int cantidadRegiones = Integer.parseInt(valorIngresado);
 
-				if (cantidadRegiones <= 0 || cantidadRegiones > 23) {
-					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_CANT_REGIONES_INVALIDO, "ATENCIÓN",
+				if (cantidadRegiones <= 0 || cantidadRegiones > pais.obtenerCantProvincias()) {
+					JOptionPane.showMessageDialog(null,
+							Config.MSJ_ERROR_CANT_REGIONES_INVALIDO + pais.obtenerCantProvincias(), "ATENCIÓN",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 
@@ -299,10 +293,10 @@ public class InteraccionUsuario {
 				pais.reestablecerConexionEntreLimitrofes();
 				MapUtil.dibujarMapa(pais, mapa);
 				for (JButton boton : listaBotonesSimilaridad.values()) {
-		            boton.setEnabled(true);
-		            boton.setBackground(new Color(52, 148, 58));
-		            inputCantRegiones.setText("");
-		        }
+					boton.setEnabled(true);
+					boton.setBackground(new Color(52, 148, 58));
+					inputCantRegiones.setText("");
+				}
 				botonGenerarAGM.setEnabled(true);
 				botonGenerarAGM.setBackground(new Color(106, 226, 246));
 

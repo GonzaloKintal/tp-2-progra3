@@ -55,12 +55,20 @@ public class AGM {
 
 	private static void verificarConexo(Grafo grafo) {
 		if(!BFS.esConexo(grafo)) {
-			throw new IllegalArgumentException("No se puede generar un AGM de un grafo no conexo");
+			throw new IllegalArgumentException("No se puede generar un AGM de un grafo no conexo.");
 		}
 	}
 	
 	
 	public static void generarRegionesConexas(Grafo grafo, int k) {
+		if (grafo == null) {
+			throw new IllegalArgumentException("El grafo es nulo.");
+		}
+		
+		if (k <= 0 || k > grafo.tamano()) {
+			throw new IllegalArgumentException("La cantidad de regiones conexas debe estar entre 1 y 23.");
+		}
+		
 		int aristasAEliminar = k - 1;
 		
 		while (aristasAEliminar > 0) {

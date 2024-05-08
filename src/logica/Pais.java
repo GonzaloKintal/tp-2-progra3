@@ -106,10 +106,23 @@ public class Pais {
 		if (nombre.isEmpty()) {
 			throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
 		}
+		
+		if (!existeProvincia(nombre)) {
+			throw new IllegalArgumentException("La provincia es inexistente.");
+		}
 
 		ArrayList<String> limitrofes = this.provincias[indiceDe(nombre)].limitrofes;
 
 		return limitrofes;
+	}
+	
+	public boolean existeProvincia(String nombre) {
+		for (int i=0; i<provincias.length; i++) {
+			if (nombreDe(i).equals(nombre)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean esPosibleDividirRegiones(int cantRegiones) {
@@ -120,7 +133,7 @@ public class Pais {
 		return this.grafo;
 	}
 
-	public void actualizarSimililaridades() {
+	public void generarCaminoÚnico() {
 		this.grafo = AGM.generarArbolMinimo(grafo);
 	}
 
@@ -198,7 +211,7 @@ public class Pais {
 	}
 
 
-	private int obtenerMinimoIndiceDeSimilaridad(Set<Integer> region) {
+	public int obtenerMinimoIndiceDeSimilaridad(Set<Integer> region) {
 		int minimoActual = Integer.MAX_VALUE;
 		
 		if (region.size() == 1) {
@@ -215,7 +228,7 @@ public class Pais {
 		return minimoActual;
 	}
 	
-	private int obtenerMaximoIndiceDeSimilaridad(Set<Integer> region) {
+	public int obtenerMaximoIndiceDeSimilaridad(Set<Integer> region) {
 		int maximoActual = 0;
 		
 		for (Integer i: region)
@@ -227,7 +240,7 @@ public class Pais {
 		return maximoActual;
 	}
 	
-	private double obtenerIndicePromedioDeSimilaridad(Set<Integer> region) {
+	public double obtenerIndicePromedioDeSimilaridad(Set<Integer> region) {
 	    double totalSimilaridad = 0;
 	    int totalPares = 0;
 
@@ -281,7 +294,6 @@ public class Pais {
 				agregarProvinciasDeLaMismaRegion(region, provinciasYaVisitadas);
 			}
 		}
-		System.out.println(regiones.size());
 		return regiones;
 	}
 
@@ -292,7 +304,7 @@ public class Pais {
 	}
 	public boolean tieneAsignadaSimilaridad(String nombreProvincia) {
 	    int indiceProvincia = indiceDe(nombreProvincia);
-	    return grafo.tieneAsignadaSimilaridad(indiceProvincia);
+	    return grafo.tieneAsignadoPeso(indiceProvincia);
 	}
 	
 	private void agregarEspacio(StringBuilder informacion) {
