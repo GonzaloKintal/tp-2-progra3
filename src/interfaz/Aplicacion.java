@@ -34,6 +34,8 @@ public class Aplicacion {
   private JFrame frame;
   private JMapViewer mapa;
   private Pais pais;
+  private JPanel panelMapa;
+  private JPanel panelInteractivo;
 
   /**
    * Launch the application.
@@ -61,19 +63,16 @@ public class Aplicacion {
 
     crearFrame();
 
-    JPanel panelMapa = new JPanel();
+    panelMapa = new JPanel();
 
     crearMapa();
 
     MapUtil.dibujarMapa(this.pais, this.mapa);
 
-    InteraccionUsuario interaccionUsuario = new InteraccionUsuario(this.pais, this.mapa);
-    JPanel panelInteractivo = interaccionUsuario.obtenerPanelInteractivo();
+    panelInteractivo = new InteraccionUsuario(this.pais, this.mapa).obtenerPanelInteractivo();
 
-    JSplitPane splitPane = dividirPantalla(panelMapa, panelInteractivo);
+    JSplitPane splitPane = dividirPantalla(panelInteractivo, panelMapa);
 
-    splitPane.setResizeWeight(0);
-    splitPane.setDividerSize(0);
     panelMapa.setLayout(null);
 
     panelMapa.add(mapa);
@@ -111,9 +110,9 @@ public class Aplicacion {
     mapa.add(islasLabel);
   }
 
-  private JSplitPane dividirPantalla(JPanel panelMapa, JPanel panelIzquierdo) {
-    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelIzquierdo, panelMapa);
-    panelIzquierdo.setLayout(null);
+  private JSplitPane dividirPantalla(JPanel panelInteractivo, JPanel panelMapa) {
+    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelInteractivo, panelMapa);
+    panelInteractivo.setLayout(null);
     splitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, new PropertyChangeListener() {
       int lastLocation = splitPane.getDividerLocation();
 
@@ -122,6 +121,8 @@ public class Aplicacion {
         splitPane.setDividerLocation(lastLocation);
       }
     });
+    splitPane.setResizeWeight(0);
+    splitPane.setDividerSize(0);
     return splitPane;
   }
 

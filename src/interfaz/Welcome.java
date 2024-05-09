@@ -50,8 +50,7 @@ public class Welcome {
 	private void initialize() {
 		crearFrame();
 
-		panelWelcome = new JPanel();
-		panelWelcome.setLayout(null);
+		crearPanel();
 
 		crearBotonIniciar();
 
@@ -60,6 +59,11 @@ public class Welcome {
 		agregarImagenFondo();
 
 		frame.getContentPane().add(panelWelcome);
+	}
+
+	private void crearPanel() {
+		panelWelcome = new JPanel();
+		panelWelcome.setLayout(null);
 	}
 
 	private void agregarImagenFondo() {

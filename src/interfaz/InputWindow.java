@@ -5,7 +5,6 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -19,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import logica.Pais;
-import utils.Tupla;
 
 public class InputWindow extends JFrame {
 
@@ -179,6 +177,7 @@ public class InputWindow extends JFrame {
     setTitle("Similaridad " + this.nombreProvincia);
     setSize(350, 500);
     setLocationRelativeTo(null);
+    setResizable(false);
     setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
   }
 

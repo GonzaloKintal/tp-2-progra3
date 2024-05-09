@@ -17,49 +17,81 @@ import utils.Config;
 
 public class InformacionRegiones extends JFrame {
 
+	JPanel panel;
+	JList<String> informacionRegiones;
+	JScrollPane scrollPane;
+	String[] regiones;
+	JButton botonSalir;
+
 	public InformacionRegiones(String info) {
-		setTitle("Estadísticas de las regiones");
-		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
-		setBounds(0, 0, 700, 700);
-		setLocationRelativeTo(null);
+		configurarFrame();
+
 		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
 
-		// Layout de la ventana
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(170, 211, 223));
-		panel.setLayout(null);
+		crearPanel();
 
-		JList<String> list = new JList<>();
-		list.setBackground(new Color(9, 48, 67));
-		list.setForeground(Color.WHITE);
-		list.setFocusable(false);
-		setResizable(false);
-		JScrollPane scrollPane = new JScrollPane(list);
-		scrollPane.setBounds(10, 10, 675, 560);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBorder(null);
+		crearJList();
 
+		crearScrollPane();
 		panel.add(scrollPane);
 
-		String[] regiones = info.split("\n");
-		list.setListData(regiones);
+		agregarInformacion(info);
 
-		JButton botonSalir = new JButton("Salir");
-		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonSalir.setBounds(245, 580, 200, 60);
-		botonSalir.setBackground(new Color(227, 0, 0));
-		botonSalir.setForeground(Color.WHITE);
-		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
+		crearBotonSalir();
+		escucharBotonSalir();
 		panel.add(botonSalir);
 
-		// Agregar panel a la ventana
 		getContentPane().add(panel);
 
+	}
+
+	private void agregarInformacion(String info) {
+		String[] regiones = info.split("\n");
+		informacionRegiones.setListData(regiones);
+	}
+
+	private void escucharBotonSalir() {
 		botonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-
 	}
+
+	private void crearBotonSalir() {
+		botonSalir = new JButton("Salir");
+		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		botonSalir.setBounds(245, 580, 200, 60);
+		botonSalir.setBackground(new Color(227, 0, 0));
+		botonSalir.setForeground(Color.WHITE);
+		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
+	}
+
+	private void crearScrollPane() {
+		scrollPane = new JScrollPane(informacionRegiones);
+		scrollPane.setBounds(10, 10, 675, 560);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBorder(null);
+	}
+
+	private void crearJList() {
+		informacionRegiones = new JList<>();
+		informacionRegiones.setBackground(new Color(9, 48, 67));
+		informacionRegiones.setForeground(Color.WHITE);
+		informacionRegiones.setFocusable(false);
+		setResizable(false);
+	}
+
+	private void crearPanel() {
+		this.panel = new JPanel();
+		panel.setLayout(null);
+	}
+
+	private void configurarFrame() {
+		setTitle("Estadísticas de las regiones");
+		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+		setBounds(0, 0, 700, 700);
+		setLocationRelativeTo(null);
+	}
+
 }
