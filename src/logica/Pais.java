@@ -71,9 +71,9 @@ public class Pais {
     ArrayList<String> limitrofes = dameLimitrofesDe(nombreProvincia);
     int indiceProvincia = indiceDe(nombreProvincia);
 
-    for (String limit : limitrofes) {
-      int peso = this.grafo.consultarPeso(indiceProvincia, indiceDe(limit));
-      ret.put(nombreProvincia, peso);
+    for (String limitrofe : limitrofes) {
+      int peso = this.grafo.consultarPeso(indiceProvincia, indiceDe(limitrofe));
+      ret.put(limitrofe, peso);
     }
 
     return ret;
