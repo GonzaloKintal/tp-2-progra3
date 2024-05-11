@@ -84,11 +84,7 @@ public class InteraccionUsuario {
 		int posX = 20;
 		for (int i = 0; i < cantProvincias; i++) {
 			String nombreProvincia = provincias[i].getNombre();
-			JButton botonAbrirProvincia = new JButton(nombreProvincia);
-			botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			botonAbrirProvincia.setBounds(posX, posY, 155, 23);
-			botonAbrirProvincia.setBackground(new Color(52, 148, 58));
-			botonAbrirProvincia.setForeground(Color.WHITE);
+			JButton botonAbrirProvincia = crearBotonAbrirProvincia(posY, posX, nombreProvincia);
 
 			// Condición para agregar los botones de las provincias en 2 columnas
 			posY += 30;
@@ -106,6 +102,15 @@ public class InteraccionUsuario {
 			panelInteractivo.add(botonAbrirProvincia);
 
 		}
+	}
+
+	private JButton crearBotonAbrirProvincia(int posY, int posX, String nombreProvincia) {
+		JButton botonAbrirProvincia = new JButton(nombreProvincia);
+		botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		botonAbrirProvincia.setBounds(posX, posY, 155, 23);
+		botonAbrirProvincia.setBackground(new Color(52, 148, 58));
+		botonAbrirProvincia.setForeground(Color.WHITE);
+		return botonAbrirProvincia;
 	}
 
 	private void crearBotonAsignarSimilaridades() {
