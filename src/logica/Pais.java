@@ -203,7 +203,6 @@ public class Pais {
       regionActual++;
       agregarEspacio(informacion);
     }
-    System.out.println(informacion.toString());
     return informacion.toString();
   }
 
@@ -218,7 +217,6 @@ public class Pais {
       for (Integer j : region)
         if (existeConexión(i, j) && obtenerSimilaridad(i, j) < minimoActual) {
           minimoActual = obtenerSimilaridad(i, j);
-          System.out.println(obtenerSimilaridad(i, j));
         }
 
     return minimoActual;
