@@ -136,5 +136,19 @@ public class PaísTest {
 
 		assertEquals(2, país.obtenerRegiones().size());
 	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void obtenerRegionesFueraDeRangoPositivoTest() {
+		país.asignarPesosAleatoriamente();
+		país.generarCaminoÚnico();
+		país.dividirRegiones(25);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void obtenerRegionesFueraDeRangoNegativoTest() {
+		país.asignarPesosAleatoriamente();
+		país.generarCaminoÚnico();
+		país.dividirRegiones(-2);
+	}
 
 }

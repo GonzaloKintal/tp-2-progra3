@@ -21,7 +21,7 @@ public class Grafo {
 	public void asignarPesosRandom() {
 		for (int i = 0; i < tamano(); i++) {
 			for (int j = 0; j < tamano(); j++) {
-				if (existeArista(i, j)) {
+				if (existeArista(i, j) && consultarPeso(i, j)==0) {
 					Random rd = new Random();
 					agregarPeso(i, j, rd.nextInt(101) + 1);
 				}
