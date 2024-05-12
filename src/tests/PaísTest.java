@@ -135,7 +135,6 @@ public class PaísTest {
     país.generarCaminoÚnico();
     país.dividirRegiones(2);
 
-<<<<<<< HEAD
 		assertEquals(2, país.obtenerRegiones().size());
 	}
 	
@@ -152,9 +151,7 @@ public class PaísTest {
 		país.generarCaminoÚnico();
 		país.dividirRegiones(-2);
 	}
-=======
-    assertEquals(2, país.obtenerRegiones().size());
+	
+	
   }
->>>>>>> 0e05c66867861ca437962f37e829c195d8529627
 
-}
