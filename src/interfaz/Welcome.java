@@ -18,105 +18,105 @@ import utils.Config;
 
 public class Welcome {
 
-	private JFrame frame;
-	private JPanel panelWelcome;
+  private JFrame frame;
+  private JPanel panelWelcome;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Welcome window = new Welcome();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+  /**
+   * Launch the application.
+   */
+  public static void main(String[] args) {
+    EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        try {
+          Welcome window = new Welcome();
+          window.frame.setVisible(true);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 
-	/**
-	 * Create the application.
-	 */
-	public Welcome() {
-		initialize();
-	}
+  /**
+   * Create the application.
+   */
+  public Welcome() {
+    initialize();
+  }
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		crearFrame();
+  /**
+   * Initialize the contents of the frame.
+   */
+  private void initialize() {
+    crearFrame();
 
-		crearPanel();
+    crearPanel();
 
-		crearBotonIniciar();
+    crearBotonIniciar();
 
-		crearBotonSalir();
+    crearBotonSalir();
 
-		agregarImagenFondo();
+    agregarImagenFondo();
 
-		frame.getContentPane().add(panelWelcome);
-	}
+    frame.getContentPane().add(panelWelcome);
+  }
 
-	private void crearPanel() {
-		panelWelcome = new JPanel();
-		panelWelcome.setLayout(null);
-	}
+  private void crearPanel() {
+    panelWelcome = new JPanel();
+    panelWelcome.setLayout(null);
+  }
 
-	private void agregarImagenFondo() {
-		Image backgroundImage = new ImageIcon(this.getClass().getResource("/Welcome.png")).getImage();
-		JLabel backgroundLabel = new JLabel();
-		backgroundLabel.setBounds(0, 0, 690, 665);
-		backgroundLabel.setIcon(new ImageIcon(backgroundImage));
-		panelWelcome.add(backgroundLabel);
-	}
+  private void agregarImagenFondo() {
+    Image backgroundImage = new ImageIcon(this.getClass().getResource("/Welcome.png")).getImage();
+    JLabel backgroundLabel = new JLabel();
+    backgroundLabel.setBounds(0, 0, 690, 665);
+    backgroundLabel.setIcon(new ImageIcon(backgroundImage));
+    panelWelcome.add(backgroundLabel);
+  }
 
-	private void crearBotonSalir() {
-		JButton botonSalir = new JButton("SALIR");
-		botonSalir.setBounds(140, 520, 400, 70);
-		botonSalir.setFont(new Font("Verdana", Font.BOLD, 30));
-		botonSalir.setForeground(Color.WHITE);
-		botonSalir.setBackground(new Color(194, 10, 10));
-		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+  private void crearBotonSalir() {
+    JButton botonSalir = new JButton("SALIR");
+    botonSalir.setBounds(140, 520, 400, 70);
+    botonSalir.setFont(new Font("Verdana", Font.BOLD, 30));
+    botonSalir.setForeground(Color.WHITE);
+    botonSalir.setBackground(new Color(194, 10, 10));
+    botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		botonSalir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
-			}
-		});
-		panelWelcome.add(botonSalir);
-	}
+    botonSalir.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        frame.dispose();
+      }
+    });
+    panelWelcome.add(botonSalir);
+  }
 
-	private void crearBotonIniciar() {
-		JButton botonIniciar = new JButton("INICIAR");
-		botonIniciar.setBounds(140, 410, 400, 70);
-		botonIniciar.setFont(new Font("Verdana", Font.BOLD, 30));
-		botonIniciar.setForeground(Color.WHITE);
-		botonIniciar.setBackground(new Color(93, 189, 72));
-		botonIniciar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+  private void crearBotonIniciar() {
+    JButton botonIniciar = new JButton("INICIAR");
+    botonIniciar.setBounds(140, 410, 400, 70);
+    botonIniciar.setFont(new Font("Verdana", Font.BOLD, 30));
+    botonIniciar.setForeground(Color.WHITE);
+    botonIniciar.setBackground(new Color(93, 189, 72));
+    botonIniciar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		botonIniciar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
-				Aplicacion aplicacion = new Aplicacion();
-			}
-		});
-		panelWelcome.add(botonIniciar);
-	}
+    botonIniciar.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        frame.dispose();
+        Aplicacion aplicacion = new Aplicacion();
+      }
+    });
+    panelWelcome.add(botonIniciar);
+  }
 
-	private void crearFrame() {
-		frame = new JFrame();
-		frame.setBounds(350, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Regiones de la Argentina");
-		frame.setResizable(false);
+  private void crearFrame() {
+    frame = new JFrame();
+    frame.setBounds(350, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setTitle("Regiones de la Argentina");
+    frame.setResizable(false);
 
-		frame.setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
-	}
+    frame.setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+  }
 
 }
