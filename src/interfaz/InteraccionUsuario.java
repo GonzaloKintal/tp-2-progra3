@@ -38,12 +38,14 @@ public class InteraccionUsuario {
 	private JButton botonComponentesConexas;
 	private JButton botonVerInfoRegiones;
 	private JButton botonReiniciarMapa;
+	private JButton verInfo;
+	private InformacionSimilaridades windowInfo;
 
 	public InteraccionUsuario(Pais pais, JMapViewer mapa) {
 		this.panelInteractivo = new JPanel();
 		this.pais = pais;
 		this.mapa = mapa;
-
+		this.windowInfo = new InformacionSimilaridades(pais.obtenerInformacionSimilaridad());
 	}
 
 	public JPanel obtenerPanelInteractivo() {
@@ -74,6 +76,10 @@ public class InteraccionUsuario {
 		crearBotonReiniciarMapa();
 
 		escucharBotones(inputCantRegiones);
+
+		crearBotonVerInfo();
+
+		escucharBotonVerInfo();
 
 	}
 
@@ -194,7 +200,8 @@ public class InteraccionUsuario {
 	private void escucharBotonesProvincia(JButton botonAbrirProvincia, final int indiceProvincia) {
 		botonAbrirProvincia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InputWindow inputWindow = new InputWindow(botonAbrirProvincia.getText(), pais, listaBotonesSimilaridad);
+				InputWindow inputWindow = new InputWindow(botonAbrirProvincia.getText(), pais, listaBotonesSimilaridad,
+						windowInfo);
 				inputWindow.setVisible(true);
 			}
 		});
@@ -208,6 +215,7 @@ public class InteraccionUsuario {
 					boton.setEnabled(false);
 					boton.setBackground(new Color(230, 230, 230));
 				}
+				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
 			}
 		});
 	}
@@ -228,6 +236,7 @@ public class InteraccionUsuario {
 				MapUtil.dibujarMapa(pais, mapa);
 				botonGenerarAGM.setEnabled(false);
 				botonGenerarAGM.setBackground(new Color(230, 230, 230));
+				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
 			}
 		});
 	}
@@ -272,6 +281,7 @@ public class InteraccionUsuario {
 
 				pais.dividirRegiones(cantidadRegiones);
 				MapUtil.dibujarMapa(pais, mapa);
+				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
 			}
 
 		});
@@ -300,9 +310,29 @@ public class InteraccionUsuario {
 				}
 				botonGenerarAGM.setEnabled(true);
 				botonGenerarAGM.setBackground(new Color(106, 226, 246));
-
+				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
 			}
 		});
+	}
+
+	private void crearBotonVerInfo() {
+		verInfo = new JButton("Ver info");
+		verInfo.setBackground(Color.ORANGE);
+		verInfo.setFont(new Font("Arial", Font.BOLD, 14));
+		verInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		verInfo.setBounds(180, 340, 155, 23);
+		panelInteractivo.add(verInfo);
+
+	}
+
+	private void escucharBotonVerInfo() {
+		verInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
+				windowInfo.setVisible(true);
+			}
+		});
+
 	}
 
 }

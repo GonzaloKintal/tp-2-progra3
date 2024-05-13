@@ -31,12 +31,14 @@ public class InputWindow extends JFrame {
   String nombreProvincia;
   JPanel panel;
   Pais pais;
+  InformacionSimilaridades windowInfo;
 
-  public InputWindow(String nombreProvincia, Pais pais, HashMap<String, JButton> listaBotonesSimilaridad) {
+  public InputWindow(String nombreProvincia, Pais pais, HashMap<String, JButton> listaBotonesSimilaridad, InformacionSimilaridades windowInfo) {
 
     this.nombreProvincia = nombreProvincia;
     this.pais = pais;
     this.listaBotonesSimilaridad = listaBotonesSimilaridad;
+    this.windowInfo = windowInfo;
 
     panel = new JPanel();
     panel.setLayout(null);
@@ -118,7 +120,7 @@ public class InputWindow extends JFrame {
         }
 
         verificarBotones();
-        
+        windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
       }
     });
   }

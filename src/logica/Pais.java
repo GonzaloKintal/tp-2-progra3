@@ -314,5 +314,27 @@ public class Pais {
     informacion.append("\n");
     informacion.append("\n");
   }
+  
+	
+  public String obtenerInformacionSimilaridad() {
+	  StringBuilder informacion = new StringBuilder();
+      for (int i = 0; i < grafo.tamano(); i++) {
+           for (int j=i; j < grafo.tamano(); j++) {
+              if (grafo.existeArista(i, j)) {
+                  informacion.append(nombreDe(i));
+                  informacion.append(" - ");
+                  informacion.append(nombreDe(j));
+                  informacion.append(" tienen indice: ");
+                  informacion.append(grafo.consultarPeso(i, j));
+                  informacion.append("\n");
+                  informacion.append("\n");
+                  informacion.append("\n");
+                  informacion.append("\n");
+              }
+
+          }
+      }
+      return informacion.toString();
+  }
 
 }
