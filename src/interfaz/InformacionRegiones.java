@@ -42,7 +42,6 @@ public class InformacionRegiones extends JFrame {
 		panel.add(botonSalir);
 
 		getContentPane().add(panel);
-
 	}
 
 	private void agregarInformacion(String info) {
@@ -61,8 +60,8 @@ public class InformacionRegiones extends JFrame {
 	private void crearBotonSalir() {
 		botonSalir = new JButton("Salir");
 		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonSalir.setBounds(245, 580, 200, 60);
-		botonSalir.setBackground(new Color(227, 0, 0));
+		botonSalir.setBounds(245, 585, 200, 60);
+		botonSalir.setBackground(new Color(247, 77, 64));
 		botonSalir.setForeground(Color.WHITE);
 		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
 	}

@@ -321,6 +321,7 @@ public class Pais {
       for (int i = 0; i < grafo.tamano(); i++) {
            for (int j=i; j < grafo.tamano(); j++) {
               if (grafo.existeArista(i, j)) {
+            	  informacion.append(" ");
                   informacion.append(nombreDe(i));
                   informacion.append(" - ");
                   informacion.append(nombreDe(j));

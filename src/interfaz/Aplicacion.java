@@ -128,7 +128,7 @@ public class Aplicacion {
 
   private void crearFrame() {
     frame = new JFrame();
-    frame.setBounds(350, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+    frame.setBounds(280, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setTitle("Regiones de la Argentina");
     frame.setResizable(false);

@@ -40,7 +40,6 @@ public class InteraccionUsuario {
 	private JButton botonComponentesConexas;
 	private JButton botonVerInfoRegiones;
 	private JButton botonReiniciarMapa;
-	private JButton verInfo;
 	private InformacionSimilaridades windowInfo;
 
 	public InteraccionUsuario(Pais pais, JMapViewer mapa) {
@@ -79,11 +78,7 @@ public class InteraccionUsuario {
 
 		escucharBotones(inputCantRegiones);
 
-//		crearBotonVerInfo();
-//
-//		escucharBotonVerInfo();
-
-		crearImagenVerInfo();
+		crearBotonVerInfo();
 	}
 
 	private void crearBotonesProvincias() {
@@ -319,26 +314,6 @@ public class InteraccionUsuario {
 	}
 
 	private void crearBotonVerInfo() {
-		verInfo = new JButton("Ver info");
-		verInfo.setBackground(Color.ORANGE);
-		verInfo.setFont(new Font("Arial", Font.BOLD, 14));
-		verInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		verInfo.setBounds(180, 340, 155, 23);
-		panelInteractivo.add(verInfo);
-
-	}
-
-	private void escucharBotonVerInfo() {
-		verInfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
-				windowInfo.setVisible(true);
-			}
-		});
-
-	}
-
-	private void crearImagenVerInfo() {
 		Image infoSimilaridadesImage = new ImageIcon(this.getClass().getResource("/infoSimilaridades.png")).getImage();
 		JLabel infoSimilaridadesLabel = new JLabel();
 		infoSimilaridadesLabel.setIcon(new ImageIcon(infoSimilaridadesImage));

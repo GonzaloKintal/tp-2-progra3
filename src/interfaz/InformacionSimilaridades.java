@@ -35,7 +35,6 @@ public class InformacionSimilaridades extends JFrame {
 		actualizarInfo(similaridades);
 
 		escucharBotonSalir();
-
 	}
 
 	private void configurarframe() {
@@ -43,8 +42,7 @@ public class InformacionSimilaridades extends JFrame {
 		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
 		setResizable(false);
 		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
-		setBounds(0, 0, 700, 700);
-		setLocationRelativeTo(null);
+		setBounds(967, 30, 400, 700);
 
 	}
 
@@ -57,13 +55,15 @@ public class InformacionSimilaridades extends JFrame {
 
 	private void crearJList() {
 		infoJList = new JList<String>();
-		infoJList.setBounds(0, 0, 700, 700);
+		infoJList.setBackground(new Color(9, 48, 67));
+		infoJList.setForeground(Color.WHITE);
+		infoJList.setBounds(0, 0, 400, 700);
 		panel.add(infoJList);
 	}
 
 	private void crearScrollPane() {
 		scrollPane = new JScrollPane(infoJList);
-		scrollPane.setBounds(10, 10, 675, 560);
+		scrollPane.setBounds(10, 10, 375, 560);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBorder(null);
 		panel.add(scrollPane);
@@ -72,8 +72,8 @@ public class InformacionSimilaridades extends JFrame {
 	private void crearBotonSalir() {
 		botonSalir = new JButton("Salir");
 		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonSalir.setBounds(245, 580, 200, 60);
-		botonSalir.setBackground(new Color(227, 0, 0));
+		botonSalir.setBounds(90, 585, 200, 60);
+		botonSalir.setBackground(new Color(247, 77, 64));
 		botonSalir.setForeground(Color.WHITE);
 		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
 		panel.add(botonSalir);

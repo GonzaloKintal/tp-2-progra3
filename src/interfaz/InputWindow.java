@@ -86,11 +86,11 @@ public class InputWindow extends JFrame {
     this.botonConfirmar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         int botonTerminarCont = 0;
-        int contadorProvincia = 0;
+        int indiceInput = 0;
         HashMap<String, Integer> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
 
         for (String provincia : provinciasLimitrofes.keySet()) {
-          String pesoProvincia = inputPesosLimitrofes[contadorProvincia].getText();
+          String pesoProvincia = inputPesosLimitrofes[indiceInput].getText();
           
           if (!esUnNumeroPositivo(pesoProvincia)) {
 				JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_SOLO_NUMERO, "ATENCIÓN",
@@ -104,11 +104,11 @@ public class InputWindow extends JFrame {
 
           if (campoEsValidoParaAsignarPeso(pesoProvincia)) {
             pais.actualizarSimilaridad(pais.indiceDe(nombreProvincia), indiceSegundaProvincia, pesoProvinciaInt);
-            inputPesosLimitrofes[contadorProvincia].setBackground(Color.gray);
-            inputPesosLimitrofes[contadorProvincia].setEnabled(false);
+            inputPesosLimitrofes[indiceInput].setBackground(Color.gray);
+            inputPesosLimitrofes[indiceInput].setEditable(false);
             botonTerminarCont++;
           }
-          contadorProvincia++;
+          indiceInput++;
         }
 
         if (botonTerminarCont < provinciasLimitrofes.size())
