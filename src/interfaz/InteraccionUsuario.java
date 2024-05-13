@@ -24,6 +24,7 @@ import logica.Pais;
 import logica.Provincia;
 import utils.Config;
 import utils.MapUtil;
+import static utils.MapUtil.esUnNumeroPositivo;
 
 public class InteraccionUsuario {
 
@@ -243,7 +244,7 @@ public class InteraccionUsuario {
 					return;
 				}
 
-				if (esNumero(valorIngresado)) {
+				if (!esUnNumeroPositivo(valorIngresado)) {
 					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_SOLO_NUMERO, "ATENCIÓN",
 							JOptionPane.WARNING_MESSAGE);
 					return;
@@ -273,9 +274,6 @@ public class InteraccionUsuario {
 				MapUtil.dibujarMapa(pais, mapa);
 			}
 
-			private boolean esNumero(String valorIngresado) {
-				return !valorIngresado.matches("\\d+");
-			}
 		});
 	}
 

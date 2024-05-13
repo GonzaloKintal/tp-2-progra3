@@ -41,4 +41,7 @@ public class MapUtil {
 		}
 	}
 	
+	public static boolean esUnNumeroPositivo(String pesoProvincia) {
+	      return pesoProvincia.matches("\\d+");
+	}
 }

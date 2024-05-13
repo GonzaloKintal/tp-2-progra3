@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import logica.Pais;
+import utils.Config;
+
+import static utils.MapUtil.esUnNumeroPositivo;
 
 public class InputWindow extends JFrame {
 
@@ -86,16 +89,24 @@ public class InputWindow extends JFrame {
 
         for (String provincia : provinciasLimitrofes.keySet()) {
           String pesoProvincia = inputPesosLimitrofes[contadorProvincia].getText();
+          
+          if (!esUnNumeroPositivo(pesoProvincia)) {
+				JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_SOLO_NUMERO, "ATENCIÓN",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+          }
+          
           int pesoProvinciaInt = Integer.parseInt(pesoProvincia);
 
           int indiceSegundaProvincia = pais.indiceDe(provincia);
 
-          if (!pesoProvincia.isEmpty() && esUnNumero(pesoProvincia) && pesoProvinciaInt > 0) {
+          if (campoEsValidoParaAsignarPeso(pesoProvincia)) {
             pais.actualizarSimilaridad(pais.indiceDe(nombreProvincia), indiceSegundaProvincia, pesoProvinciaInt);
             inputPesosLimitrofes[contadorProvincia].setBackground(Color.gray);
             inputPesosLimitrofes[contadorProvincia].setEnabled(false);
             botonTerminarCont++;
           }
+          contadorProvincia++;
         }
 
         if (botonTerminarCont < provinciasLimitrofes.size())
@@ -107,24 +118,20 @@ public class InputWindow extends JFrame {
         }
 
         verificarBotones();
+        
       }
-
-      private boolean esUnNumero(String pesoProvincia) {
-        return pesoProvincia.matches("\\d+");
-      }
-
-      private void verificarBotones() {
-        for (Entry<String, JButton> entry : listaBotonesSimilaridad.entrySet()) {
-          String nombreProvincia = entry.getKey();
-          JButton botonProvincia = entry.getValue();
-          if (pais.tieneAsignadaSimilaridad(nombreProvincia)) {
-            botonProvincia.setEnabled(false);
-            botonProvincia.setBackground(new Color(230, 230, 230));
-          }
-        }
-      }
-
     });
+  }
+  
+  private void verificarBotones() {
+	  for (Entry<String, JButton> entry : listaBotonesSimilaridad.entrySet()) {
+		  String nombreProvincia = entry.getKey();
+		  JButton botonProvincia = entry.getValue();
+		  if (pais.tieneAsignadaSimilaridad(nombreProvincia)) {
+			  botonProvincia.setEnabled(false);
+			  botonProvincia.setBackground(new Color(230, 230, 230));
+		  }
+	  }
   }
 
   private JButton crearBotonConfirmar(JPanel panel) {
@@ -179,6 +186,10 @@ public class InputWindow extends JFrame {
     setLocationRelativeTo(null);
     setResizable(false);
     setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+  }
+  
+  private boolean campoEsValidoParaAsignarPeso(String pesoProvincia) {
+	  return !pesoProvincia.isEmpty() && Integer.parseInt(pesoProvincia) > 0;
   }
 
 }
