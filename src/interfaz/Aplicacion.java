@@ -101,7 +101,7 @@ public class Aplicacion {
       }
     });
   }
-
+  
   private void agregarImagenMalvinas() {
     Image islasImage = new ImageIcon(this.getClass().getResource("/malvinas_argentinas.png")).getImage();
     JLabel islasLabel = new JLabel();

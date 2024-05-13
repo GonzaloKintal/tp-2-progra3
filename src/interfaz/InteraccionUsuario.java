@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -77,10 +79,11 @@ public class InteraccionUsuario {
 
 		escucharBotones(inputCantRegiones);
 
-		crearBotonVerInfo();
+//		crearBotonVerInfo();
+//
+//		escucharBotonVerInfo();
 
-		escucharBotonVerInfo();
-
+		crearImagenVerInfo();
 	}
 
 	private void crearBotonesProvincias() {
@@ -333,6 +336,24 @@ public class InteraccionUsuario {
 			}
 		});
 
+	}
+
+	private void crearImagenVerInfo() {
+		Image infoSimilaridadesImage = new ImageIcon(this.getClass().getResource("/infoSimilaridades.png")).getImage();
+		JLabel infoSimilaridadesLabel = new JLabel();
+		infoSimilaridadesLabel.setIcon(new ImageIcon(infoSimilaridadesImage));
+		infoSimilaridadesLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		infoSimilaridadesLabel.setBounds(245, 338, 30, 30);
+		infoSimilaridadesLabel.setToolTipText("Ver similaridades");
+		panelInteractivo.add(infoSimilaridadesLabel);
+
+		infoSimilaridadesLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
+				windowInfo.setVisible(true);
+			}
+		});
 	}
 
 }
