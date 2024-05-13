@@ -108,7 +108,7 @@ public class GrafoTest {
 		grafo.agregarArista(0, 1);
 		grafo.agregarArista(0, 2);
 		
-		assertTrue(grafo.esPosibleDesconexarEnRegiones(2));
+		assertTrue(grafo.esPosibleDesconexar(2));
 	}
 	
 	@Test
@@ -117,7 +117,7 @@ public class GrafoTest {
 		grafo.agregarArista(0, 1);
 		grafo.agregarArista(0, 2);
 		
-		assertFalse(grafo.esPosibleDesconexarEnRegiones(4));
+		assertFalse(grafo.esPosibleDesconexar(4));
 	}
 	
 	

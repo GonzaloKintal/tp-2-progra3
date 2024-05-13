@@ -64,7 +64,7 @@ public class InteraccionUsuario {
 
 		crearBotonesProvincias();
 
-		crearBotonAsignarSimilaridades();
+		crearBotonAsignarSimilaridadesAleatoriamente();
 
 		crearBotonGenerarAGM();
 
@@ -100,8 +100,7 @@ public class InteraccionUsuario {
 
 			listaBotonesSimilaridad.put(nombreProvincia, botonAbrirProvincia);
 
-			// Crear una clase interna para el ActionListener que tenga acceso al índice i
-			final int indiceProvincia = i; // Declarar final para que pueda ser accedido dentro de la clase interna
+			int indiceProvincia = i;
 
 			escucharBotonesProvincia(botonAbrirProvincia, indiceProvincia);
 			panelInteractivo.add(botonAbrirProvincia);
@@ -118,7 +117,7 @@ public class InteraccionUsuario {
 		return botonAbrirProvincia;
 	}
 
-	private void crearBotonAsignarSimilaridades() {
+	private void crearBotonAsignarSimilaridadesAleatoriamente() {
 		asignarSimilaridades = new JButton("Asignar aleatoriamente");
 		asignarSimilaridades.setBackground(new Color(106, 226, 246));
 		asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
@@ -192,10 +191,9 @@ public class InteraccionUsuario {
 		escucharBotonVerInfoRegiones();
 
 		escucharBotonReiniciarMapa(inputCantRegiones);
-
 	}
 
-	private void escucharBotonesProvincia(JButton botonAbrirProvincia, final int indiceProvincia) {
+	private void escucharBotonesProvincia(JButton botonAbrirProvincia, int indiceProvincia) {
 		botonAbrirProvincia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InputWindow inputWindow = new InputWindow(botonAbrirProvincia.getText(), pais, listaBotonesSimilaridad,

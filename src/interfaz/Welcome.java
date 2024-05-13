@@ -21,9 +21,6 @@ public class Welcome {
 	private JFrame frame;
 	private JPanel panelWelcome;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -37,16 +34,10 @@ public class Welcome {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Welcome() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		crearFrame();
 
@@ -61,34 +52,19 @@ public class Welcome {
 		frame.getContentPane().add(panelWelcome);
 	}
 
+	private void crearFrame() {
+		frame = new JFrame();
+		frame.setBounds(280, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Regiones de la Argentina");
+		frame.setResizable(false);
+
+		frame.setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+	}
+
 	private void crearPanel() {
 		panelWelcome = new JPanel();
 		panelWelcome.setLayout(null);
-	}
-
-	private void agregarImagenFondo() {
-		Image backgroundImage = new ImageIcon(this.getClass().getResource("/Welcome.png")).getImage();
-		JLabel backgroundLabel = new JLabel();
-		backgroundLabel.setBounds(0, 0, 690, 665);
-		backgroundLabel.setIcon(new ImageIcon(backgroundImage));
-		panelWelcome.add(backgroundLabel);
-	}
-
-	private void crearBotonSalir() {
-		JButton botonSalir = new JButton("SALIR");
-		botonSalir.setBounds(140, 520, 400, 70);
-		botonSalir.setFont(new Font("Verdana", Font.BOLD, 30));
-		botonSalir.setForeground(Color.WHITE);
-		botonSalir.setBackground(new Color(194, 10, 10));
-		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-		botonSalir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
-			}
-		});
-		panelWelcome.add(botonSalir);
 	}
 
 	private void crearBotonIniciar() {
@@ -109,14 +85,29 @@ public class Welcome {
 		panelWelcome.add(botonIniciar);
 	}
 
-	private void crearFrame() {
-		frame = new JFrame();
-		frame.setBounds(280, 30, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Regiones de la Argentina");
-		frame.setResizable(false);
+	private void crearBotonSalir() {
+		JButton botonSalir = new JButton("SALIR");
+		botonSalir.setBounds(140, 520, 400, 70);
+		botonSalir.setFont(new Font("Verdana", Font.BOLD, 30));
+		botonSalir.setForeground(Color.WHITE);
+		botonSalir.setBackground(new Color(194, 10, 10));
+		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		frame.setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+		botonSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+			}
+		});
+		panelWelcome.add(botonSalir);
+	}
+
+	private void agregarImagenFondo() {
+		Image backgroundImage = new ImageIcon(this.getClass().getResource("/Welcome.png")).getImage();
+		JLabel backgroundLabel = new JLabel();
+		backgroundLabel.setBounds(0, 0, 690, 665);
+		backgroundLabel.setIcon(new ImageIcon(backgroundImage));
+		panelWelcome.add(backgroundLabel);
 	}
 
 }

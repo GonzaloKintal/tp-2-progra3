@@ -36,6 +36,7 @@ public class Pais {
   }
 
   public String obtenerNombrePorIndice(int idxProvincia) {
+	verificarIndiceProvincia(idxProvincia);
     return this.provincias[idxProvincia].nombre;
   }
 
@@ -123,7 +124,7 @@ public class Pais {
   }
 
   public boolean esPosibleDividirRegiones(int cantRegiones) {
-    return this.grafo.esPosibleDesconexarEnRegiones(cantRegiones);
+    return this.grafo.esPosibleDesconexar(cantRegiones);
   }
 
   public Grafo obtenerGrafo() {
@@ -151,7 +152,14 @@ public class Pais {
   }
 
   public ArrayList<String> obtenerLimitrofesDe(int indiceProvincia) {
+	verificarIndiceProvincia(indiceProvincia);
     return this.provincias[indiceProvincia].limitrofes;
+  }
+
+  private void verificarIndiceProvincia(int indiceProvincia) {
+		if (indiceProvincia < 0 || indiceProvincia >= grafo.tamano()) {
+			throw new IllegalArgumentException("El índice debe ser entre 0 y " + grafo.tamano());
+		}
   }
 
   public void asignarPesosAleatoriamente() {
@@ -192,18 +200,22 @@ public class Pais {
       }
 
       if (region.size() > 1) {
-        informacion.append("\n");
-        informacion.append("El mínimo indice de similaridad es: " + obtenerMinimoIndiceDeSimilaridad(region));
-        informacion.append("\n");
-        informacion.append("El índice promedio de similaridad es: " + obtenerIndicePromedioDeSimilaridad(region));
-        informacion.append("\n");
-        informacion.append("El máximo indice de similaridad es: " + obtenerMaximoIndiceDeSimilaridad(region));
+        agregarInfoDeRegion(informacion, region);
       }
 
       regionActual++;
       agregarEspacio(informacion);
     }
     return informacion.toString();
+  }
+
+  private void agregarInfoDeRegion(StringBuilder informacion, Set<Integer> region) {
+	informacion.append("\n");
+	informacion.append("El mínimo indice de similaridad es: " + obtenerMinimoIndiceDeSimilaridad(region));
+	informacion.append("\n");
+	informacion.append("El índice promedio de similaridad es: " + obtenerIndicePromedioDeSimilaridad(region));
+	informacion.append("\n");
+	informacion.append("El máximo indice de similaridad es: " + obtenerMaximoIndiceDeSimilaridad(region));
   }
 
   public int obtenerMinimoIndiceDeSimilaridad(Set<Integer> region) {
@@ -235,23 +247,27 @@ public class Pais {
   }
 
   public double obtenerIndicePromedioDeSimilaridad(Set<Integer> region) {
+	  
+	if (region.equals(null)) 
+		throw new NullPointerException("La región es nula.");
+	  
     double totalSimilaridad = 0;
-    int totalPares = 0;
+    int totalAristas = 0;
 
     for (Integer i : region) {
       for (Integer j : region) {
         if (i < j && existeConexión(i, j)) {
           totalSimilaridad += obtenerSimilaridad(i, j);
-          totalPares++;
+          totalAristas++;
         }
       }
     }
 
-    if (totalPares == 0) {
+    if (totalAristas == 0) {
       return 0;
     }
 
-    return retornarDecimalAcotado(totalSimilaridad, totalPares);
+    return retornarDecimalAcotado(totalSimilaridad, totalAristas);
   }
 
   private double retornarDecimalAcotado(double totalSimilaridad, int totalPares) {
@@ -298,7 +314,7 @@ public class Pais {
 
   public boolean tieneAsignadaSimilaridad(String nombreProvincia) {
     int indiceProvincia = indiceDe(nombreProvincia);
-    return grafo.tieneAsignadoPeso(indiceProvincia);
+    return grafo.todasSusLimitrofesTienenPeso(indiceProvincia);
   }
 
   private void agregarEspacio(StringBuilder informacion) {

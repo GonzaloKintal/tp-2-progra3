@@ -47,16 +47,53 @@ public class InputWindow extends JFrame {
 
     agregarInputPorProvincia();
 
-    crearBotonConfirmar(panel);
-    escucharBotonConfirmar();
-
     crearBotonCompletarCampos();
     escucharBotonCompletarCampos();
+    
+    crearBotonConfirmar(panel);
+    escucharBotonConfirmar();
 
     getContentPane().add(panel);
 
   }
 
+  private void configurarVentana() {
+	  setTitle("Similaridad " + this.nombreProvincia);
+	  setSize(350, 500);
+	  setLocationRelativeTo(null);
+	  setResizable(false);
+	  setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+  }
+  
+  private void agregarInputPorProvincia() {
+	  HashMap<String, Integer> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
+	  int cantProvinciasLimitrofes = provinciasLimitrofes.size();
+	  int indiceProvincia = 0;
+	  inputPesosLimitrofes = new JTextField[cantProvinciasLimitrofes];
+	  
+	  int posicion_Y = 0;
+	  int heigth = 100;
+	  
+	  for (String provincia : provinciasLimitrofes.keySet()) {
+		  JLabel label = new JLabel(provincia);
+		  JTextField inputPesoLimitrofe = new JTextField();
+		  int peso = provinciasLimitrofes.get(provincia);
+		  
+		  if (peso > 0) {
+			  deshabilitarCampo(inputPesoLimitrofe);
+		  }
+		  
+		  inputPesoLimitrofe.setText(Integer.toString(peso));
+		  label.setBounds(20, posicion_Y, 120, heigth);
+		  inputPesoLimitrofe.setBounds(150, posicion_Y + 35, 150, 30);
+		  posicion_Y += 40;
+		  panel.add(label);
+		  panel.add(inputPesoLimitrofe);
+		  
+		  inputPesosLimitrofes[indiceProvincia++] = inputPesoLimitrofe;
+	  }
+  }
+  
   private void escucharBotonCompletarCampos() {
     botonCompletarCampos.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -82,6 +119,16 @@ public class InputWindow extends JFrame {
     return botonCompletarCampos;
   }
 
+  private JButton crearBotonConfirmar(JPanel panel) {
+	  this.botonConfirmar = new JButton("Confirmar");
+	  botonConfirmar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	  botonConfirmar.setBounds(66, 370, 200, 80);
+	  botonConfirmar.setBackground(new Color(29, 245, 87));
+	  botonConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
+	  panel.add(botonConfirmar);
+	  return botonConfirmar;
+  }
+  
   private void escucharBotonConfirmar() {
     this.botonConfirmar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -136,44 +183,7 @@ public class InputWindow extends JFrame {
 	  }
   }
 
-  private JButton crearBotonConfirmar(JPanel panel) {
-    this.botonConfirmar = new JButton("Confirmar");
-    botonConfirmar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    botonConfirmar.setBounds(66, 370, 200, 80);
-    botonConfirmar.setBackground(new Color(29, 245, 87));
-    botonConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
-    panel.add(botonConfirmar);
-    return botonConfirmar;
-  }
 
-  private void agregarInputPorProvincia() {
-    HashMap<String, Integer> provinciasLimitrofes = pais.obtenerAristasLimitrofes(nombreProvincia);
-    int cantProvinciasLimitrofes = provinciasLimitrofes.size();
-    int indiceProvincia = 0;
-    inputPesosLimitrofes = new JTextField[cantProvinciasLimitrofes];
-
-    int posicion_Y = 0;
-    int heigth = 100;
-
-    for (String provincia : provinciasLimitrofes.keySet()) {
-      JLabel label = new JLabel(provincia);
-      JTextField inputPesoLimitrofe = new JTextField();
-      int peso = provinciasLimitrofes.get(provincia);
-
-      if (peso > 0) {
-        deshabilitarCampo(inputPesoLimitrofe);
-      }
-
-      inputPesoLimitrofe.setText(Integer.toString(peso));
-      label.setBounds(20, posicion_Y, 120, heigth);
-      inputPesoLimitrofe.setBounds(150, posicion_Y + 35, 150, 30);
-      posicion_Y += 40;
-      panel.add(label);
-      panel.add(inputPesoLimitrofe);
-
-      inputPesosLimitrofes[indiceProvincia++] = inputPesoLimitrofe;
-    }
-  }
 
   private void deshabilitarCampo(JTextField campo) {
     campo.setEditable(false);
@@ -182,13 +192,6 @@ public class InputWindow extends JFrame {
     campo.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
   }
 
-  private void configurarVentana() {
-    setTitle("Similaridad " + this.nombreProvincia);
-    setSize(350, 500);
-    setLocationRelativeTo(null);
-    setResizable(false);
-    setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
-  }
   
   private boolean campoEsValidoParaAsignarPeso(String pesoProvincia) {
 	  return !pesoProvincia.isEmpty() && Integer.parseInt(pesoProvincia) > 0;

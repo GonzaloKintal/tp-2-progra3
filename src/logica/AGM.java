@@ -14,10 +14,9 @@ public class AGM {
     Grafo arbolGeneradorMinimo = new Grafo(grafo.tamano());
     int contador = 0;
 
-    // Empezamos desde un vertice elegido arbitrariamente
     verticesMarcados.add(0);
 
-    while (contador < grafo.tamano() - 1) {
+    while (hayVertices(grafo, contador)) {
       HashMap<Tupla<Integer, Integer>, Integer> aristasTotales = filtrarAristasDeNoMarcados(grafo, verticesMarcados);
 
       Tupla<Integer, Integer> aristaMinima = grafo.elegirAristaConMenorPeso(aristasTotales);
@@ -30,8 +29,12 @@ public class AGM {
     return arbolGeneradorMinimo;
   }
 
+  private static boolean hayVertices(Grafo grafo, int contador) {
+	return contador < grafo.tamano() - 1;
+  }
+
   private static void agregarAristaMinimaAlAGM(Grafo grafo, Grafo arbolGeneradorMinimo,
-      Tupla<Integer, Integer> aristaMinima) {
+    Tupla<Integer, Integer> aristaMinima) {
     int indiceVerticeMarcado = aristaMinima.getPrimero();
     int indiceVerticeNoMarcado = aristaMinima.getSegundo();
     int peso = grafo.consultarPeso(indiceVerticeMarcado, indiceVerticeNoMarcado);
@@ -58,13 +61,9 @@ public class AGM {
   }
 
   public static void generarRegionesConexas(Grafo grafo, int k) {
-    if (grafo == null) {
-      throw new IllegalArgumentException("El grafo es nulo.");
-    }
+    verificarGrafoNulo(grafo);
 
-    if (k <= 0 || k > grafo.tamano()) {
-      throw new IllegalArgumentException("La cantidad de regiones conexas debe estar entre 1 y 23.");
-    }
+    verificarRangoCantidadRegiones(grafo, k);
 
     int aristasAEliminar = k - 1;
 
@@ -72,6 +71,18 @@ public class AGM {
       grafo.eliminarAristaDeMayorPeso();
       aristasAEliminar--;
     }
+  }
+
+  private static void verificarRangoCantidadRegiones(Grafo grafo, int k) {
+	  if (k <= 0 || k > grafo.tamano()) {
+        throw new IllegalArgumentException("La cantidad de regiones conexas debe estar entre 1 y 23.");
+      }
+  }
+
+  private static void verificarGrafoNulo(Grafo grafo) {
+	  if (grafo == null) {
+        throw new IllegalArgumentException("El grafo es nulo.");
+      }
   }
 
 }

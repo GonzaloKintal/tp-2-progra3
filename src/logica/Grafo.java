@@ -18,16 +18,6 @@ public class Grafo {
 		instanciarAristas();
 	}
 
-	public void asignarPesosRandom() {
-		Random rd = new Random();
-		for (int i = 0; i < tamano(); i++) {
-			for (int j = 0; j < tamano(); j++) {
-				if (existeArista(i, j) && consultarPeso(i, j)==0) {
-					agregarPeso(i, j, rd.nextInt(101) + 1);
-				}
-			}
-		}
-	}
 
 
 	public void instanciarAristas() {
@@ -120,7 +110,7 @@ public class Grafo {
 		return matrizAdyacente.length;
 	}
 
-	// Verifica que sea un vértice válido
+	
 	private void verificarVertice(int v) {
 		if (v < 0) {
 			throw new IllegalArgumentException("El vértice no puede ser negativo: " + v);
@@ -131,10 +121,20 @@ public class Grafo {
 		}
 	}
 
-	// Verifica que i y j sean distintos
 	private void verificarDistintos(int i, int j) {
 		if (i == j) {
 			throw new IllegalArgumentException("No se permiten loops!");
+		}
+	}
+	
+	public void asignarPesosRandom() {
+		Random rd = new Random();
+		for (int i = 0; i < tamano(); i++) {
+			for (int j = 0; j < tamano(); j++) {
+				if (existeArista(i, j) && consultarPeso(i, j)==0) {
+					agregarPeso(i, j, rd.nextInt(101) + 1);
+				}
+			}
 		}
 	}
 
@@ -145,7 +145,6 @@ public class Grafo {
 				Tupla<Integer, Integer> indice = new Tupla<>(vertice, i);
 				int peso = matrizAdyacente[vertice][i].obtenerPeso();
 				aristasHaciaNoMarcados.put(indice, peso);
-				
 			}
 		}
 		return aristasHaciaNoMarcados;
@@ -217,7 +216,7 @@ public class Grafo {
 		return aristaDeMayorPeso;
 	}
 	
-	public boolean esPosibleDesconexarEnRegiones(int cantComponentesConexas) {
+	public boolean esPosibleDesconexar(int cantComponentesConexas) {
 		int aristasAEliminar = cantComponentesConexas - 1;
 		
 		if(aristasAEliminar <= this.obtenerCantidadDeAristas()) {
@@ -238,7 +237,7 @@ public class Grafo {
 		return true;
 	}
 
-	public boolean tieneAsignadoPeso(int indiceProvincia) {
+	public boolean todasSusLimitrofesTienenPeso(int indiceProvincia) {
 		for (int i = 0; i < tamano(); i++) {
 	        if (indiceProvincia != i && existeArista(indiceProvincia, i)) {
 	            if (consultarPeso(indiceProvincia, i) == 0) {

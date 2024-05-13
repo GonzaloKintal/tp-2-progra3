@@ -30,13 +30,46 @@ public class PaísTest {
   public void restart() {
     país.reestablecerConexionEntreLimitrofes();
   }
+  
+  @Test
+  public void obtenerNombrePorIndiceTest() {
+	  assertEquals("Córdoba", país.obtenerNombrePorIndice(5));
+  }
+  
+  @Test (expected = IllegalArgumentException.class)
+  public void obtenerNombrePorIndiceNegativoTest() {
+	  país.obtenerNombrePorIndice(-5);
+  }
+  
+  @Test (expected = IllegalArgumentException.class)
+  public void obtenerNombrePorIndiceExcedidoTest() {
+	  país.obtenerNombrePorIndice(23);
+  }
+  
+  @Test
+  public void obtenerLimitrofesDeTest() {
+	  ArrayList<String> limitrofesSantaCruz = new ArrayList<>();
+	  limitrofesSantaCruz.add("Tierra del Fuego");
+	  limitrofesSantaCruz.add("Chubut");
+	  assertEquals(limitrofesSantaCruz, país.obtenerLimitrofesDe(18));
+  }
+  
+  @Test (expected = IllegalArgumentException.class)
+  public void obtenerLimitrofesDeIndiceNegativoTest() {
+	  país.obtenerLimitrofesDe(-5);
+  }
+  
+  @Test (expected = IllegalArgumentException.class)
+  public void obtenerLimitrofesDeIndiceExcedidoTest() {
+	  país.obtenerLimitrofesDe(23);
+  }
 
   @Test
   public void obtenerCoordenadasLimitrofesTrueTest() {
     Set<Coordinate> coordenadaSantaCruz = new HashSet<Coordinate>();
     coordenadaSantaCruz.add(new Coordinate(-48.784325, -70.058595));
 
-    assertEquals(coordenadaSantaCruz, país.obtenerCoordenadasLimitrofes(9));
+    assertEquals(coordenadaSantaCruz, país.obtenerCoordenadasLimitrofes(21));	// La provincia 21 es Tierra del Fuego
   }
 
   @Test
@@ -58,7 +91,7 @@ public class PaísTest {
 
   @Test
   public void indiceDeTest() {
-    assertEquals(1, país.indiceDe("Córdoba"));
+    assertEquals(5, país.indiceDe("Córdoba"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -109,7 +142,7 @@ public class PaísTest {
     }
     region.add(país.indiceDe("Buenos Aires"));
 
-    país.actualizarSimilaridad(0, 1, 0);
+    país.actualizarSimilaridad(0, 5, 0);
 
     assertEquals(0, país.obtenerMinimoIndiceDeSimilaridad(region));
   }
@@ -124,11 +157,41 @@ public class PaísTest {
     }
     region.add(país.indiceDe("Buenos Aires"));
 
-    país.actualizarSimilaridad(0, 1, 500);
+    país.actualizarSimilaridad(0, 5, 500);
 
     assertEquals(500, país.obtenerMaximoIndiceDeSimilaridad(region));
   }
-
+  
+  @Test
+  public void obtenerIndicePromedioDeSimilaridadTest() {
+	  país.actualizarSimilaridad(3, 18, 10);	// 3: Chubut		18: Santa Cruz
+	  país.actualizarSimilaridad(18, 21, 20);	// 18: Santa Cruz	21: Tierra del Fuego
+	  
+	  Set<Integer> region = new HashSet<>();
+	  region.add(3);
+	  region.add(18);
+	  region.add(21);
+	  
+	  double esperado = 15.0;
+	  double actual = país.obtenerIndicePromedioDeSimilaridad(region);
+	  
+	  assertEquals(esperado, actual, 0.0001);	// El '0.0001' es el delta. Es el margen de error permitido en la comparación
+  }
+  
+  @Test
+  public void obtenerIndicePromedioDeSimilaridadRegionSinAristasTest() {
+	  Set<Integer> region = new HashSet<>();
+	  region.add(3);
+	  
+	  assertEquals(0, país.obtenerIndicePromedioDeSimilaridad(region), 0.0001);
+  }
+  
+  @Test (expected = NullPointerException.class)
+  public void obtenerIndicePromedioDeSimilaridadRegionNulaTest() {
+	  país.obtenerIndicePromedioDeSimilaridad(null);
+  }
+ 
+ 
   @Test
   public void obtenerRegionesTest() {
     país.asignarPesosAleatoriamente();

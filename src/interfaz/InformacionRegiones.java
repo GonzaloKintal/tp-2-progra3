@@ -26,8 +26,6 @@ public class InformacionRegiones extends JFrame {
 	public InformacionRegiones(String info) {
 		configurarFrame();
 
-		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
-
 		crearPanel();
 
 		crearJList();
@@ -42,6 +40,34 @@ public class InformacionRegiones extends JFrame {
 		panel.add(botonSalir);
 
 		getContentPane().add(panel);
+	}
+
+	private void configurarFrame() {
+		setTitle("Estadísticas de las regiones");
+		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+		setBounds(0, 0, 700, 700);
+		setLocationRelativeTo(null);
+		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+	}
+
+	private void crearPanel() {
+		this.panel = new JPanel();
+		panel.setLayout(null);
+	}
+
+	private void crearJList() {
+		informacionRegiones = new JList<>();
+		informacionRegiones.setBackground(new Color(9, 48, 67));
+		informacionRegiones.setForeground(Color.WHITE);
+		informacionRegiones.setFocusable(false);
+		setResizable(false);
+	}
+
+	private void crearScrollPane() {
+		scrollPane = new JScrollPane(informacionRegiones);
+		scrollPane.setBounds(10, 10, 675, 560);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBorder(null);
 	}
 
 	private void agregarInformacion(String info) {
@@ -64,33 +90,6 @@ public class InformacionRegiones extends JFrame {
 		botonSalir.setBackground(new Color(247, 77, 64));
 		botonSalir.setForeground(Color.WHITE);
 		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
-	}
-
-	private void crearScrollPane() {
-		scrollPane = new JScrollPane(informacionRegiones);
-		scrollPane.setBounds(10, 10, 675, 560);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBorder(null);
-	}
-
-	private void crearJList() {
-		informacionRegiones = new JList<>();
-		informacionRegiones.setBackground(new Color(9, 48, 67));
-		informacionRegiones.setForeground(Color.WHITE);
-		informacionRegiones.setFocusable(false);
-		setResizable(false);
-	}
-
-	private void crearPanel() {
-		this.panel = new JPanel();
-		panel.setLayout(null);
-	}
-
-	private void configurarFrame() {
-		setTitle("Estadísticas de las regiones");
-		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
-		setBounds(0, 0, 700, 700);
-		setLocationRelativeTo(null);
 	}
 
 }
