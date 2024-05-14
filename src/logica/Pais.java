@@ -32,12 +32,7 @@ public class Pais {
   }
 
   public Provincia[] obtenerProvincias() {
-    return this.provincias;
-  }
-
-  public String obtenerNombrePorIndice(int idxProvincia) {
-	verificarIndiceProvincia(idxProvincia);
-    return this.provincias[idxProvincia].nombre;
+    return this.provincias.clone();
   }
 
   public void asignarAristasLimitrofesPorDefecto() {
@@ -125,10 +120,6 @@ public class Pais {
 
   public boolean esPosibleDividirRegiones(int cantRegiones) {
     return this.grafo.esPosibleDesconexar(cantRegiones);
-  }
-
-  public Grafo obtenerGrafo() {
-    return this.grafo;
   }
 
   public void generarCaminoÚnico() {

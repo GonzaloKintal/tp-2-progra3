@@ -32,21 +32,6 @@ public class PaísTest {
   }
   
   @Test
-  public void obtenerNombrePorIndiceTest() {
-	  assertEquals("Córdoba", país.obtenerNombrePorIndice(5));
-  }
-  
-  @Test (expected = IllegalArgumentException.class)
-  public void obtenerNombrePorIndiceNegativoTest() {
-	  país.obtenerNombrePorIndice(-5);
-  }
-  
-  @Test (expected = IllegalArgumentException.class)
-  public void obtenerNombrePorIndiceExcedidoTest() {
-	  país.obtenerNombrePorIndice(23);
-  }
-  
-  @Test
   public void obtenerLimitrofesDeTest() {
 	  ArrayList<String> limitrofesSantaCruz = new ArrayList<>();
 	  limitrofesSantaCruz.add("Tierra del Fuego");

@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 
 import utils.Config;
 
+@SuppressWarnings("serial")
 public class InformacionRegiones extends JFrame {
 
 	JPanel panel;

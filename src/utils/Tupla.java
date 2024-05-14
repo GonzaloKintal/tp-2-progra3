@@ -45,7 +45,8 @@ public class Tupla<A, B> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Tupla other = (Tupla) obj;
+		@SuppressWarnings("unchecked")
+		Tupla<A, B> other = (Tupla<A, B>) obj;
 		return Objects.equals(primero, other.primero) && Objects.equals(segundo, other.segundo);
 	}
     

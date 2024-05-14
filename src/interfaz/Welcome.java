@@ -79,7 +79,7 @@ public class Welcome {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
-				Aplicacion aplicacion = new Aplicacion();
+				new Aplicacion();
 			}
 		});
 		panelWelcome.add(botonIniciar);

@@ -22,6 +22,7 @@ import utils.Config;
 
 import static utils.MapUtil.esUnNumeroPositivo;
 
+@SuppressWarnings("serial")
 public class InputWindow extends JFrame {
 
   HashMap<String, JButton> listaBotonesSimilaridad;

@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 
 import utils.Config;
 
+@SuppressWarnings("serial")
 public class InformacionSimilaridades extends JFrame {
 	JList<String> infoJList;
 	JPanel panel;
