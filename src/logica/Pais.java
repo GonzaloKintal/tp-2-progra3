@@ -96,6 +96,12 @@ public class Pais {
   }
 
   public ArrayList<String> dameLimitrofesDe(String nombre) {
+    verificarNombreDeProvinciaValido();
+
+    return this.provincias[indiceDe(nombre)].limitrofes;
+  }
+
+  private void verificarNombreDeProvinciaValido() {
     if (nombre.isEmpty()) {
       throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
     }
@@ -103,10 +109,6 @@ public class Pais {
     if (!existeProvincia(nombre)) {
       throw new IllegalArgumentException("La provincia es inexistente.");
     }
-
-    ArrayList<String> limitrofes = this.provincias[indiceDe(nombre)].limitrofes;
-
-    return limitrofes;
   }
 
   public boolean existeProvincia(String nombre) {
@@ -143,14 +145,14 @@ public class Pais {
   }
 
   public ArrayList<String> obtenerLimitrofesDe(int indiceProvincia) {
-	verificarIndiceProvincia(indiceProvincia);
+    verificarIndiceProvincia(indiceProvincia);
     return this.provincias[indiceProvincia].limitrofes;
   }
 
   private void verificarIndiceProvincia(int indiceProvincia) {
-		if (indiceProvincia < 0 || indiceProvincia >= grafo.tamano()) {
-			throw new IllegalArgumentException("El índice debe ser entre 0 y " + grafo.tamano());
-		}
+    if (indiceProvincia < 0 || indiceProvincia >= grafo.tamano()) {
+      throw new IllegalArgumentException("El índice debe ser entre 0 y " + grafo.tamano());
+    }
   }
 
   public void asignarPesosAleatoriamente() {
@@ -201,12 +203,12 @@ public class Pais {
   }
 
   private void agregarInfoDeRegion(StringBuilder informacion, Set<Integer> region) {
-	informacion.append("\n");
-	informacion.append("El mínimo indice de similaridad es: " + obtenerMinimoIndiceDeSimilaridad(region));
-	informacion.append("\n");
-	informacion.append("El índice promedio de similaridad es: " + obtenerIndicePromedioDeSimilaridad(region));
-	informacion.append("\n");
-	informacion.append("El máximo indice de similaridad es: " + obtenerMaximoIndiceDeSimilaridad(region));
+    informacion.append("\n");
+    informacion.append("El mínimo indice de similaridad es: " + obtenerMinimoIndiceDeSimilaridad(region));
+    informacion.append("\n");
+    informacion.append("El índice promedio de similaridad es: " + obtenerIndicePromedioDeSimilaridad(region));
+    informacion.append("\n");
+    informacion.append("El máximo indice de similaridad es: " + obtenerMaximoIndiceDeSimilaridad(region));
   }
 
   public int obtenerMinimoIndiceDeSimilaridad(Set<Integer> region) {
@@ -238,10 +240,10 @@ public class Pais {
   }
 
   public double obtenerIndicePromedioDeSimilaridad(Set<Integer> region) {
-	  
-	if (region.equals(null)) 
-		throw new NullPointerException("La región es nula.");
-	  
+
+    if (region.equals(null))
+      throw new NullPointerException("La región es nula.");
+
     double totalSimilaridad = 0;
     int totalAristas = 0;
 
@@ -321,28 +323,27 @@ public class Pais {
     informacion.append("\n");
     informacion.append("\n");
   }
-  
-	
-  public String obtenerInformacionSimilaridad() {
-	  StringBuilder informacion = new StringBuilder();
-      for (int i = 0; i < grafo.tamano(); i++) {
-           for (int j=i; j < grafo.tamano(); j++) {
-              if (grafo.existeArista(i, j)) {
-            	  informacion.append(" ");
-                  informacion.append(nombreDe(i));
-                  informacion.append(" - ");
-                  informacion.append(nombreDe(j));
-                  informacion.append(" tienen indice: ");
-                  informacion.append(grafo.consultarPeso(i, j));
-                  informacion.append("\n");
-                  informacion.append("\n");
-                  informacion.append("\n");
-                  informacion.append("\n");
-              }
 
-          }
+  public String obtenerInformacionSimilaridad() {
+    StringBuilder informacion = new StringBuilder();
+    for (int i = 0; i < grafo.tamano(); i++) {
+      for (int j = i; j < grafo.tamano(); j++) {
+        if (grafo.existeArista(i, j)) {
+          informacion.append(" ");
+          informacion.append(nombreDe(i));
+          informacion.append(" - ");
+          informacion.append(nombreDe(j));
+          informacion.append(" tienen indice: ");
+          informacion.append(grafo.consultarPeso(i, j));
+          informacion.append("\n");
+          informacion.append("\n");
+          informacion.append("\n");
+          informacion.append("\n");
+        }
+
       }
-      return informacion.toString();
+    }
+    return informacion.toString();
   }
 
 }
