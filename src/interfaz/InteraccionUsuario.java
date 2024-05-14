@@ -30,302 +30,302 @@ import static utils.MapUtil.esUnNumeroPositivo;
 
 public class InteraccionUsuario {
 
-	private JPanel panelInteractivo;
-	private Pais pais;
-	private JMapViewer mapa;
+  private JPanel panelInteractivo;
+  private Pais pais;
+  private JMapViewer mapa;
 
-	private HashMap<String, JButton> listaBotonesSimilaridad;
-	private JButton asignarSimilaridades;
-	private JButton botonGenerarAGM;
-	private JButton botonComponentesConexas;
-	private JButton botonVerInfoRegiones;
-	private JButton botonReiniciarMapa;
-	private InformacionSimilaridades windowInfo;
+  private HashMap<String, JButton> listaBotonesSimilaridad;
+  private JButton asignarSimilaridades;
+  private JButton botonGenerarAGM;
+  private JButton botonComponentesConexas;
+  private JButton botonVerInfoRegiones;
+  private JButton botonReiniciarMapa;
+  private InformacionSimilaridades windowInfo;
 
-	public InteraccionUsuario(Pais pais, JMapViewer mapa) {
-		this.panelInteractivo = new JPanel();
-		this.pais = pais;
-		this.mapa = mapa;
-		this.windowInfo = new InformacionSimilaridades(pais.obtenerInformacionSimilaridad());
-	}
+  public InteraccionUsuario(Pais pais, JMapViewer mapa) {
+    this.panelInteractivo = new JPanel();
+    this.pais = pais;
+    this.mapa = mapa;
+    this.windowInfo = new InformacionSimilaridades(pais.obtenerInformacionSimilaridad());
+  }
 
-	public JPanel obtenerPanelInteractivo() {
-		configurarPanelInteractivo();
-		agregarBotones();
-		return this.panelInteractivo;
-	}
+  public JPanel obtenerPanelInteractivo() {
+    configurarPanelInteractivo();
+    agregarBotones();
+    return this.panelInteractivo;
+  }
 
-	private void configurarPanelInteractivo() {
-		panelInteractivo.setBackground(new Color(170, 211, 223));
-		panelInteractivo.setPreferredSize(new Dimension(350, 700));
-	}
+  private void configurarPanelInteractivo() {
+    panelInteractivo.setBackground(new Color(170, 211, 223));
+    panelInteractivo.setPreferredSize(new Dimension(350, 700));
+  }
 
-	private void agregarBotones() {
+  private void agregarBotones() {
 
-		crearBotonesProvincias();
+    crearBotonesProvincias();
 
-		crearBotonAsignarSimilaridadesAleatoriamente();
+    crearBotonAsignarSimilaridadesAleatoriamente();
 
-		crearBotonGenerarAGM();
+    crearBotonGenerarAGM();
 
-		JTextField inputCantRegiones = crearInputRegiones();
+    JTextField inputCantRegiones = crearInputRegiones();
 
-		crearBotonComponentesConexas();
+    crearBotonComponentesConexas();
 
-		crearBotonVerInfoRegiones();
+    crearBotonVerInfoRegiones();
 
-		crearBotonReiniciarMapa();
+    crearBotonReiniciarMapa();
 
-		escucharBotones(inputCantRegiones);
+    escucharBotones(inputCantRegiones);
 
-		crearBotonVerInfo();
-	}
+    crearBotonVerInfo();
+  }
 
-	private void crearBotonesProvincias() {
-		listaBotonesSimilaridad = new HashMap<String, JButton>();
-		Provincia[] provincias = pais.obtenerProvincias();
-		int cantProvincias = provincias.length;
-		int posY = 10;
-		int posX = 20;
-		for (int i = 0; i < cantProvincias; i++) {
-			String nombreProvincia = provincias[i].getNombre();
-			JButton botonAbrirProvincia = crearBotonAbrirProvincia(posY, posX, nombreProvincia);
+  private void crearBotonesProvincias() {
+    listaBotonesSimilaridad = new HashMap<String, JButton>();
+    Provincia[] provincias = pais.obtenerProvincias();
+    int cantProvincias = provincias.length;
+    int posY = 10;
+    int posX = 20;
+    for (int i = 0; i < cantProvincias; i++) {
+      String nombreProvincia = provincias[i].getNombre();
+      JButton botonAbrirProvincia = crearBotonAbrirProvincia(posY, posX, nombreProvincia);
 
-			// Condición para agregar los botones de las provincias en 2 columnas
-			posY += 30;
-			if (i == 11) {
-				posY = 10;
-				posX += 160;
-			}
+      // Condición para agregar los botones de las provincias en 2 columnas
+      posY += 30;
+      if (i == 11) {
+        posY = 10;
+        posX += 160;
+      }
 
-			listaBotonesSimilaridad.put(nombreProvincia, botonAbrirProvincia);
+      listaBotonesSimilaridad.put(nombreProvincia, botonAbrirProvincia);
 
-			int indiceProvincia = i;
+      int indiceProvincia = i;
 
-			escucharBotonesProvincia(botonAbrirProvincia, indiceProvincia);
-			panelInteractivo.add(botonAbrirProvincia);
+      escucharBotonesProvincia(botonAbrirProvincia, indiceProvincia);
+      panelInteractivo.add(botonAbrirProvincia);
 
-		}
-	}
+    }
+  }
 
-	private JButton crearBotonAbrirProvincia(int posY, int posX, String nombreProvincia) {
-		JButton botonAbrirProvincia = new JButton(nombreProvincia);
-		botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonAbrirProvincia.setBounds(posX, posY, 155, 23);
-		botonAbrirProvincia.setBackground(new Color(52, 148, 58));
-		botonAbrirProvincia.setForeground(Color.WHITE);
-		return botonAbrirProvincia;
-	}
+  private JButton crearBotonAbrirProvincia(int posY, int posX, String nombreProvincia) {
+    JButton botonAbrirProvincia = new JButton(nombreProvincia);
+    botonAbrirProvincia.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    botonAbrirProvincia.setBounds(posX, posY, 155, 23);
+    botonAbrirProvincia.setBackground(Config.COLOR_BOTON_PROVINCIAS);
+    botonAbrirProvincia.setForeground(Color.WHITE);
+    return botonAbrirProvincia;
+  }
 
-	private void crearBotonAsignarSimilaridadesAleatoriamente() {
-		asignarSimilaridades = new JButton("Asignar aleatoriamente");
-		asignarSimilaridades.setBackground(new Color(106, 226, 246));
-		asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
-		asignarSimilaridades.setCursor(new Cursor(Cursor.HAND_CURSOR));
+  private void crearBotonAsignarSimilaridadesAleatoriamente() {
+    asignarSimilaridades = new JButton("Asignar aleatoriamente");
+    asignarSimilaridades.setBackground(Config.COLOR_NODO);
+    asignarSimilaridades.setFont(new Font("Arial", Font.BOLD, 14));
+    asignarSimilaridades.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		asignarSimilaridades.setBounds(60, 380, 230, 40);
-		panelInteractivo.add(asignarSimilaridades);
-	}
+    asignarSimilaridades.setBounds(60, 380, 230, 40);
+    panelInteractivo.add(asignarSimilaridades);
+  }
 
-	private void crearBotonGenerarAGM() {
-		botonGenerarAGM = new JButton("Generar árbol mínimo");
-		botonGenerarAGM.setBackground(new Color(106, 226, 246));
-		botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
-		botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
+  private void crearBotonGenerarAGM() {
+    botonGenerarAGM = new JButton("Generar árbol mínimo");
+    botonGenerarAGM.setBackground(Config.COLOR_NODO);
+    botonGenerarAGM.setFont(new Font("Arial", Font.BOLD, 14));
+    botonGenerarAGM.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		botonGenerarAGM.setBounds(60, 430, 230, 40);
-		panelInteractivo.add(botonGenerarAGM);
-	}
+    botonGenerarAGM.setBounds(60, 430, 230, 40);
+    panelInteractivo.add(botonGenerarAGM);
+  }
 
-	private JTextField crearInputRegiones() {
-		JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
-		textoCantRegiones.setBounds(60, 475, 230, 40);
-		panelInteractivo.add(textoCantRegiones);
+  private JTextField crearInputRegiones() {
+    JLabel textoCantRegiones = new JLabel("¿Cuántas regiones quiere ver?");
+    textoCantRegiones.setBounds(60, 475, 230, 40);
+    panelInteractivo.add(textoCantRegiones);
 
-		JTextField inputCantRegiones = new JTextField();
-		Border border = BorderFactory.createLineBorder(Color.GRAY);
-		inputCantRegiones.setBorder(border);
-		inputCantRegiones.setBounds(240, 483, 50, 25);
-		panelInteractivo.add(inputCantRegiones);
-		return inputCantRegiones;
-	}
+    JTextField inputCantRegiones = new JTextField();
+    Border border = BorderFactory.createLineBorder(Color.GRAY);
+    inputCantRegiones.setBorder(border);
+    inputCantRegiones.setBounds(240, 483, 50, 25);
+    panelInteractivo.add(inputCantRegiones);
+    return inputCantRegiones;
+  }
 
-	private void crearBotonComponentesConexas() {
-		botonComponentesConexas = new JButton("Generar regiones conexas");
-		botonComponentesConexas.setFont(new Font("Arial", Font.BOLD, 14));
-		botonComponentesConexas.setBackground(new Color(106, 226, 246));
-		botonComponentesConexas.setCursor(new Cursor(Cursor.HAND_CURSOR));
+  private void crearBotonComponentesConexas() {
+    botonComponentesConexas = new JButton("Generar regiones conexas");
+    botonComponentesConexas.setFont(new Font("Arial", Font.BOLD, 14));
+    botonComponentesConexas.setBackground(Config.COLOR_NODO);
+    botonComponentesConexas.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		botonComponentesConexas.setBounds(60, 510, 230, 40);
-		panelInteractivo.add(botonComponentesConexas);
-	}
+    botonComponentesConexas.setBounds(60, 510, 230, 40);
+    panelInteractivo.add(botonComponentesConexas);
+  }
 
-	private void crearBotonVerInfoRegiones() {
-		botonVerInfoRegiones = new JButton("Ver información de las regiones");
-		botonVerInfoRegiones.setFont(new Font("Arial", Font.BOLD, 12));
-		botonVerInfoRegiones.setBackground(new Color(250, 255, 110));
-		botonVerInfoRegiones.setCursor(new Cursor(Cursor.HAND_CURSOR));
+  private void crearBotonVerInfoRegiones() {
+    botonVerInfoRegiones = new JButton("Ver información de las regiones");
+    botonVerInfoRegiones.setFont(new Font("Arial", Font.BOLD, 12));
+    botonVerInfoRegiones.setBackground(Config.COLOR_BOTON_INFORMACION);
+    botonVerInfoRegiones.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		botonVerInfoRegiones.setBounds(60, 560, 230, 30);
-		panelInteractivo.add(botonVerInfoRegiones);
-	}
+    botonVerInfoRegiones.setBounds(60, 560, 230, 30);
+    panelInteractivo.add(botonVerInfoRegiones);
+  }
 
-	private void crearBotonReiniciarMapa() {
-		botonReiniciarMapa = new JButton("Reiniciar mapa");
-		botonReiniciarMapa.setFont(new Font("Arial", Font.BOLD, 14));
-		botonReiniciarMapa.setBackground(new Color(247, 77, 64));
-		botonReiniciarMapa.setForeground(Color.WHITE);
-		botonReiniciarMapa.setCursor(new Cursor(Cursor.HAND_CURSOR));
+  private void crearBotonReiniciarMapa() {
+    botonReiniciarMapa = new JButton("Reiniciar mapa");
+    botonReiniciarMapa.setFont(new Font("Arial", Font.BOLD, 14));
+    botonReiniciarMapa.setBackground(Config.COLOR_BOTON_SALIDA);
+    botonReiniciarMapa.setForeground(Color.WHITE);
+    botonReiniciarMapa.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		botonReiniciarMapa.setBounds(60, 600, 230, 40);
-		panelInteractivo.add(botonReiniciarMapa);
-	}
+    botonReiniciarMapa.setBounds(60, 600, 230, 40);
+    panelInteractivo.add(botonReiniciarMapa);
+  }
 
-	private void escucharBotones(JTextField inputCantRegiones) {
-		escucharBotonAsignarSimilaridades();
+  private void escucharBotones(JTextField inputCantRegiones) {
+    escucharBotonAsignarSimilaridades();
 
-		escucharBotonGenerarAGM();
+    escucharBotonGenerarAGM();
 
-		escucharBotonComponentesConexas(inputCantRegiones);
+    escucharBotonComponentesConexas(inputCantRegiones);
 
-		escucharBotonVerInfoRegiones();
+    escucharBotonVerInfoRegiones();
 
-		escucharBotonReiniciarMapa(inputCantRegiones);
-	}
+    escucharBotonReiniciarMapa(inputCantRegiones);
+  }
 
-	private void escucharBotonesProvincia(JButton botonAbrirProvincia, int indiceProvincia) {
-		botonAbrirProvincia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				InputWindow inputWindow = new InputWindow(botonAbrirProvincia.getText(), pais, listaBotonesSimilaridad,
-						windowInfo);
-				inputWindow.setVisible(true);
-			}
-		});
-	}
+  private void escucharBotonesProvincia(JButton botonAbrirProvincia, int indiceProvincia) {
+    botonAbrirProvincia.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        InputWindow inputWindow = new InputWindow(botonAbrirProvincia.getText(), pais, listaBotonesSimilaridad,
+            windowInfo);
+        inputWindow.setVisible(true);
+      }
+    });
+  }
 
-	private void escucharBotonAsignarSimilaridades() {
-		asignarSimilaridades.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pais.asignarSimilaridadesAleatoriamente();
-				for (JButton boton : listaBotonesSimilaridad.values()) {
-					boton.setEnabled(false);
-					boton.setBackground(new Color(230, 230, 230));
-				}
-				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
-			}
-		});
-	}
+  private void escucharBotonAsignarSimilaridades() {
+    asignarSimilaridades.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        pais.asignarSimilaridadesAleatoriamente();
+        for (JButton boton : listaBotonesSimilaridad.values()) {
+          boton.setEnabled(false);
+          boton.setBackground(Config.COLOR_BOTON_DESHABILITADO);
+        }
+        windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
+      }
+    });
+  }
 
-	private void escucharBotonGenerarAGM() {
-		botonGenerarAGM.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (!pais.todasLasProvinciasTienenSimilaridad()) {
-					JOptionPane.showMessageDialog(null, "Por favor, asigne similaridad entre provincias", "ATENCIÓN",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				if (pais.estaTodoConectado()) {
-					pais.generarCaminoÚnico();
-					MapUtil.dibujarMapa(pais, mapa);
-					botonGenerarAGM.setEnabled(false);
-					botonGenerarAGM.setBackground(new Color(230, 230, 230));
-					windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
-				}
-			}
-		});
-	}
+  private void escucharBotonGenerarAGM() {
+    botonGenerarAGM.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        if (!pais.todasLasProvinciasTienenSimilaridad()) {
+          JOptionPane.showMessageDialog(null, "Por favor, asigne similaridad entre provincias", "ATENCIÓN",
+              JOptionPane.WARNING_MESSAGE);
+          return;
+        }
+        if (pais.estaTodoConectado()) {
+          pais.generarCaminoÚnico();
+          MapUtil.dibujarMapa(pais, mapa);
+          botonGenerarAGM.setEnabled(false);
+          botonGenerarAGM.setBackground(Config.COLOR_BOTON_DESHABILITADO);
+          windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
+        }
+      }
+    });
+  }
 
-	private void escucharBotonComponentesConexas(JTextField inputCantRegiones) {
-		botonComponentesConexas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				String valorIngresado = inputCantRegiones.getText();
+  private void escucharBotonComponentesConexas(JTextField inputCantRegiones) {
+    botonComponentesConexas.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        String valorIngresado = inputCantRegiones.getText();
 
-				if (valorIngresado.isEmpty()) {
-					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_REGIONES_VACIO, "ATENCIÓN",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
+        if (valorIngresado.isEmpty()) {
+          JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_REGIONES_VACIO, "ATENCIÓN",
+              JOptionPane.WARNING_MESSAGE);
+          return;
+        }
 
-				if (!esUnNumeroPositivo(valorIngresado)) {
-					JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_SOLO_NUMERO, "ATENCIÓN",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
+        if (!esUnNumeroPositivo(valorIngresado)) {
+          JOptionPane.showMessageDialog(null, Config.MSJ_ERROR_SOLO_NUMERO, "ATENCIÓN",
+              JOptionPane.WARNING_MESSAGE);
+          return;
+        }
 
-				int cantidadRegiones = Integer.parseInt(valorIngresado);
+        int cantidadRegiones = Integer.parseInt(valorIngresado);
 
-				if (cantidadRegiones <= 0 || cantidadRegiones > pais.obtenerCantProvincias()) {
-					JOptionPane.showMessageDialog(null,
-							Config.MSJ_ERROR_CANT_REGIONES_INVALIDO + pais.obtenerCantProvincias(), "ATENCIÓN",
-							JOptionPane.WARNING_MESSAGE);
-					return;
+        if (cantidadRegiones <= 0 || cantidadRegiones > pais.obtenerCantProvincias()) {
+          JOptionPane.showMessageDialog(null,
+              Config.MSJ_ERROR_CANT_REGIONES_INVALIDO + pais.obtenerCantProvincias(), "ATENCIÓN",
+              JOptionPane.WARNING_MESSAGE);
+          return;
 
-				}
+        }
 
-				if (!pais.estaTodoConectado()) {
-					return;
-				}
+        if (!pais.estaTodoConectado()) {
+          return;
+        }
 
-				if (!pais.esArbol()) {
-					JOptionPane.showMessageDialog(null, "Debe generar el árbol mínimo primero.", "ATENCIÓN",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
+        if (!pais.esArbol()) {
+          JOptionPane.showMessageDialog(null, "Debe generar el árbol mínimo primero.", "ATENCIÓN",
+              JOptionPane.WARNING_MESSAGE);
+          return;
+        }
 
-				pais.dividirRegiones(cantidadRegiones);
-				MapUtil.dibujarMapa(pais, mapa);
-				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
-			}
+        pais.dividirRegiones(cantidadRegiones);
+        MapUtil.dibujarMapa(pais, mapa);
+        windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
+      }
 
-		});
-	}
+    });
+  }
 
-	private void escucharBotonVerInfoRegiones() {
-		botonVerInfoRegiones.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				InformacionRegiones infoRegiones = new InformacionRegiones(pais.obtenerInformacionRegiones());
-				infoRegiones.setVisible(true);
-			}
-		});
-	}
+  private void escucharBotonVerInfoRegiones() {
+    botonVerInfoRegiones.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        InformacionRegiones infoRegiones = new InformacionRegiones(pais.obtenerInformacionRegiones());
+        infoRegiones.setVisible(true);
+      }
+    });
+  }
 
-	private void escucharBotonReiniciarMapa(JTextField inputCantRegiones) {
-		botonReiniciarMapa.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				pais.reestablecerConexionEntreLimitrofes();
-				MapUtil.dibujarMapa(pais, mapa);
-				for (JButton boton : listaBotonesSimilaridad.values()) {
-					boton.setEnabled(true);
-					boton.setBackground(new Color(52, 148, 58));
-					inputCantRegiones.setText("");
-				}
-				botonGenerarAGM.setEnabled(true);
-				botonGenerarAGM.setBackground(new Color(106, 226, 246));
-				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
-			}
-		});
-	}
+  private void escucharBotonReiniciarMapa(JTextField inputCantRegiones) {
+    botonReiniciarMapa.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        pais.reestablecerConexionEntreLimitrofes();
+        MapUtil.dibujarMapa(pais, mapa);
+        for (JButton boton : listaBotonesSimilaridad.values()) {
+          boton.setEnabled(true);
+          boton.setBackground(Config.COLOR_BOTON_PROVINCIAS);
+          inputCantRegiones.setText("");
+        }
+        botonGenerarAGM.setEnabled(true);
+        botonGenerarAGM.setBackground(Config.COLOR_NODO);
+        windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
+      }
+    });
+  }
 
-	private void crearBotonVerInfo() {
-		Image infoSimilaridadesImage = new ImageIcon(this.getClass().getResource("/infoSimilaridades.png")).getImage();
-		JLabel infoSimilaridadesLabel = new JLabel();
-		infoSimilaridadesLabel.setIcon(new ImageIcon(infoSimilaridadesImage));
-		infoSimilaridadesLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		infoSimilaridadesLabel.setBounds(245, 338, 30, 30);
-		infoSimilaridadesLabel.setToolTipText("Ver similaridades");
-		panelInteractivo.add(infoSimilaridadesLabel);
+  private void crearBotonVerInfo() {
+    Image infoSimilaridadesImage = new ImageIcon(this.getClass().getResource("/infoSimilaridades.png")).getImage();
+    JLabel infoSimilaridadesLabel = new JLabel();
+    infoSimilaridadesLabel.setIcon(new ImageIcon(infoSimilaridadesImage));
+    infoSimilaridadesLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    infoSimilaridadesLabel.setBounds(245, 338, 30, 30);
+    infoSimilaridadesLabel.setToolTipText("Ver similaridades");
+    panelInteractivo.add(infoSimilaridadesLabel);
 
-		infoSimilaridadesLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
-				windowInfo.setVisible(true);
-			}
-		});
-	}
+    infoSimilaridadesLabel.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
+        windowInfo.setVisible(true);
+      }
+    });
+  }
 
 }
