@@ -119,7 +119,7 @@ public class PaísTest {
 
   @Test
   public void obtenerMinimoIndiceSimilaridadTest() {
-    país.asignarPesosAleatoriamente();
+    país.asignarSimilaridadesAleatoriamente();
 
     Set<Integer> region = new HashSet<>();
     for (String limitrofe : país.dameLimitrofesDe("Buenos Aires")) {
@@ -134,7 +134,7 @@ public class PaísTest {
 
   @Test
   public void obtenerMaximoIndiceSimilaridadTest() {
-    país.asignarPesosAleatoriamente();
+    país.asignarSimilaridadesAleatoriamente();
 
     Set<Integer> region = new HashSet<>();
     for (String limitrofe : país.dameLimitrofesDe("Buenos Aires")) {
@@ -179,7 +179,7 @@ public class PaísTest {
  
   @Test
   public void obtenerRegionesTest() {
-    país.asignarPesosAleatoriamente();
+    país.asignarSimilaridadesAleatoriamente();
     país.generarCaminoÚnico();
     país.dividirRegiones(2);
 
@@ -188,14 +188,14 @@ public class PaísTest {
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void obtenerRegionesFueraDeRangoPositivoTest() {
-		país.asignarPesosAleatoriamente();
+		país.asignarSimilaridadesAleatoriamente();
 		país.generarCaminoÚnico();
 		país.dividirRegiones(25);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void obtenerRegionesFueraDeRangoNegativoTest() {
-		país.asignarPesosAleatoriamente();
+		país.asignarSimilaridadesAleatoriamente();
 		país.generarCaminoÚnico();
 		país.dividirRegiones(-2);
 	}

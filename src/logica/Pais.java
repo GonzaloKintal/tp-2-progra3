@@ -15,7 +15,6 @@ public class Pais {
 
   private final Provincia[] provincias;
   private String nombre;
-  private int zoom;
   public double latitud;
   public double longitud;
   private Grafo grafo;
@@ -25,7 +24,6 @@ public class Pais {
     this.grafo = new Grafo(provincias.length);
     this.latitud = info.getLatitud();
     this.longitud = info.getLongitud();
-    this.zoom = info.getZoom();
     this.nombre = info.getNombre();
 
     asignarAristasLimitrofesPorDefecto();
@@ -96,12 +94,12 @@ public class Pais {
   }
 
   public ArrayList<String> dameLimitrofesDe(String nombre) {
-    verificarNombreDeProvinciaValido();
+    verificarNombreDeProvinciaValido(nombre);
 
     return this.provincias[indiceDe(nombre)].limitrofes;
   }
 
-  private void verificarNombreDeProvinciaValido() {
+  private void verificarNombreDeProvinciaValido(String nombre) {
     if (nombre.isEmpty()) {
       throw new IllegalArgumentException("El nombre de la provincia no puede ser vacío.");
     }
@@ -120,10 +118,6 @@ public class Pais {
     return false;
   }
 
-  public boolean esPosibleDividirRegiones(int cantRegiones) {
-    return this.grafo.esPosibleDesconexar(cantRegiones);
-  }
-
   public void generarCaminoÚnico() {
     this.grafo = AGM.generarArbolMinimo(grafo);
   }
@@ -136,26 +130,22 @@ public class Pais {
     this.asignarAristasLimitrofesPorDefecto();
   }
 
-  public int getZoom() {
-    return zoom;
-  }
-
   public String getNombre() {
     return nombre;
   }
 
   public ArrayList<String> obtenerLimitrofesDe(int indiceProvincia) {
-    verificarIndiceProvincia(indiceProvincia);
+    verificarIndiceProvinciaValido(indiceProvincia);
     return this.provincias[indiceProvincia].limitrofes;
   }
 
-  private void verificarIndiceProvincia(int indiceProvincia) {
+  private void verificarIndiceProvinciaValido(int indiceProvincia) {
     if (indiceProvincia < 0 || indiceProvincia >= grafo.tamano()) {
       throw new IllegalArgumentException("El índice debe ser entre 0 y " + grafo.tamano());
     }
   }
 
-  public void asignarPesosAleatoriamente() {
+  public void asignarSimilaridadesAleatoriamente() {
     grafo.asignarPesosRandom();
 
   }
@@ -173,7 +163,7 @@ public class Pais {
   }
 
   public boolean esArbol() {
-    return this.provincias.length == this.grafo.obtenerCantidadDeAristas() + 1 && estaTodoConectado();
+    return estaTodoConectado() && this.provincias.length == this.grafo.obtenerCantidadDeAristas() + 1;
   }
 
   public int obtenerCantProvincias() {
@@ -277,12 +267,12 @@ public class Pais {
     }
   }
 
-  private int obtenerSimilaridad(int i, int j) {
-    return grafo.consultarPeso(i, j);
+  private int obtenerSimilaridad(int idxProvincia1, int idxProvincia2) {
+    return grafo.consultarPeso(idxProvincia1, idxProvincia2);
   }
 
-  private boolean existeConexión(int i, int j) {
-    return grafo.existeArista(i, j);
+  private boolean existeConexión(int idxProvincia1, int idxProvincia2) {
+    return grafo.existeArista(idxProvincia1, idxProvincia2);
   }
 
   public ArrayList<Set<Integer>> obtenerRegiones() {
@@ -305,23 +295,15 @@ public class Pais {
     }
   }
 
-  public boolean tieneAsignadaSimilaridad(String nombreProvincia) {
+  public boolean todasSusLimitrofesTienenSimilaridad(String nombreProvincia) {
     int indiceProvincia = indiceDe(nombreProvincia);
-    return grafo.todasSusLimitrofesTienenPeso(indiceProvincia);
+    return grafo.todasSusAristasTienenPeso(indiceProvincia);
   }
 
   private void agregarEspacio(StringBuilder informacion) {
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
-    informacion.append("\n");
+	  for (int i=0; i<11; i++) {
+	    	informacion.append("\n");
+	  }
   }
 
   public String obtenerInformacionSimilaridad() {

@@ -103,25 +103,6 @@ public class GrafoTest {
 	
 	
 	@Test
-	public void esPosibleDesconexarTest() {
-		Grafo grafo = new Grafo(3);
-		grafo.agregarArista(0, 1);
-		grafo.agregarArista(0, 2);
-		
-		assertTrue(grafo.esPosibleDesconexar(2));
-	}
-	
-	@Test
-	public void esPosibleDesconexarFalseTest() {
-		Grafo grafo = new Grafo(3);
-		grafo.agregarArista(0, 1);
-		grafo.agregarArista(0, 2);
-		
-		assertFalse(grafo.esPosibleDesconexar(4));
-	}
-	
-	
-	@Test
 	public void todasLasAristasTienenPesoTest() {
 		Grafo grafo = new Grafo(5);
 		grafo.asignarPesosRandom();

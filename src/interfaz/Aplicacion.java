@@ -92,7 +92,7 @@ public class Aplicacion {
 	  mapa.setZoomControlsVisible(false);
 	  
 	  Coordinate posicion = new Coordinate(pais.latitud, pais.longitud);
-	  mapa.setDisplayPosition(posicion, pais.getZoom());
+	  mapa.setDisplayPosition(posicion, Config.ZOOM);
 	  
 	  fijarMapa(posicion);
   }
@@ -100,21 +100,21 @@ public class Aplicacion {
   private void fijarMapa(Coordinate posicion) {
 	  mapa.addMouseWheelListener(new MouseWheelListener() {
 		  public void mouseWheelMoved(MouseWheelEvent e) {
-			  mapa.setDisplayPosition(posicion, pais.getZoom());
+			  mapa.setDisplayPosition(posicion, Config.ZOOM);
 		  }
 	  });
 	  
 	  mapa.addMouseMotionListener(new MouseMotionAdapter() {
 		  @Override
 		  public void mouseDragged(MouseEvent e) {
-			  mapa.setDisplayPosition(posicion, pais.getZoom());
+			  mapa.setDisplayPosition(posicion, Config.ZOOM);
 		  }
 	  });
 	  
 	  mapa.addMouseListener(new MouseAdapter() {
 		  @Override
 		  public void mouseClicked(MouseEvent e) {
-			  mapa.setDisplayPosition(posicion, pais.getZoom());
+			  mapa.setDisplayPosition(posicion, Config.ZOOM);
 		  }
 	  });
   }

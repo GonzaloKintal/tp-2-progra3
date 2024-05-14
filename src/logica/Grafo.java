@@ -216,16 +216,6 @@ public class Grafo {
 		return aristaDeMayorPeso;
 	}
 	
-	public boolean esPosibleDesconexar(int cantComponentesConexas) {
-		int aristasAEliminar = cantComponentesConexas - 1;
-		
-		if(aristasAEliminar <= this.obtenerCantidadDeAristas()) {
-			return true;
-		}
-		
-		return false;
-	}
-	
 	public boolean todasLasAristasTienenPeso() {
 		for(int i = 0; i < tamano(); i++) {
 			for(int j = 0; j < tamano(); j++) {
@@ -237,7 +227,7 @@ public class Grafo {
 		return true;
 	}
 
-	public boolean todasSusLimitrofesTienenPeso(int indiceProvincia) {
+	public boolean todasSusAristasTienenPeso(int indiceProvincia) {
 		for (int i = 0; i < tamano(); i++) {
 	        if (indiceProvincia != i && existeArista(indiceProvincia, i)) {
 	            if (consultarPeso(indiceProvincia, i) == 0) {

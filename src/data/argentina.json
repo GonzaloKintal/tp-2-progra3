@@ -2,7 +2,6 @@
   "nombre": "Argentina",
   "latitud": -42.3944,
   "longitud": -64.425,
-  "zoom": 4,
   "provincias": [
     {
       "nombre": "Buenos Aires",

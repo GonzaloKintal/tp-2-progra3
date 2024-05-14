@@ -206,7 +206,7 @@ public class InteraccionUsuario {
 	private void escucharBotonAsignarSimilaridades() {
 		asignarSimilaridades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pais.asignarPesosAleatoriamente();
+				pais.asignarSimilaridadesAleatoriamente();
 				for (JButton boton : listaBotonesSimilaridad.values()) {
 					boton.setEnabled(false);
 					boton.setBackground(new Color(230, 230, 230));
@@ -225,14 +225,13 @@ public class InteraccionUsuario {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				if (!pais.estaTodoConectado()) {
-					return;
+				if (pais.estaTodoConectado()) {
+					pais.generarCaminoÚnico();
+					MapUtil.dibujarMapa(pais, mapa);
+					botonGenerarAGM.setEnabled(false);
+					botonGenerarAGM.setBackground(new Color(230, 230, 230));
+					windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
 				}
-				pais.generarCaminoÚnico();
-				MapUtil.dibujarMapa(pais, mapa);
-				botonGenerarAGM.setEnabled(false);
-				botonGenerarAGM.setBackground(new Color(230, 230, 230));
-				windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
 			}
 		});
 	}

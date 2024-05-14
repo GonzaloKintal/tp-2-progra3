@@ -151,9 +151,7 @@ public class InputWindow extends JFrame {
           int indiceSegundaProvincia = pais.indiceDe(provincia);
 
           if (campoEsValidoParaAsignarPeso(pesoProvincia)) {
-            pais.actualizarSimilaridad(pais.indiceDe(nombreProvincia), indiceSegundaProvincia, pesoProvinciaInt);
-            inputPesosLimitrofes[indiceInput].setBackground(Color.gray);
-            inputPesosLimitrofes[indiceInput].setEditable(false);
+            deshabilitarInput(indiceInput, pesoProvinciaInt, indiceSegundaProvincia);
             botonTerminarCont++;
           }
           indiceInput++;
@@ -170,6 +168,12 @@ public class InputWindow extends JFrame {
         verificarBotones();
         windowInfo.actualizarInfo(pais.obtenerInformacionSimilaridad());
       }
+
+	private void deshabilitarInput(int indiceInput, int pesoProvinciaInt, int indiceSegundaProvincia) {
+		pais.actualizarSimilaridad(pais.indiceDe(nombreProvincia), indiceSegundaProvincia, pesoProvinciaInt);
+		inputPesosLimitrofes[indiceInput].setBackground(Color.gray);
+		inputPesosLimitrofes[indiceInput].setEditable(false);
+	}
     });
   }
   
@@ -177,7 +181,7 @@ public class InputWindow extends JFrame {
 	  for (Entry<String, JButton> entry : listaBotonesSimilaridad.entrySet()) {
 		  String nombreProvincia = entry.getKey();
 		  JButton botonProvincia = entry.getValue();
-		  if (pais.tieneAsignadaSimilaridad(nombreProvincia)) {
+		  if (pais.todasSusLimitrofesTienenSimilaridad(nombreProvincia)) {
 			  botonProvincia.setEnabled(false);
 			  botonProvincia.setBackground(new Color(230, 230, 230));
 		  }
