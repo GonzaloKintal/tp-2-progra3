@@ -125,7 +125,7 @@ public class InputWindow extends JFrame {
     this.botonConfirmar = new JButton("Confirmar");
     botonConfirmar.setCursor(new Cursor(Cursor.HAND_CURSOR));
     botonConfirmar.setBounds(66, 370, 200, 80);
-    botonConfirmar.setBackground(new Color(29, 245, 87));
+    botonConfirmar.setBackground(Config.COLOR_BOTON_PROVINCIAS);
     botonConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
     panel.add(botonConfirmar);
     return botonConfirmar;
@@ -191,9 +191,9 @@ public class InputWindow extends JFrame {
 
   private void deshabilitarCampo(JTextField campo) {
     campo.setEditable(false);
-    campo.setBackground(new Color(130, 130, 130));
+    campo.setBackground(Config.COLOR_BOTON_DESHABILITADO_2);
     campo.setForeground(Color.WHITE);
-    campo.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+    campo.setBorder(BorderFactory.createLineBorder(Config.COLOR_BOTON_DESHABILITADO));
   }
 
   private boolean campoEsValidoParaAsignarPeso(String pesoProvincia) {

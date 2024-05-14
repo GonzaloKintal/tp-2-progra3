@@ -12,6 +12,9 @@ public class Config {
   public static Color COLOR_BOTON_PROVINCIAS = new Color(52, 148, 58);
   public static Color COLOR_BOTON_SALIDA = new Color(247, 77, 64);
   public static Color COLOR_BOTON_INFORMACION = new Color(250, 255, 110);
+  public static Color COLOR_SECUNDARIO = new Color(9, 48, 67);
+  public static Color COLOR_PANEL_IZQUIERDO = new Color(170, 211, 223);
+  public static Color COLOR_BOTON_DESHABILITADO_2 = new Color(130, 130, 130);
 
   public static int FRAME_WIDTH = 700;
   public static int FRAME_HEIGHT = 700;

@@ -56,7 +56,7 @@ public class InteraccionUsuario {
   }
 
   private void configurarPanelInteractivo() {
-    panelInteractivo.setBackground(new Color(170, 211, 223));
+    panelInteractivo.setBackground(Config.COLOR_PANEL_IZQUIERDO);
     panelInteractivo.setPreferredSize(new Dimension(350, 700));
   }
 

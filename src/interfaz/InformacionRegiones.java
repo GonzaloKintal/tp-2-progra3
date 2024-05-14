@@ -18,79 +18,79 @@ import utils.Config;
 @SuppressWarnings("serial")
 public class InformacionRegiones extends JFrame {
 
-	JPanel panel;
-	JList<String> informacionRegiones;
-	JScrollPane scrollPane;
-	String[] regiones;
-	JButton botonSalir;
+  JPanel panel;
+  JList<String> informacionRegiones;
+  JScrollPane scrollPane;
+  String[] regiones;
+  JButton botonSalir;
 
-	public InformacionRegiones(String info) {
-		configurarFrame();
+  public InformacionRegiones(String info) {
+    configurarFrame();
 
-		crearPanel();
+    crearPanel();
 
-		crearJList();
+    crearJList();
 
-		crearScrollPane();
-		panel.add(scrollPane);
+    crearScrollPane();
+    panel.add(scrollPane);
 
-		agregarInformacion(info);
+    agregarInformacion(info);
 
-		crearBotonSalir();
-		escucharBotonSalir();
-		panel.add(botonSalir);
+    crearBotonSalir();
+    escucharBotonSalir();
+    panel.add(botonSalir);
 
-		getContentPane().add(panel);
-	}
+    getContentPane().add(panel);
+  }
 
-	private void configurarFrame() {
-		setTitle("Estadísticas de las regiones");
-		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
-		setBounds(0, 0, 700, 700);
-		setLocationRelativeTo(null);
-		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
-	}
+  private void configurarFrame() {
+    setTitle("Estadísticas de las regiones");
+    setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+    setBounds(0, 0, 700, 700);
+    setLocationRelativeTo(null);
+    setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+  }
 
-	private void crearPanel() {
-		this.panel = new JPanel();
-		panel.setLayout(null);
-	}
+  private void crearPanel() {
+    this.panel = new JPanel();
+    panel.setLayout(null);
+  }
 
-	private void crearJList() {
-		informacionRegiones = new JList<>();
-		informacionRegiones.setBackground(new Color(9, 48, 67));
-		informacionRegiones.setForeground(Color.WHITE);
-		informacionRegiones.setFocusable(false);
-		setResizable(false);
-	}
+  private void crearJList() {
+    informacionRegiones = new JList<>();
+    informacionRegiones.setBackground(Config.COLOR_SECUNDARIO);
+    informacionRegiones.setForeground(Color.WHITE);
+    informacionRegiones.setFocusable(false);
+    setResizable(false);
+  }
 
-	private void crearScrollPane() {
-		scrollPane = new JScrollPane(informacionRegiones);
-		scrollPane.setBounds(10, 10, 675, 560);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBorder(null);
-	}
+  private void crearScrollPane() {
+    scrollPane = new JScrollPane(informacionRegiones);
+    scrollPane.setBounds(10, 10, 675, 560);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPane.setBorder(null);
+  }
 
-	private void agregarInformacion(String info) {
-		String[] regiones = info.split("\n");
-		informacionRegiones.setListData(regiones);
-	}
+  private void agregarInformacion(String info) {
+    String[] regiones = info.split("\n");
+    informacionRegiones.setListData(regiones);
+  }
 
-	private void escucharBotonSalir() {
-		botonSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-	}
+  private void escucharBotonSalir() {
+    botonSalir.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        dispose();
+      }
+    });
+  }
 
-	private void crearBotonSalir() {
-		botonSalir = new JButton("Salir");
-		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonSalir.setBounds(245, 585, 200, 60);
-		botonSalir.setBackground(new Color(247, 77, 64));
-		botonSalir.setForeground(Color.WHITE);
-		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
-	}
+  private void crearBotonSalir() {
+    botonSalir = new JButton("Salir");
+    botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    botonSalir.setBounds(245, 585, 200, 60);
+    botonSalir.setBackground(Config.COLOR_BOTON_SALIDA);
+    botonSalir.setForeground(Color.WHITE);
+    botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
+  }
 
 }

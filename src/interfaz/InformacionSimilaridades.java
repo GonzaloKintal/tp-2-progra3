@@ -17,80 +17,80 @@ import utils.Config;
 
 @SuppressWarnings("serial")
 public class InformacionSimilaridades extends JFrame {
-	JList<String> infoJList;
-	JPanel panel;
-	JScrollPane scrollPane;
-	JButton botonSalir;
+  JList<String> infoJList;
+  JPanel panel;
+  JScrollPane scrollPane;
+  JButton botonSalir;
 
-	public InformacionSimilaridades(String similaridades) {
-		configurarframe();
+  public InformacionSimilaridades(String similaridades) {
+    configurarframe();
 
-		crearPanel();
+    crearPanel();
 
-		crearJList();
+    crearJList();
 
-		crearScrollPane();
+    crearScrollPane();
 
-		crearBotonSalir();
+    crearBotonSalir();
 
-		actualizarInfo(similaridades);
+    actualizarInfo(similaridades);
 
-		escucharBotonSalir();
-	}
+    escucharBotonSalir();
+  }
 
-	private void configurarframe() {
-		setTitle("Informacion de similaridades");
-		setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
-		setResizable(false);
-		setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
-		setBounds(967, 30, 400, 700);
+  private void configurarframe() {
+    setTitle("Informacion de similaridades");
+    setSize(Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
+    setResizable(false);
+    setIconImage(new ImageIcon(getClass().getResource("/icono-app.png")).getImage());
+    setBounds(967, 30, 400, 700);
 
-	}
+  }
 
-	private void crearPanel() {
-		this.panel = new JPanel();
-		panel.setLayout(null);
-		add(panel);
+  private void crearPanel() {
+    this.panel = new JPanel();
+    panel.setLayout(null);
+    add(panel);
 
-	}
+  }
 
-	private void crearJList() {
-		infoJList = new JList<String>();
-		infoJList.setBackground(new Color(9, 48, 67));
-		infoJList.setForeground(Color.WHITE);
-		infoJList.setBounds(0, 0, 400, 700);
-		panel.add(infoJList);
-	}
+  private void crearJList() {
+    infoJList = new JList<String>();
+    infoJList.setBackground(Config.COLOR_SECUNDARIO);
+    infoJList.setForeground(Color.WHITE);
+    infoJList.setBounds(0, 0, 400, 700);
+    panel.add(infoJList);
+  }
 
-	private void crearScrollPane() {
-		scrollPane = new JScrollPane(infoJList);
-		scrollPane.setBounds(10, 10, 375, 560);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBorder(null);
-		panel.add(scrollPane);
-	}
+  private void crearScrollPane() {
+    scrollPane = new JScrollPane(infoJList);
+    scrollPane.setBounds(10, 10, 375, 560);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPane.setBorder(null);
+    panel.add(scrollPane);
+  }
 
-	private void crearBotonSalir() {
-		botonSalir = new JButton("Salir");
-		botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonSalir.setBounds(90, 585, 200, 60);
-		botonSalir.setBackground(new Color(247, 77, 64));
-		botonSalir.setForeground(Color.WHITE);
-		botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
-		panel.add(botonSalir);
-	}
+  private void crearBotonSalir() {
+    botonSalir = new JButton("Salir");
+    botonSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    botonSalir.setBounds(90, 585, 200, 60);
+    botonSalir.setBackground(Config.COLOR_BOTON_SALIDA);
+    botonSalir.setForeground(Color.WHITE);
+    botonSalir.setFont(new Font("Arial", Font.BOLD, 18));
+    panel.add(botonSalir);
+  }
 
-	private void escucharBotonSalir() {
-		botonSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-	}
+  private void escucharBotonSalir() {
+    botonSalir.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        dispose();
+      }
+    });
+  }
 
-	public void actualizarInfo(String similaridades) {
-		String[] regiones = similaridades.split("\n");
-		infoJList.setListData(regiones);
-	}
+  public void actualizarInfo(String similaridades) {
+    String[] regiones = similaridades.split("\n");
+    infoJList.setListData(regiones);
+  }
 
 }
